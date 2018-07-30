@@ -44,7 +44,7 @@
           <td>{{#if this.get_employee_comment}}{{this.get_employee_comment}}{{/if}}</td>
           <td>
           <!-- must show no attachment message when no attachment -->
-            <form>
+            <form action="/requests/reqdownload/" method="post">
               <input type="hidden" value="{{this.id}}" name="request">
               <button type="submit" class="btn btn-default btn-xs" title="Download file attachment" {{#unless this.attachment}}disabled{{/unless}}>
                 <i class="fa fa-download"> Download</i>
