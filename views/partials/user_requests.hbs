@@ -39,10 +39,17 @@
           </form>
           {{else}}
           {{# unless this.is_approved_leave }}
+          <script>
+            document.addEventListener('DOMContentLoaded',function(){document.getElementById('attachment-inp').onchange=changeEventHandler;},false);
+            function changeEventHandler(event) {
+              document.getElementById("upload").submit();
+            }
+          </script>
           <form id="upload" method="post" action="/requests/upload/" enctype="multipart/form-data">
             <input type="hidden" value="{{this.id}}" name="request" >
-            <input class="btn btn-default btn-xs" type="file" name="attachment">
-            <button type="submit" class="btn btn-default btn-xs"><i class="fa fa-upload"> Upload</i></button>
+            <label class="btn btn-default btn-xs"><i class="fa fa-upload"> Upload</i>
+            <input type="file" id="attachment-inp" name="attachment" style="display: none;"></label>
+            <!--button type="submit" class="btn btn-default btn-xs"><i class="fa fa-upload"> Upload</i></button-->
           </form>
           {{/unless}}
           {{/if}}
