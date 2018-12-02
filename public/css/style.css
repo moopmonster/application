@@ -244,3 +244,10 @@ div.feeds-holder {
 
 .leave_type_color_5 {
   background: #00BCD4 !important; }
+
+/* styling for required fields - ui improvement */
+.form-group.required .control-label:after { 
+   content:"*";
+   color:red;
+}
+

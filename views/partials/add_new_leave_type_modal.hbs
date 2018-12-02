@@ -38,15 +38,32 @@
           <p><em>Determine how leaves of new type are going to be highlighted on Calendar/Team view pages.</em></p>
         </div>
 
-
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+              <input type="checkbox" id="comment_req" name="comment_req__new">&nbsp;
+              <label for="comment_req" class="control-label">Reason</label> required
+            </div>
+            <div class="col-md-6">
+              <input type="checkbox" id="attachment_req" name="attachment_req__new">&nbsp;
+              <label for="attachment_req" class="control-label">Document</label> required
+            </div>
+          </div>     
+        </div>
 
         <div class="form-group">
           <label for="leave_type_limit_new" class="control-label">Limit:</label>
-          <input type="number" class="form-control" id="leave_type_limit_new" name="limit__new">
+          <input type="number" class="form-control" id="leave_type_limit_new" name="limit__new" min="0">
           <p><em>If set to non-zero value determines maximum number of days of new leave type each employee could take during the year.</em></p>
         </div>
 
+        <div class="form-group">
+          <label for="min_prior_days" class="control-label">Min Prior Days:</label>
+          <input type="number" class="form-control" id="min_prior_days" name="min_prior_days__new" min="0">
+          <p><em>Defines the minimum number of days beforehand for the leave application.</em></p>
+        </div>
       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
         <button type="submit" class="btn btn-success">Create</button>

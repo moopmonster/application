@@ -132,6 +132,116 @@
 
 
 <div class="row">
+  <div class="col-md-12">
+
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        Leave Types
+      </div>
+
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-md-5">
+            <label class="control-label">Leave Type Name</label>
+            <p><em>Tick one to always be on top of the list</em></p>
+          </div>
+          <div class="col-md-4">
+            <label class="control-label">Required</label>
+            <p><em>Fields will be made compulsory</em></p>
+          </div>
+          <div class="col-md-1">
+            <label class="control-label">Limit</label>
+            <p><em>Days/year</em></p>
+          </div>
+          <div class="col-md-1">
+            <label class="control-label">Min Prior</label>
+            <p><em>Days</em></p>
+          </div>          
+        </div>
+
+        <div class="row">&nbsp;</div>
+
+        <form id="delete_leavetype_form" method="post" action="/settings/leavetypes/delete/"></form>
+        <form id="leave_type_edit_form" method="post" action="/settings/leavetypes/">
+
+        {{# unless company.leave_types.length }}
+        <div class="row">
+          <div class="col-md-4">No Leave type records</div>
+        </div>
+        {{/unless}}
+
+
+        {{#each company.leave_types}}
+        <div class="row">
+          <div class="col-md-3">
+
+            <div class="input-group">
+              <span class="input-group-addon">
+                <input type="radio" name="first_record" value="{{ this.id }}" {{# if this.sort_order }}checked="checked"{{/ if}}>
+              </span>
+              <input type="text" class="form-control" name="name__{{ this.id }}" value="{{name}}" data-tom-leave-type-order="name_{{@index}}">
+
+              <div class="input-group-btn" data-tom-color-picker="1" data-tom-leave-type-order="colour__{{@index}}">
+                <input type="hidden" name="color__{{ this.id }}" value="{{# with this }}{{ this.get_color_class }}{{/with}}">
+                <button type="button" class="btn btn-default dropdown-toggle {{# with this }}{{ this.get_color_class }}{{/with}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paint-brush"></i></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#" class="btn btd-default leave_type_color_1" data-tom-color-picker-css-class="leave_type_color_1">Color 1</a></li>
+                  <li><a href="#" class="btn btd-default leave_type_color_2" data-tom-color-picker-css-class="leave_type_color_2">Color 2</a></li>
+                  <li><a href="#" class="btn btd-default leave_type_color_3" data-tom-color-picker-css-class="leave_type_color_3">Color 3</a></li>
+                  <li><a href="#" class="btn btd-default leave_type_color_4" data-tom-color-picker-css-class="leave_type_color_4">Color 4</a></li>
+                  <li><a href="#" class="btn btd-default leave_type_color_5" data-tom-color-picker-css-class="leave_type_color_5">Color 5</a></li>
+                </ul>
+              </div>
+
+            </div>
+          </div>  
+          <div class="col-md-2">
+            <input name="use_allowance__{{ this.id }}" id="use_allowance__{{ this.id }}" type="checkbox" {{#if use_allowance}}checked="checked"{{/if}} data-tom-leave-type-order="allowance_{{@index}}">
+            <label for="use_allowance__{{ this.id }}" class="control-label">Use allowance</label>
+          </div>          
+          <div class="col-md-4">
+            <input name="comment_req__{{ this.id }}" id="comment_req__{{ this.id }}" type="checkbox" {{#if comment_req}}checked="checked"{{/if}} data-tom-leave-type-order="comment_{{@index}}">            
+            <label for="comment_req__{{ this.id }}" class="control-label">Reason</label> 
+            &nbsp;&nbsp;
+            <input name="attachment_req__{{ this.id }}" id="attachment_req__{{ this.id }}" type="checkbox" {{#if comment_req}}checked="checked"{{/if}} data-tom-leave-type-order="comment_{{@index}}">            
+            <label for="attachment_req__{{ this.id }}" class="control-label">Document</label> 
+          </div>
+          <div class="col-md-1">
+            <input type="number" class="form-control" min="0" value="{{limit}}" name="limit__{{ this.id }}" data-tom-leave-type-order="limit_{{@index}}">
+          </div>
+          <div class="col-md-1">
+            <input type="number" class="form-control" min="0" value="{{min_days_prior}}" name="min_days_prior__{{ this.id }}" data-tom-leave-type-order="min_days_prior_{{@index}}">
+          </div>          
+          <div class="col-md-1">
+            <button class="btn btn-default pull-right leavetype-remove-btn" value="{{ this.id }}" data-tom-leave-type-order="remove_{{@index}}"><span class="fa fa-remove"></span></button>
+          </div>
+        </div>
+
+        <div class="row">&nbsp;</div>
+
+        {{/each}}
+
+        <div class="row">&nbsp;</div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="pull-right">
+              <button class="btn btn-default" data-toggle="modal" data-target="#add_new_leave_type_modal" type="button" id="add_new_leave_type_btn">Add new</button>
+              <button type="submit" class="btn btn-success">Save changes</button>
+            </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="row">
   <div class="col-md-5">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -194,100 +304,7 @@
       </div>
     </div>
   </div>
-
-
-  <div class="col-md-7 setting-general-2nd-column">
-
-    <div class="panel panel-default">
-
-      <div class="panel-heading">
-        Leave Types
-      </div>
-
-      <div class="panel-body">
-
-        <div class="row">
-          <div class="col-md-6">
-            <label class="control-label">Leave Type Name</label>
-            <p><em>Tick one to always be on top of the list</em></p>
-          </div>
-          <div class="col-md-offset-3 col-md-2">
-            <label class="control-label">Limit</label>
-            <p><em>Days/year</em></p>
-          </div>
-        </div>
-
-        <div class="row">&nbsp;</div>
-
-        <form id="delete_leavetype_form" method="post" action="/settings/leavetypes/delete/"></form>
-        <form id="leave_type_edit_form" method="post" action="/settings/leavetypes/">
-
-        {{# unless company.leave_types.length }}
-        <div class="row">
-          <div class="col-md-4">No Leave type records</div>
-        </div>
-        {{/unless}}
-
-
-        {{#each company.leave_types}}
-        <div class="row">
-          <div class="col-md-6">
-
-            <div class="input-group">
-              <span class="input-group-addon">
-                <input type="radio" name="first_record" value="{{ this.id }}" {{# if this.sort_order }}checked="checked"{{/ if}}>
-              </span>
-              <input type="text" class="form-control" name="name__{{ this.id }}" value="{{name}}" data-tom-leave-type-order="name_{{@index}}">
-
-              <div class="input-group-btn" data-tom-color-picker="1" data-tom-leave-type-order="colour__{{@index}}">
-                <input type="hidden" name="color__{{ this.id }}" value="{{# with this }}{{ this.get_color_class }}{{/with}}">
-                <button type="button" class="btn btn-default dropdown-toggle {{# with this }}{{ this.get_color_class }}{{/with}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paint-brush"></i></button>
-                <ul class="dropdown-menu">
-                  <li><a href="#" class="btn btd-default leave_type_color_1" data-tom-color-picker-css-class="leave_type_color_1">Color 1</a></li>
-                  <li><a href="#" class="btn btd-default leave_type_color_2" data-tom-color-picker-css-class="leave_type_color_2">Color 2</a></li>
-                  <li><a href="#" class="btn btd-default leave_type_color_3" data-tom-color-picker-css-class="leave_type_color_3">Color 3</a></li>
-                  <li><a href="#" class="btn btd-default leave_type_color_4" data-tom-color-picker-css-class="leave_type_color_4">Color 4</a></li>
-                  <li><a href="#" class="btn btd-default leave_type_color_5" data-tom-color-picker-css-class="leave_type_color_5">Color 5</a></li>
-                </ul>
-              </div>
-
-            </div>
-
-          </div>
-          <div class="col-md-3">
-            <input name="use_allowance__{{ this.id }}" id="use_allowance__{{ this.id }}" type="checkbox" {{#if use_allowance}}checked="checked"{{/if}} data-tom-leave-type-order="allowance_{{@index}}">
-            <label for="use_allowance__{{ this.id }}" class="control-label">Use allowance</label>
-          </div>
-          <div class="col-md-2">
-            <input type="number" class="form-control" value="{{limit}}" name="limit__{{ this.id }}" data-tom-leave-type-order="limit_{{@index}}">
-          </div>
-          <div class="col-md-1">
-            <button class="btn btn-default pull-right leavetype-remove-btn" value="{{ this.id }}" data-tom-leave-type-order="remove_{{@index}}"><span class="fa fa-remove"></span></button>
-          </div>
-        </div>
-
-        <div class="row">&nbsp;</div>
-
-        {{/each}}
-
-        <div class="row">&nbsp;</div>
-
-        <div class="row">
-          <div class="col-md-12">
-            <div class="pull-right">
-              <button class="btn btn-default" data-toggle="modal" data-target="#add_new_leave_type_modal" type="button" id="add_new_leave_type_btn">Add new</button>
-              <button type="submit" class="btn btn-success">Save changes</button>
-            </div>
-          </div>
-        </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
 </div>
-
-
 
 <div class="row">
   <div class="col-md-12">
