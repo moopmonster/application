@@ -11,12 +11,14 @@ $(document).ready(function(){
     e.stopPropagation();
 
     var from_date = $('input.book-leave-from-input').datepicker('getDate');
-
+    priorDateValidation();
     if ( ! from_date ) {
       // no new value for FROM part, do nothing
       console.log('No from date');
       return;
     }
+
+
 
     var to_date = $('input.book-leave-to-input').datepicker('getDate');
 
@@ -25,6 +27,37 @@ $(document).ready(function(){
     }
   });
 });
+
+function priorDateValidation() {
+    var from_date = $('input.book-leave-from-input').datepicker('getDate');
+    // prior date validation
+    var today = new Date();
+    var validate_prior = parseInt($("select#leave_type").find('option:selected').attr('data-tom-prior'));
+    if ( ! from_date ) {
+      $('.data-tom-prior-error').remove();
+      return;
+    }
+    if( validate_prior > 0 && (getBusinessDatesCount(today, from_date) < validate_prior) ){
+      error_msg = '' + validate_prior + ' business days prior required. Please choose Emergency Leave type instead.';
+      $('input.book-leave-from-input').val("");
+      if($('.data-tom-prior-error').length==0) {
+        $('input.book-leave-from-input').closest('[class^="col-md"]').append('<span class="data-tom-prior-error error text-danger">'+error_msg+'</span>');
+      }
+    }
+    else $('.data-tom-prior-error').remove();
+}
+
+function getBusinessDatesCount(startDate, endDate) {
+    var count = 1;
+    var curDate = startDate;
+    while (curDate <= endDate) {
+        var dayOfWeek = curDate.getDay();
+        if(!((dayOfWeek == 6) || (dayOfWeek == 0))) /* to add and public holiday */
+           count++;
+        curDate.setDate(curDate.getDate() + 1);
+    }
+    return count;
+}
 
 
 /*
@@ -170,3 +203,40 @@ $(document).ready(function(){
 });
 
 
+/*
+ * leave request UI triggers
+ *
+ * */
+
+$(document).ready(function(){
+  $('select#leave_type')
+    .on('change', function(e){
+      var optsel = $(this).find('option:selected');
+      var validate_comment = optsel.attr('data-tom-comment');
+
+      // set compulsory comments
+      toggleReq($('textarea#employee_comment'),(validate_comment==1?true:false));
+      toggleReq($('input#from'),true);
+      toggleReq($('input#to'),true);
+      // from date
+      priorDateValidation();
+
+      return false;
+    });
+
+  // leave type
+  $('select#leave_type').trigger("change");
+
+});
+
+function toggleReq(obj,flag)
+{
+  if(flag == true) {
+    obj.prop("required",true);
+    obj.closest(".form-group").addClass("required");
+  }
+  else {
+    obj.removeProp("required");
+    obj.closest(".form-group").removeClass("required");
+  }
+}
