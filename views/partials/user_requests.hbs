@@ -16,6 +16,7 @@
           <th>Type</th>
           <th>Deducted</th>
           <th>Approved by</th>
+          <th><i class="fa fa-paperclip"></i> Attachment</th>
           <th></th>
           <th><span class="pull-right">Status</span></th>
           <th>Employee Comment</th>
@@ -30,6 +31,23 @@
         <td>{{ this.leave_type.name }}{{#if this.is_pended_revoke_leave}}<br>(pended revoke){{/if}}</td>
         <td>{{ this.get_deducted_days_number }}</td>
         <td class="user-request-table-approver">{{#with this.approver}}{{this.full_name}}{{/with}}</td>
+        <td>
+          {{# if this.attachment}}
+          <form method="post" action="/requests/usrdownload/">
+            <input type="hidden" value="{{this.id}}" name="request">
+            <button type="submit" class="btn btn-default btn-xs" title="Download file attachment"><i class="fa fa-download"> Download</i></button>
+          </form>
+          {{else}}
+          {{# unless this.is_approved_leave }}
+          <form>
+            <input type="hidden" value="{{this.id}}" name="request" >
+            <label class="btn btn-default btn-xs" title="Upload file attachment">
+            <i class="fa fa-upload"> Upload</i><input type="file" style="display: none !important;">
+            </label>
+          </form>
+          {{/unless}}
+          {{/if}}
+        </td>
         <td>
           {{# if this.is_approved_leave }}
           {{# unless this.is_pended_revoke_leave}}

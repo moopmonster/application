@@ -28,6 +28,7 @@
           <th>Type</th>
           <th>Days</th>
           <th>Employee Comment</th>
+          <th>Attachment</th>
           <th colspan="2"></th>
         </tr>
       </thead>
@@ -41,6 +42,15 @@
           <td>{{#if this.is_pended_revoke_leave}}REVOKE {{/if}}{{this.leave_type.name}}</td>
           <td data-vpp="days_used">{{ this.get_deducted_days_number }}</td>
           <td>{{#if this.get_employee_comment}}{{this.get_employee_comment}}{{/if}}</td>
+          <td>
+          <!-- must show no attachment message when no attachment -->
+            <form>
+              <input type="hidden" value="{{this.id}}" name="request">
+              <button type="submit" class="btn btn-default btn-xs" title="Download file attachment" {{#unless this.attachment}}disabled{{/unless}}>
+                <i class="fa fa-download"> Download</i>
+              </button>
+            </form>
+          </td>
           <td>
             <form action="/requests/reject/" method="POST">
             <input class="btn btn-warning" onclick="commentHandler(this)" type="submit" value="Reject">
