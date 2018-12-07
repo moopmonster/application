@@ -283,3 +283,5 @@ div.feeds-holder {
    content:"*";
    color:red;
 }
+/* make attachment required/optional select smaller */
+#attachment_opt {font-size:80%;}

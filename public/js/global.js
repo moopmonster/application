@@ -11,14 +11,14 @@ $(document).ready(function(){
     e.stopPropagation();
 
     var from_date = $('input.book-leave-from-input').datepicker('getDate');
+
     priorDateValidation();
+
     if ( ! from_date ) {
       // no new value for FROM part, do nothing
       console.log('No from date');
       return;
     }
-
-
 
     var to_date = $('input.book-leave-to-input').datepicker('getDate');
 
@@ -30,9 +30,11 @@ $(document).ready(function(){
 
 function priorDateValidation() {
     var from_date = $('input.book-leave-from-input').datepicker('getDate');
+    
     // prior date validation
     var today = new Date();
     var validate_prior = parseInt($("select#leave_type").find('option:selected').attr('data-tom-prior'));
+
     if ( ! from_date ) {
       $('.data-tom-prior-error').remove();
       return;
@@ -232,11 +234,20 @@ $(document).ready(function(){
     .on('change', function(e){
       var optsel = $(this).find('option:selected');
       var validate_comment = optsel.attr('data-tom-comment');
+      var validate_attachment = optsel.attr('data-tom-attachment');
 
       // set compulsory comments
       toggleReq($('textarea#employee_comment'),(validate_comment==1?true:false));
+
+      // set compulsory attachment
+      toggleReq($('input#attachment-inp'),(validate_attachment==1?true:false));
+      toggleShowGroup($('input#attachment-inp'),(validate_attachment!=0?true:false));
+      toggleShow($('.attachment-later'),(validate_attachment==1?true:false));
+
+      // date from/to 
       toggleReq($('input#from'),true);
       toggleReq($('input#to'),true);
+
       // from date
       priorDateValidation();
 
@@ -245,6 +256,12 @@ $(document).ready(function(){
 
   // leave type
   $('select#leave_type').trigger("change");
+  
+  // defer attachment 
+  $('input#attachment-later').on('click', function(e){
+    e.stopPropagation();
+    toggleReq($('input#attachment-inp'),!$(this).prop("checked"));
+  });
 
 });
 
@@ -257,5 +274,26 @@ function toggleReq(obj,flag)
   else {
     obj.removeProp("required");
     obj.closest(".form-group").removeClass("required");
+  }
+}
+
+function toggleShowGroup(obj,flag)
+{
+  if(flag == true) {
+    obj.closest(".form-group").show();
+  }
+  else {
+    obj.removeProp("required");
+    obj.closest(".form-group").hide();
+  }
+}
+
+function toggleShow(obj,flag)
+{
+  if(flag == true) {
+    obj.show();
+  }
+  else {
+    obj.hide();
   }
 }

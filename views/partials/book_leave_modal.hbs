@@ -24,7 +24,7 @@
             <label for="leave_type" class="control-label">Leave type:</label>
             <select class="form-control" id="leave_type" name="leave_type">
             {{# each logged_user.company.leave_types}}
-                <option value={{@index}} data-tom="{{this.name}}" data-tom-prior="{{this.min_days_prior}}" data-tom-comment="{{this.comment_req}}">{{this.name}}</option>
+                <option value={{@index}} data-tom="{{this.name}}" data-tom-prior="{{this.min_days_prior}}" data-tom-comment="{{this.comment_req}}" data-tom-attachment="{{this.attachment_req}}">{{this.name}}</option>
             {{/each}}
             </select>
           </div>
@@ -66,15 +66,16 @@
               </div>
             </div>
           </div>
-          
-          <div class="form-group">
-            <label for="attachment-inp" class="control-label">Attachment:</label>
-            <input type="file" class="form-control-file" id="attachment-inp" name="attachment"></input>
-          </div>
 
           <div class="form-group">
             <label for="leave_type" class="control-label">Reason:</label>
             <textarea class="form-control" rows="4" name="employee_comment" id="employee_comment" placeholder="Enter reason here..."></textarea></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="attachment-inp" class="control-label">Attachment:</label>
+            <input type="file" class="form-control-file" id="attachment-inp" name="attachment"></input>
+            <label for="attachment-later" style="font-weight:normal;padding-top:3px;" class="attachment-later"><input type="checkbox" id="attachment-later" name="attachment-later" class="attachment-later"> I will add the attachment later.</label>
           </div>
 
       </div>
