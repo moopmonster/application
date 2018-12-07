@@ -50,11 +50,12 @@
   <table class="table sortable-table table-hover">
     <thead>
       <tr>
-        <th class="sortable-table-header">Name</th>
-        <th class="sortable-table-header">Department</th>
-        <th class="sortable-table-header">Is Administrator?</th>
+        <th class="sortable-table-header">First Name</th>
+        <th class="sortable-table-header">Last Name</th>
+        <th class="sortable-table-header">Dept</th>
+        <th class="sortable-table-header">Is Admin?</th>
         <th class="sortable-table-header">Joined Date</th>        
-        <th class="sortable-table-header">Available allowance</th>
+        <th class="sortable-table-header">Available Leave</th>
         <th class="sortable-table-header">Days used</th>
       </tr>
     </thead>
@@ -62,7 +63,8 @@
       {{# each users_info}}
         {{# if this.is_resigned }}{{else}}
         <tr data-vpp-user-row="{{this.user_id}}">
-          <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_full_name}}</a></td>
+          <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_name}}</a></td>
+          <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_lastname}}</a></td>          
           <td class="user_department"><a href="/settings/departments/edit/{{ this.department_id }}/">{{this.department_name}}</a></td>
           <td>{{# if this.is_admin }}Yes{{else}}{{/if}}</td>
           <td>{{ this.user_dtjoin }}</td>        
@@ -81,19 +83,21 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Department</th>
-        <th>Resigned Date</th>
-        <th>Joined Date</th>
-        <th>Available allowance</th>
-        <th>Days used</th>
+        <th class="sortable-table-header">First Name</th>
+        <th class="sortable-table-header">Last Name</th>
+        <th class="sortable-table-header">Dept</th>
+        <th class="sortable-table-header">Resigned Date</th>
+        <th class="sortable-table-header">Joined Date</th>
+        <th class="sortable-table-header">Available Leave</th>
+        <th class="sortable-table-header">Days used</th>
       </tr>
     </thead>
     <tbody>
       {{# each users_info}}
         {{# if this.is_resigned }}
         <tr data-vpp-user-row="{{this.user_id}}">
-          <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_full_name}}</a></td>
+          <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_name}}</a></td>
+          <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_lastname}}</a></td>   
           <td class="user_department"><a href="/settings/departments/edit/{{ this.department_id }}/">{{this.department_name}}</a></td>
           <td>{{ this.user_dtleave }}</td>
           <td>{{ this.user_dtjoin }}</td>
