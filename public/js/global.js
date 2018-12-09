@@ -4,6 +4,10 @@
  *
  * */
 $(document).ready(function(){
+
+  $('input.book-leave-from-input').datepicker(datepicker_default);
+  $('input.book-leave-to-input').datepicker(datepicker_default);
+
   /*
    *  When FROM field in New absense form chnages: update TO one if necessary
    */
@@ -27,6 +31,22 @@ $(document).ready(function(){
     }
   });
 });
+
+var datepicker_default = {
+  monthsTitle : "Months",
+  clear       : "Clear", 
+  todayHighlight: true,
+  weekStart   : 0,
+  daysOfWeekHighlighted: "0,6",
+  beforeShowDay: function(date){
+    var HOL_DS = eval($('#bank_holiday').val());
+    var dateFormat = date.getUTCFullYear() + '-' + (date.getUTCMonth()<10?'0':'')+(date.getUTCMonth()+1) + '-' + (date.getUTCDate()+1);
+    var holfind = HOL_DS.find(o => o.dt === dateFormat);
+    if (holfind) {
+      return {classes: 'bank_holiday_cell', tooltip: holfind.name};
+    }
+  },
+}
 
 function priorDateValidation() {
     var from_date = $('input.book-leave-from-input').datepicker('getDate');

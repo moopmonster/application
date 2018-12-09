@@ -285,3 +285,4 @@ div.feeds-holder {
 }
 /* make attachment required/optional select smaller */
 #attachment_opt {font-size:80%;}
+.attachment-later-label {font-weight:normal;padding-top:3px;}

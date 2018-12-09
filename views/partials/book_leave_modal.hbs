@@ -8,7 +8,6 @@
         <h4 class="modal-title" id="exampleModalLabel">New absence</h4>
       </div>
       <div class="modal-body">
-
           {{# if_equal logged_user.supervised_users.length 1 }}{{else}}
           <div class="form-group">
             <label for="employee" class="control-label">For employee:</label>
@@ -42,7 +41,8 @@
               <div class="col-md-7">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                  <input type="text" class="form-control book-leave-from-input" id="from" autocomplete="off" data-provide="datepicker" data-date-autoclose="1" data-date-format="{{# with logged_user.company }}{{this.get_default_date_format_for_date_picker}}{{/with}}" data-date-week-start="1" data-date-today-highlight="1" data-date-days-of-week-disabled="[0,6]" value="" name="from_date">
+                  <input type="text" class="form-control book-leave-from-input" id="from" autocomplete="off"  data-date-autoclose="1" data-date-format="{{#with logged_user.company }}{{this.get_default_date_format_for_date_picker}}{{/with}}" value="" name="from_date">
+                  <input type="hidden" name="bank_holiday" id="bank_holiday" value="[{{#each company.bank_holidays}}{'name':'{{escape name}}', 'dt':'{{as_date date}}'}{{#unless @last}},{{/unless}}{{/each}}]">
                 </div>
               </div>
             </div>
@@ -61,7 +61,7 @@
               <div class="col-md-7">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                  <input type="text" class="form-control book-leave-to-input" id="to" autocomplete="off" data-provide="datepicker" data-date-autoclose="1" data-date-format="{{#with logged_user.company }}{{this.get_default_date_format_for_date_picker}}{{/with}}" data-date-week-start="1"  data-date-today-highlight="1" data-date-days-of-week-disabled="[0,6]" value="" name="to_date">
+                  <input type="text" class="form-control book-leave-to-input" id="to" autocomplete="off"  data-date-autoclose="1" data-date-format="{{#with logged_user.company }}{{this.get_default_date_format_for_date_picker}}{{/with}}" value="" name="to_date">
                 </div>
               </div>
             </div>
@@ -75,7 +75,7 @@
           <div class="form-group">
             <label for="attachment-inp" class="control-label">Attachment:</label>
             <input type="file" class="form-control-file" id="attachment-inp" name="attachment"></input>
-            <label for="attachment-later" style="font-weight:normal;padding-top:3px;" class="attachment-later"><input type="checkbox" id="attachment-later" name="attachment-later" class="attachment-later"> I will add the attachment later.</label>
+            <label for="attachment-later" class="attachment-later attachment-later-label"><input type="checkbox" id="attachment-later" name="attachment-later" class="attachment-later"> I will add the attachment later.</label>
           </div>
 
       </div>
