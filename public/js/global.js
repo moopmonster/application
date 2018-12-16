@@ -33,21 +33,26 @@ $(document).ready(function(){
 });
 
 var datepicker_default = {
-  monthsTitle : "Months",
-  clear       : "Clear", 
-  todayHighlight: true,
-  weekStart   : 0,
-  daysOfWeekHighlighted: "0,6",
-  beforeShowDay: function(date){
-    var HOL_DS = eval($('#bank_holiday').val());
-    var dateFormat = date.getUTCFullYear() + '-' + (date.getUTCMonth()<10?'0':'')+(date.getUTCMonth()+1) + '-' + (date.getUTCDate()+1);
-    var holfind = HOL_DS.find(o => o.dt === dateFormat);
-    if (holfind) {
-      return {classes: 'bank_holiday_cell', tooltip: holfind.name};
-    }
+    monthsTitle : "Months",
+    clear       : "Clear", 
+    format      : getDefaultDateFormat(),
+    todayHighlight: true,
+    weekStart   : 0,
+    daysOfWeekDisabled: [0,6],
+    daysOfWeekHighlighted: "0,6",
+    beforeShowDay: function(date)
+    {
+      var HOL_DS = eval($('#bank_holiday').val());  
+      var DT = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + (date.getDate());
+      var holfind = HOL_DS.find(o => o.dt === DT); 
+      if (holfind) {
+        return {classes: 'bank_holiday_cell', tooltip: holfind.name};
+      }
   },
 }
-
+function getDefaultDateFormat() {
+  return $('input.book-leave-from-input').attr("data-date-format");
+}
 function priorDateValidation() {
     var from_date = $('input.book-leave-from-input').datepicker('getDate');
     
