@@ -61,7 +61,7 @@
     </thead>
     <tbody>
       {{# each users_info}}
-        {{# if this.is_resigned }}{{else}}
+        {{# if_equal this.is_resigned 0 }}
         <tr data-vpp-user-row="{{this.user_id}}">
           <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_name}}</a></td>
           <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_lastname}}</a></td>          
@@ -71,7 +71,7 @@
           <td class="vpp-days-remaining">{{ this.number_of_days_available_in_allowance }}</td>
           <td class="vpp-days-used">{{this.number_of_days_taken_from_allowance}}</td>
         </tr>
-        {{/if}}
+        {{/if_equal}}
       {{/each}}
     </tbody>
   </table>
@@ -80,7 +80,7 @@
 
 <div class="col-md-offset-3 col-md-9">
   <div class="lead">Resigned</div>
-  <table class="table table-hover">
+  <table class="table sortable-table table-hover">
     <thead>
       <tr>
         <th class="sortable-table-header">First Name</th>
