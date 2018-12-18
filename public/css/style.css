@@ -286,3 +286,26 @@ div.feeds-holder {
 /* make attachment required/optional select smaller */
 #attachment_opt {font-size:80%;}
 .attachment-later-label {font-weight:normal;padding-top:3px;}
+.allowance_deducted {color:red;}
+ /*.full-width {font-size:12px;}*/
+.fa-download.gray {color: #c0c0c0}
+.normal{font-size:12px;}
+.smaller{font-size:11px;}
+
+/* user_requests.hbs */
+.leave-Rejected-row, .leave-Cancelled-row
+{
+  background-color: #f2f2f2;
+  color: #8c8c8c;
+}
+.leave-Rejected-row .leave-request-row-status, .leave-Cancelled-row .leave-request-row-status {
+ 
+}
+.leave-Incomplete-row  .leave-request-row-status
+{
+  color:  red;
+}
+.leave-Approved-row .leave-request-row-status
+{
+  color: #0000ff;
+}

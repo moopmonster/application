@@ -1,12 +1,13 @@
 
 {{> header }}
 
-<h1>{{logged_user.name}} {{logged_user.lastname}} messages</h1>
+<h1>{{logged_user.name}} {{logged_user.lastname}} Requests</h1>
 
 {{> show_flash_messages }}
 
+{{# if to_be_approved_leaves}}
 <div class="row main-row_header">
-  <p class="col-md-12">Leave request to approve</p>
+  <p class="col-md-12">Leave requests to approve</p>
 </div>
 
 <div class="row">
@@ -21,40 +22,39 @@
     <table class="table table-hover requests-to-approve-table">
       <thead>
         <tr>
-          <th>Employee</th>
-          <th>Department</th>
-          <th>Date of request</th>
-          <th>Leave dates</th>
-          <th>Type</th>
-          <th>Days</th>
-          <th>Employee Reason</th>
-          <th>Attachment</th>
-          <th colspan="2"></th>
+          <th class="col-md-2">Employee</th>
+          {{!-- <th class="col-md-1">Department</th> --}}
+          <th class="col-md-1">Date of request</th>
+          <th class="col-md-3">Leave dates</th>
+          <th class="col-md-2">Type</th>
+          <th class="col-md-1">Days</th>
+          <th class="col-md-2">Employee Reason</th>
+          <th class="col-md-1" colspan=3></th>
         </tr>
       </thead>
       <tbody>
         {{#each to_be_approved_leaves }}
         <tr vpp="pending_for__{{this.user.email}}">
           <td>{{#with this.user}}{{this.full_name}}{{/with}}</td>
-          <td>{{this.user.department.name}}</td>
+          {{!-- <td>{{this.user.department.name}}</td> --}}
           <td class="date_of_request">{{as_date_from_timestamp this.createdAt}}</td>
           <td data-tom-leave-dates="1">{{> leave_dates leave=this}}</td>
           <td>{{#if this.is_pended_revoke_leave}}REVOKE {{/if}}{{this.leave_type.name}}</td>
-          <td data-vpp="days_used">{{ this.get_deducted_days_number }}</td>
-          <td>{{#if this.get_employee_comment}}{{this.get_employee_comment}}{{/if}}</td>
+          <td data-vpp="days_used">{{ this.get_deducted_days_number_ignore_allowance }} {{#if this.get_deducted_days_number}}<span class="allowance_deducted">(-{{ this.get_deducted_days_number }})</span>{{/if}}</td>
+          <td class="smaller">{{#if this.get_employee_comment}}{{this.get_employee_comment}}{{/if}}</td>
           <td>
             {{# if this.get_leave_type_attachment_req }}
             <form action="/requests/reqdownload/" method="post">
               <input type="hidden" value="{{this.id}}" name="request">
               <button type="submit" class="btn btn-default btn-xs" title="Download file " {{#unless this.attachment}}disabled{{/unless}}>
-                <i class="fa fa-download"> Download</i>
+                <i class="fa fa-download{{#unless this.attachment}} gray{{/unless}}"> </i>
               </button>
             </form>
             {{/if}}
           </td>
           <td>
             <form action="/requests/reject/" method="POST">
-            <input class="btn btn-warning" onclick="commentHandler(this)" type="submit" value="Reject">
+            <input class="btn btn-warning btn-xs" onclick="commentHandler(this)" type="submit" value="Reject">
             <input type="hidden" value="{{this.id}}" name="request">
             </form>
             <script>
@@ -71,10 +71,12 @@
           <td>
             {{# if this.get_leave_type_attachment_can_approve }}
             <form action="/requests/approve/" method="POST">
-            <input class="btn btn-success" type="submit" value="Approve">
+            <input class="btn btn-success btn-xs" type="submit" value="Approve">
             <input type="hidden" value="{{this.id}}" name="request">
             </form>
             {{/if}}
+
+
           </td>
         </tr>
         {{/each}}
@@ -85,11 +87,12 @@
   {{/unless}}
 </div>
 
-
 <div class="main-row_header">&nbsp;</div>
 
+{{/if}}
+
 <div class="row main-row_header">
-  <p class="col-md-12">All my absences</p>
+  <p class="col-md-12">My Leaves</p>
 </div>
 
 {{> user_requests_grouped grouped_leaves=my_leaves_grouped logged_user=logged_user }}

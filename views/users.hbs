@@ -36,14 +36,14 @@
 
 <div class="row">&nbsp;</div>
 
-<div class="col-md-3 list-group all-departments">
-  <a href="/users/" class="list-group-item{{#unless department_id }} selected-item{{/unless}}">All departments</a>
+<div class="col-md-2 list-group all-departments normal">
+  <a href="/users/" class="list-group-item{{#unless department_id }} selected-item{{/unless}}">ALL DEPARTMENTS</a>
   {{#each company.departments}}
     <a class="list-group-item {{#if_equal ../department_id this.id}} selected-item{{/if_equal}}" href="/users/?department={{this.id}}">{{this.name}}</a>
   {{/each}}
 </div>
 
-<div class="col-md-9">
+<div class="col-md-10">
   <div class="reset-sort-link">
     <a id="reset-sort" href="#">Reset sort to default (by Last Name)</a>
   </div>
@@ -67,7 +67,7 @@
           <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_lastname}}</a></td>          
           <td class="user_department"><a href="/settings/departments/edit/{{ this.department_id }}/">{{this.department_name}}</a></td>
           <td>{{# if this.is_admin }}Yes{{else}}{{/if}}</td>
-          <td>{{ this.user_dtjoin }}</td>        
+          <td>{{ as_date this.user_dtjoin }}</td>        
           <td class="vpp-days-remaining">{{ this.number_of_days_available_in_allowance }}</td>
           <td class="vpp-days-used">{{this.number_of_days_taken_from_allowance}}</td>
         </tr>
@@ -78,7 +78,7 @@
 </div>
 
 
-<div class="col-md-offset-3 col-md-9">
+<div class="col-md-offset-2 col-md-10">
   <div class="lead">Resigned</div>
   <table class="table sortable-table table-hover">
     <thead>
@@ -99,8 +99,8 @@
           <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_name}}</a></td>
           <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_lastname}}</a></td>   
           <td class="user_department"><a href="/settings/departments/edit/{{ this.department_id }}/">{{this.department_name}}</a></td>
-          <td>{{ this.user_dtleave }}</td>
-          <td>{{ this.user_dtjoin }}</td>
+          <td>{{ as_date this.user_dtleave }}</td>
+          <td>{{ as_date this.user_dtjoin }}</td>
           <td class="vpp-days-remaining">{{ this.number_of_days_available_in_allowance }}</td>
           <td class="vpp-days-used">{{this.number_of_days_taken_from_allowance}}</td>
         </tr>
