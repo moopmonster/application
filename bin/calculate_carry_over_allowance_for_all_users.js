@@ -35,7 +35,7 @@ models.User
         .then(remainer => {
           return user.promise_to_update_carried_over_allowance({
             year                   : YEAR_TO,
-            carried_over_allowance : remainer[0],
+            carried_over_allowance : (remainer[0]>10?10:remainer[0]),
           });
         })
         .then(() => Promise.resolve(console.log('Done with user ' + user.id)));
