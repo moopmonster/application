@@ -56,7 +56,7 @@
   <div class="row">
     <div class="col-md-5">
       <dl>
-        <dt>Absences used this year grouped by leave types</dt>
+        <dt>Leaves used this year grouped by leave types</dt>
         {{# if leave_type_statistics }}
           {{# each leave_type_statistics }}
             <dd><em>{{this.leave_type.name}}:</em> <span class="pull-right">{{this.days_taken}}{{# if this.limit}} out of {{this.limit}}{{/if}}</span></dd>

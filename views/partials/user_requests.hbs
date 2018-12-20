@@ -29,7 +29,9 @@
       <tr class="leave-request-row leave-{{this.get_leave_status}}-row">
         <td data-tom-leave-dates="1">{{> leave_dates leave=this}}</td>
         <td>{{ this.leave_type.name }}</td>
-        <td>{{ this.get_deducted_days_number_ignore_allowance }} {{#unless is_cancelled_or_rejected_leave}}{{#if this.get_deducted_days_number}}<span class="allowance_deducted">(-{{ this.get_deducted_days_number }})</span>{{/if}}{{/unless}}</td>
+        <td>{{ this.get_deducted_days_number_ignore_allowance }} {{#unless is_cancelled_or_rejected_leave}}{{#if this.get_deducted_days_number}}<span class="allowance_deducted">(-{{ this.get_deducted_days_number }})</span>{{/if}}
+            {{#if this.leave_is_adjustment}}<span class="allowance_added">(+{{ this.get_deducted_days_number_ignore_allowance }})</span>{{/if}}
+        {{/unless}}</td>
         <td class="smaller">{{#if this.get_employee_comment}}{{this.get_employee_comment}}{{/if}}</td>        
         <td>
           {{# if this.attachment }}
@@ -58,21 +60,23 @@
         </td>
         <td>
           {{#unless is_cancelled_or_rejected_leave}}
-            {{# if this.is_approved_leave }}
-            {{# unless this.is_pended_revoke_leave}}
-            <form method="post" action="/requests/revoke/">
-              <input type="hidden" value="{{this.id}}" name="request">
-              <button type="submit" class="pull-right btn btn-default btn-xs revoke-btn" title="Revoke leave request. Subject of approval."><i class="fa fa-trash"> Revoke</i></button>
-            </form>
+            {{#unless this.leave_is_adjustment}}
+              {{# if this.is_approved_leave }}
+                {{# unless this.is_pended_revoke_leave}}
+                <form method="post" action="/requests/revoke/">
+                  <input type="hidden" value="{{this.id}}" name="request">
+                  <button type="submit" class="pull-right btn btn-default btn-xs revoke-btn" title="Revoke leave request. Subject of approval."><i class="fa fa-trash"> Revoke</i></button>
+                </form>
+                {{/unless}}
+              {{else}}
+                {{#if_equal this.userId ../logged_user.id }}
+                <form method="post" action='/requests/cancel/'>
+                  <input type="hidden" value="{{this.id}}" name="request">
+                  <button type="submit" class="pull-right btn btn-default btn-xs revoke-btn" title="Cancel leave request" value="cancel"><i class="fa fa-trash"> Cancel</i></button>
+                </form>
+                {{/if_equal}}
+              {{/if}}
             {{/unless}}
-            {{else}}
-              {{#if_equal this.userId ../logged_user.id }}
-              <form method="post" action='/requests/cancel/'>
-                <input type="hidden" value="{{this.id}}" name="request">
-                <button type="submit" class="pull-right btn btn-default btn-xs revoke-btn" title="Cancel leave request" value="cancel"><i class="fa fa-trash"> Cancel</i></button>
-              </form>
-              {{/if_equal}}
-            {{/if}}
           {{/unless}}
         </td>
         <td><span class="pull-middle leave-request-row-status">{{ this.get_leave_status }}{{#if this.is_pended_revoke_leave}}<span class="smaller"><br>(Pending revoke)</span>{{/if}}</td>
