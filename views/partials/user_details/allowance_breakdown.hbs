@@ -9,18 +9,18 @@
 }}
 
 <dl>
-  <dt>Allowance breakdown
+  <dt>Annual Leave Entitlment
     <i class="fa fa-question-circle"
-      data-content="This is explanation how we get the total allowance. Hover on each number to get details what does one mean."
+      data-content="This is explanation how we get the total leave. Hover on each number to get details what does one mean."
       data-placement="top"
       data-toggle="popover"
       data-trigger="focus hover"
     ></i>
   </dt>
     <dd>
-      <em>Nominal allowance </em>
+      <em>Annual Leave</em>
       <span class="pull-right"
-        data-content="Allowance derived from department current user belongs to."
+        data-content="Annual Leave entitlement."
         data-placement="top"
         data-toggle="popover"
         data-trigger="focus hover"
@@ -29,7 +29,7 @@
     <dd>
       <em>Carried over from {{previous_year}}</em>
       <span class="pull-right"
-        data-content="Allowance carried over from previous year. Note: this amount is calculated on the very first day of the year."
+        data-content="Leave carried over from previous year. Note: this amount is calculated on the very first day of the year."
         data-placement="top"
         data-toggle="popover"
         data-trigger="focus hover"
@@ -45,18 +45,18 @@
       >{{ user_allowance.manual_adjustment }}</span>
     </dd>
     <dd>
-      <em>Start/end of employment</em>
+      <em>Pro-rated</em>
       <span class="pull-right"
-        data-content="Automatic adjustment to allowance based on employee's start and end day of employment."
+        data-content="Prorated for incompleted year of service."
         data-placement="top"
         data-toggle="popover"
         data-trigger="focus hover"
       >{{ user_allowance.employement_range_adjustment }}</span>
     </dd>
     <dd>
-      <em>Used so far</em>
+      <em>Total Approved Leave</em>
       <span class="pull-right"
-        data-content="Number of days already taken from allowance."
+        data-content="Number of days already taken from leave."
         data-placement="top"
         data-toggle="popover"
         data-trigger="focus hover"

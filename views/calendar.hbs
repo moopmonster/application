@@ -24,7 +24,7 @@
       {{#with current_user }}
       <dt data-tom-days-available-in-allowance>{{ ../user_allowance.number_of_days_available_in_allowance }}</dt>
       <dd>Days available</dd>
-      <dd>out of <span data-tom-total-days-in-allowance>{{ ../user_allowance.total_number_of_days_in_allowance }}</span> in allowance</dd>
+      <dd>out of <span data-tom-total-days-in-allowance>{{ ../user_allowance.total_number_of_days_in_allowance }}</span> annual leave days</dd>
       {{/with}}
     </dl>
   </div>
@@ -35,7 +35,7 @@
 
   <div class="col-md-3 secondary-leave-type-statistics hidden-xs">
     <dl>
-      <dt>Used so far</dt>
+      <dt>Total Approved Leave</dt>
 
       {{# if leave_type_statistics }}
         {{# each leave_type_statistics }}
