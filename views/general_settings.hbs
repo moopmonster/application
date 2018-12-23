@@ -147,7 +147,7 @@
             <label class="control-label">Leave Type Name</label>
             <p><em>Tick one to always be on top of the list</em></p>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label class="control-label">Required</label>
             <p><em>Fields will be made compulsory</em></p>
           </div>
@@ -157,8 +157,11 @@
           </div>
           <div class="col-md-1">
             <label class="control-label">Min Prior</label>
-            <p><em>Days</em></p>
+            <p><em>Working Days</em></p>
           </div>
+          <div class="col-md-1">
+            <label class="control-label">Order</label>
+          </div>          
         </div>
 
         <div class="row">&nbsp;</div>
@@ -179,7 +182,7 @@
 
             <div class="input-group">
               <span class="input-group-addon">
-                <input type="radio" name="first_record" value="{{ this.id }}" {{# if this.sort_order }}checked="checked"{{/ if}}>
+                <input type="radio" name="first_record" value="{{ this.id }}"{{#if_equal sort_order 1}} checked="checked"{{/if_equal}}>
               </span>
               <input type="text" class="form-control" name="name__{{ this.id }}" value="{{name}}" data-tom-leave-type-order="name_{{@index}}">
 
@@ -201,7 +204,7 @@
             <input name="use_allowance__{{ this.id }}" id="use_allowance__{{ this.id }}" type="checkbox" {{#if use_allowance}}checked="checked"{{/if}} data-tom-leave-type-order="allowance_{{@index}}">
             <label for="use_allowance__{{ this.id }}" class="control-label">Use allowance</label>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <input name="comment_req__{{ this.id }}" id="comment_req__{{ this.id }}" type="checkbox" {{#if comment_req}}checked="checked"{{/if}} data-tom-leave-type-order="comment_{{@index}}">
             <label for="comment_req__{{ this.id }}" class="control-label">Reason</label>
             &nbsp;&nbsp;
@@ -214,6 +217,9 @@
           <div class="col-md-1">
             <input type="number" class="form-control" min="0" value="{{min_days_prior}}" name="min_days_prior__{{ this.id }}" data-tom-leave-type-order="min_days_prior_{{@index}}">
           </div>
+          <div class="col-md-1">
+            <input type="number" class="form-control" min="0" value="{{sort_order}}" name="sort_order__{{ this.id }}" data-tom-leave-type-order="sort_order_{{@index}}">
+          </div>          
           <div class="col-md-1">
             <button class="btn btn-default pull-right leavetype-remove-btn" value="{{ this.id }}" data-tom-leave-type-order="remove_{{@index}}"><span class="fa fa-remove"></span></button>
           </div>
