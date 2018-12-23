@@ -60,13 +60,15 @@
         </td>
         <td>
           {{#unless is_cancelled_or_rejected_leave}}
-            {{#unless this.leave_is_adjustment}}
+            
               {{# if this.is_approved_leave }}
                 {{# unless this.is_pended_revoke_leave}}
+                {{#unless this.leave_is_adjustment}}
                 <form method="post" action="/requests/revoke/">
                   <input type="hidden" value="{{this.id}}" name="request">
                   <button type="submit" class="pull-right btn btn-default btn-xs revoke-btn" title="Revoke leave request. Subject of approval."><i class="fa fa-trash"> Revoke</i></button>
                 </form>
+                {{/unless}}
                 {{/unless}}
               {{else}}
                 {{#if_equal this.userId ../logged_user.id }}
@@ -76,7 +78,7 @@
                 </form>
                 {{/if_equal}}
               {{/if}}
-            {{/unless}}
+          
           {{/unless}}
         </td>
         <td><span class="pull-middle leave-request-row-status">{{ this.get_leave_status }}{{#if this.is_pended_revoke_leave}}<span class="smaller"><br>(Pending revoke)</span>{{/if}}</td>
