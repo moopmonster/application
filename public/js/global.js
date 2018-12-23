@@ -38,7 +38,7 @@ var datepicker_default = {
     format      : getDefaultDateFormat(),
     todayHighlight: true,
     weekStart   : 0,
-    daysOfWeekDisabled: [0,6],
+    /*daysOfWeekDisabled: [0,6],*/
     daysOfWeekHighlighted: "0,6",
     beforeShowDay: function(date)
     {
@@ -65,7 +65,7 @@ function priorDateValidation() {
       return;
     }
     if( validate_prior > 0 && (getBusinessDatesCount(today, from_date) < validate_prior) ){
-      error_msg = '' + validate_prior + ' business days prior required. Please choose Emergency Leave type instead.';
+      error_msg = '' + validate_prior + ' working days required. Please choose Emergency Leave instead.';
       $('input.book-leave-from-input').val("");
       if($('.data-tom-prior-error').length==0) {
         $('input.book-leave-from-input').closest('[class^="col-md"]').append('<span class="data-tom-prior-error error text-danger">'+error_msg+'</span>');
@@ -77,9 +77,14 @@ function priorDateValidation() {
 function getBusinessDatesCount(startDate, endDate) {
     var count = 1;
     var curDate = startDate;
+    var HOL_DS = eval($('#bank_holiday').val());
+
     while (curDate <= endDate) {
         var dayOfWeek = curDate.getDay();
-        if(!((dayOfWeek == 6) || (dayOfWeek == 0))) /* to add and public holiday */
+        var DT = curDate.getFullYear() + '-' + (curDate.getMonth()+1) + '-' + (curDate.getDate());
+        var hol = (HOL_DS.find(o => o.dt === DT)?1:0);
+
+        if(!((dayOfWeek == 6) || (dayOfWeek == 0) || (hol == 1) )) /* to add and public holiday */
            count++;
         curDate.setDate(curDate.getDate() + 1);
     }

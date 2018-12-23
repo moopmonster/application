@@ -42,7 +42,7 @@
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                   <input type="text" class="form-control book-leave-from-input" id="from" autocomplete="off"  data-date-autoclose="1" data-date-format="{{#with logged_user.company }}{{this.get_default_date_format_for_date_picker}}{{/with}}" value="" name="from_date">
-                  <input type="hidden" name="bank_holiday" id="bank_holiday" value="[{{#each company.bank_holidays}}{'name':'{{escape name}}', 'dt':'{{as_date_formatted date 'YYYY-M-DD'}}'}{{#unless @last}},{{/unless}}{{/each}}]">
+                  <input type="hidden" name="bank_holiday" id="bank_holiday" value="[{{#each logged_user.company.bank_holidays}}{'name':'{{escape this.name}}', 'dt':'{{as_date_formatted this.date 'YYYY-M-DD'}}'}{{#unless @last}},{{/unless}}{{/each}}]">
                 </div>
               </div>
             </div>
