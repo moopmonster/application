@@ -19,10 +19,6 @@
         {{# if logged_user }}
           <li><a href="/calendar/">Calendar</a></li>
           <li class="hidden-xs"><a href="/calendar/teamview/">Team View</a></li>
-          {{# if logged_user.admin }}
-            <li class="hidden-xs"><a href="/users/">Employees</a></li>
-            <li class=""><a href="/requests/">Approve</a></li>
-          {{/if}}
           <li class=""><a href="/requests/">Requests</a></li>          
           <li class="navbar-form navbar-left">
             <div class="form-group">
@@ -34,7 +30,17 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
           {{# if logged_user }}
+
+            {{# if_equal logged_user.supervised_users.length 1 }}{{else}}
+            <li class=""><a href="/requests_approve/">Approve</a></li>
+            {{/if_equal}}
+
             {{# if logged_user.admin }}
+              {{# if_equal logged_user.supervised_users.length 1 }}
+              <li class=""><a href="/requests_approve/">Approve</a></li>
+              {{/if_equal}}
+            <li class="hidden-xs"><a href="/users/">Employees</a></li>        
+
             <li class="dropdown hidden-xs">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="fa fa-gears"></span> <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
