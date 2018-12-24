@@ -53,20 +53,30 @@
             {{/if}}
           </td>
           <td>
-            <form action="/requests/reject/" method="POST">
-            <input class="btn btn-warning btn-xs" onclick="commentHandler(this)" type="submit" value="Reject">
+            <form action="/requests/reject/" method="POST" id="rejectForm">
+            <input type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#rejectModal" type="submit" value="Reject">
             <input type="hidden" value="{{this.id}}" name="request">
+            <!-- Reject Modal for comments -->
+            <div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                        <label for="message-text" class="control-label">Reject remarks:</label>
+                        <textarea class="form-control" id="message-text" name="comment"></textarea>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="document.getElementById('rejectForm').submit()">Reject</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /end Reject Modal for comments -->
             </form>
-            <script>
-              var commentHandler = function(event) {
-              var approverComment = prompt("Would you like to enter an explanation?","Enter text here...");
-                if (approverComment !== "" && approverComment !== "Enter text here...") {
-                  console.log("APPROVER COMMENT: " + approverComment);
-                  location = "requests/reject/";
-                }
-                return approverComment;
-              }
-            </script>
           </td>
           <td>
             {{# if this.get_leave_type_attachment_can_approve }}
@@ -74,9 +84,7 @@
             <input class="btn btn-success btn-xs" type="submit" value="Approve">
             <input type="hidden" value="{{this.id}}" name="request">
             </form>
-            {{/if}}
-
-
+            {{/if}}            
           </td>
         </tr>
         {{/each}}

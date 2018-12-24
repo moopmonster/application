@@ -32,7 +32,7 @@
         <td>{{ this.get_deducted_days_number_ignore_allowance }} {{#unless is_cancelled_or_rejected_leave}}{{#if this.get_deducted_days_number}}<span class="allowance_deducted">(-{{ this.get_deducted_days_number }})</span>{{/if}}
             {{#if this.leave_is_adjustment}}<span class="allowance_added">(+{{ this.get_deducted_days_number_ignore_allowance }})</span>{{/if}}
         {{/unless}}</td>
-        <td class="smaller">{{#if this.get_employee_comment}}{{this.get_employee_comment}}{{/if}}</td>        
+        <td class="smaller">{{#if this.get_employee_comment}}{{this.get_employee_comment}}{{/if}}{{#if this.get_approver_comment}}<div style="color:red">(Rejected Reason : {{this.get_approver_comment}})</div>{{/if}}</td>        
         <td>
           {{# if this.attachment }}
           <form method="post" action="/requests/usrdownload/">
@@ -82,7 +82,7 @@
           {{/unless}}
         </td>
         <td><span class="pull-middle leave-request-row-status">{{ this.get_leave_status }}{{#if this.is_pended_revoke_leave}}<span class="smaller"><br>(Pending revoke)</span>{{/if}}</td>
-        <td class="user-request-table-approver">{{# if this.is_approved_leave }}{{#with this.approver}}{{this.full_name}}{{/with}}{{/if}}</td>
+        <td class="user-request-table-approver">{{# if is_approved_or_rejected }}{{#with this.approver}}{{this.full_name}}{{/with}}{{/if}}</td>
 
       </tr>
 
