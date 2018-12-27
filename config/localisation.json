@@ -5214,7 +5214,25 @@
 			{
 				"date": "2018-12-25",
 				"name": "Christmas"
-			}
+			},
+      
+      { "date": "2019-01-01", "name": "New Year's Day"},
+      { "date": "2019-01-21", "name": "Thaipusam"},
+      { "date": "2019-02-01", "name": "Federal Territory Day"},
+      { "date": "2019-02-05", "name": "Chinese New Year"},
+      { "date": "2019-05-01", "name": "Labour Day"},
+      { "date": "2019-05-20", "name": "Wesak Day"},
+      { "date": "2019-05-22", "name": "Nuzul Al-Quran"},
+      { "date": "2019-06-05", "name": "Hari Raya Aidilfitri"},
+      { "date": "2019-08-12", "name": "Hari Raya Haji"},
+      { "date": "2019-08-31", "name": "National Day"},
+      { "date": "2019-09-02", "name": "Awal Muharram"},
+      { "date": "2019-09-09", "name": "Agong's Birthday"},
+      { "date": "2019-09-16", "name": "Malaysia Day"},
+      { "date": "2019-10-28", "name": "Deepavali"},
+      { "date": "2019-11-09", "name": "Prophet Muhammad's Birthday"},
+      { "date": "2019-12-25", "name": "Christmas"},
+
 		]
 	},
     "MZ": {
