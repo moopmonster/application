@@ -60,4 +60,5 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => queryInterface
     .removeColumn('LeaveTypes', 'is_adjustment')
+    .then(() => queryInterface.removeColumn('Users', 'global_adjuster')),
 };
