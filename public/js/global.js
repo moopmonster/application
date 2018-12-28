@@ -43,7 +43,8 @@ var datepicker_default = {
     beforeShowDay: function(date)
     {
       var HOL_DS = eval($('#bank_holiday').val());  
-      var DT = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + (date.getDate());
+      var DT = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + (date.getDate()<10?'0':'')+date.getDate();
+
       var holfind = HOL_DS.find(o => o.dt === DT); 
       if (holfind) {
         return {classes: 'bank_holiday_cell', tooltip: holfind.name};
