@@ -12,9 +12,10 @@
   },
   "ga_analytics_on" : false,
   "crypto_secret" : "!2~`HswpPPLa22+=±§sdq qwe,appp qwwokDF_",
-  "gauth_as" : "test@gmail.com",
-  "gcalendar_id_dev" : "test@gmail.com",
-  "gcalendar_id_all" : "test@gmail.com",
-  "application_domain" : "http://app.timeoff.management",
+  "gauth_as" : "test@test.com",
+  "gcalendar_id_dev" : "test@test.com",
+  "gcalendar_id_all" : "test@test.com",
+  "domain" : "@test.com",
+  "application_domain" : "http://192.168.1.50:3000",
   "promotion_website_domain" : "http://timeoff.management"
 }

@@ -5215,7 +5215,7 @@
 				"date": "2018-12-25",
 				"name": "Christmas"
 			},
-      
+
       { "date": "2019-01-01", "name": "New Year's Day"},
       { "date": "2019-01-21", "name": "Thaipusam"},
       { "date": "2019-02-01", "name": "Federal Territory Day"},
@@ -5231,7 +5231,7 @@
       { "date": "2019-09-16", "name": "Malaysia Day"},
       { "date": "2019-10-28", "name": "Deepavali"},
       { "date": "2019-11-09", "name": "Prophet Muhammad's Birthday"},
-      { "date": "2019-12-25", "name": "Christmas"},
+      { "date": "2019-12-25", "name": "Christmas"}
 
 		]
 	},
