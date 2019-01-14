@@ -53,29 +53,10 @@
             {{/if}}
           </td>
           <td>
-            <form action="/requests/reject/" method="POST" id="rejectForm">
-            <input type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#rejectModal" type="submit" value="Reject">
-            <input type="hidden" value="{{this.id}}" name="request">
-            <!-- Reject Modal for comments -->
-            <div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-body">
-                    <form>
-                      <div class="form-group">
-                        <label for="message-text" class="control-label">Reject remarks:</label>
-                        <textarea class="form-control" id="message-text" name="comment"></textarea>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="document.getElementById('rejectForm').submit()">Reject</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /end Reject Modal for comments -->
+            <form action="/requests/reject/" method="POST" id="rejectForm_{{this.id}}">
+            <input type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#rejectModal" data-lid="{{this.id}}" type="submit" value="Reject">
+            <input type="hidden" value="{{this.id}}" name="request" id="rej_request">
+            <input type="hidden" value="" name="comment" id="comment_{{this.id}}">
             </form>
           </td>
           <td>
@@ -94,6 +75,27 @@
   </div>
   {{/unless}}
 </div>
+
+<!-- Reject Modal for comments -->
+<div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="message-text" class="control-label">Reject remarks:</label>
+            <textarea class="form-control" id="message-text" name="comment"></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="reject_comment();" id="reject_with_comments" lid="">Reject</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /end Reject Modal for comments -->
+
+
 
 <div class="main-row_header">&nbsp;</div>
 

@@ -328,3 +328,20 @@ function toggleShow(obj,flag)
     obj.hide();
   }
 }
+
+/*** 
+Approval
+***/
+
+$('#rejectModal').on('show.bs.modal', function (e) {
+    var button = $(e.relatedTarget);
+    var leave_id = button.attr("data-lid");
+    $('#reject_with_comments').attr("lid", leave_id);
+});
+
+function reject_comment()
+{
+  var lid = $('#reject_with_comments').attr("lid");
+  document.getElementById('comment_' +  lid).value = $('#reject_with_comments').val();
+  document.getElementById('rejectForm_' +  lid).submit();
+}
