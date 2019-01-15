@@ -1,4 +1,4 @@
-{
+﻿{
   "allow_create_new_accounts" : true,
   "send_emails"              : false,
   "application_sender_email" : "email@test.com",
@@ -13,6 +13,7 @@
   "ga_analytics_on" : false,
   "crypto_secret" : "!2~`HswpPPLa22+=±§sdq qwe,appp qwwokDF_",
   "gauth_as" : "test@test.com",
+  "gcalendar"        : false,
   "gcalendar_id_dev" : "test@test.com",
   "gcalendar_id_all" : "test@test.com",
   "domain" : "@test.com",
