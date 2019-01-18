@@ -1,4 +1,4 @@
-{
+﻿{
   "allow_create_new_accounts" : true,
   "send_emails"              : false,
   "application_sender_email" : "email@test.com",
@@ -12,6 +12,11 @@
   },
   "ga_analytics_on" : false,
   "crypto_secret" : "!2~`HswpPPLa22+=±§sdq qwe,appp qwwokDF_",
-  "application_domain" : "http://app.timeoff.management",
-  "promotion_website_domain" : "http://timeoff.management"
+  "gauth_as" : "test@test.com",
+  "gcalendar"        : false,
+  "gcalendar_id_dev" : "test@test.com",
+  "gcalendar_id_all" : "test@test.com",
+  "domain" : "@merimen.com",
+  "application_domain" : "http://localhost:3000",
+  "promotion_website_domain" : "http://localhost:3000"
 }

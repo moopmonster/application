@@ -19,12 +19,13 @@
         {{# if logged_user }}
           <li><a href="/calendar/">Calendar</a></li>
           <li><a href="/calendar/teamview/">Team View</a></li>
+          <li class=""><a href="/requests/">Requests</a></li>   
           {{# if logged_user.admin }}
             <li class="hidden-xs"><a href="/users/">Employees</a></li>
           {{/if}}
           <li class="navbar-form navbar-left">
             <div class="form-group">
-              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#book_leave_modal" id="book_time_off_btn">New absence</button>
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#book_leave_modal" id="book_time_off_btn">New Leave</button>
             </div>
           </li>
         {{/if}}
@@ -32,7 +33,18 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
           {{# if logged_user }}
+
+            {{# if_equal logged_user.supervised_users.length 1 }}
+              {{# if logged_user.admin }}
+              <li class=""><a href="/requests_approve/">Approve</a></li>
+              {{/if}}
+            {{else}}
+            <li class=""><a href="/requests_approve/">Approve</a></li>
+            {{/if_equal}}
+
             {{# if logged_user.admin }}
+            <li class="hidden-xs"><a href="/users/">Employees</a></li>        
+
             <li class="dropdown hidden-xs">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="fa fa-gears"></span> <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -48,12 +60,11 @@
               </ul>
             </li>
             {{/if}}
-            <li class="visible-xs-block"><a href="/requests/">Requests</a></li>
             <li class="visible-xs-block"><a href="/logout/">Logout</a></li>
             <li class="dropdown hidden-xs">
               <a id="me_menu" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Me <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="/requests/">Requests</a></li>
+                <!--<li><a href="/requests/">Requests</a></li>-->
                 <li class="hidden-xs"><a href="/calendar/feeds/">Feeds</a></li>
                 <li role="separator" class="divider hidden-xs"></li>
                 <li><a href="/logout/">Logout</a></li>

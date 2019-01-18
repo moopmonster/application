@@ -145,6 +145,39 @@ td.leave_cell_pended {
   color: #61686b;
   font-weight: bolder; }
 
+.reset-sort-link {
+  margin-bottom: 20px;
+}
+
+/* Sortable Table Highlight & Styling */
+.sortable-table-header {
+    cursor: pointer;
+}
+
+.sortable-table-header:hover {
+  background-color: #f5f7f8;
+}
+
+.tablesorter-header {
+    background-image: url(../img/bg.gif);
+    cursor: pointer;
+    font-weight: bold;
+    background-repeat: no-repeat;
+    background-position: center right;
+    padding-left: 20px;
+    margin-left: -1px;
+}
+
+.tablesorter-headerAsc {
+    background-image: url(../img/asc.gif);
+    background-color: #f5f7f8;
+}
+
+.tablesorter-headerDesc {
+  background-image: url(../img/desc.gif);
+  background-color: #f5f7f8;
+}
+
 .modal-dialog {
   max-width: 450px; }
 
@@ -244,3 +277,36 @@ div.feeds-holder {
 
 .leave_type_color_5 {
   background: #00BCD4 !important; }
+
+/* styling for required fields - ui improvement */
+.form-group.required .control-label:after {
+   content:"*";
+   color:red;
+}
+/* make attachment required/optional select smaller */
+#attachment_opt {font-size:80%;}
+.attachment-later-label {font-weight:normal;padding-top:3px;}
+.allowance_deducted {color:red;}
+.allowance_added {color:blue;}
+ /*.full-width {font-size:12px;}*/
+.fa-download.gray {color: #c0c0c0}
+.normal{font-size:12px;}
+.smaller{font-size:11px;}
+
+/* user_requests.hbs */
+.leave-Rejected-row, .leave-Cancelled-row
+{
+  background-color: #f2f2f2;
+  color: #8c8c8c;
+}
+.leave-Rejected-row .leave-request-row-status, .leave-Cancelled-row .leave-request-row-status {
+ 
+}
+.leave-Incomplete-row  .leave-request-row-status
+{
+  color:  red;
+}
+.leave-Approved-row .leave-request-row-status
+{
+  color: #0000ff;
+}

@@ -2,13 +2,12 @@
 <div class="modal fade" id="{{container_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-    <form method="POST" action="{{leave_modal_form_action}}">
+    <form method="POST" action="{{leave_modal_form_action}}" enctype="multipart/form-data">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="exampleModalLabel">New absence</h4>
+        <h4 class="modal-title" id="exampleModalLabel">New Leave</h4>
       </div>
       <div class="modal-body">
-
           {{# if_equal logged_user.supervised_users.length 1 }}{{else}}
           <div class="form-group">
             <label for="employee" class="control-label">For employee:</label>
@@ -24,7 +23,7 @@
             <label for="leave_type" class="control-label">Leave type:</label>
             <select class="form-control" id="leave_type" name="leave_type">
             {{# each logged_user.company.leave_types}}
-                <option value={{@index}} data-tom="{{this.name}}">{{this.name}}</option>
+                <option value={{@index}} data-tom="{{this.name}}" data-tom-prior="{{this.min_days_prior}}" data-tom-comment="{{this.comment_req}}" data-tom-attachment="{{this.attachment_req}}">{{this.name}}</option>
             {{/each}}
             </select>
           </div>
@@ -42,7 +41,8 @@
               <div class="col-md-7">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                  <input type="text" class="form-control book-leave-from-input" id="from" data-provide="datepicker" data-date-autoclose="1" data-date-format="{{# with logged_user.company }}{{this.get_default_date_format_for_date_picker}}{{/with}}" data-date-week-start="1" value="{{as_date booking_start}}" name="from_date">
+                  <input type="text" class="form-control book-leave-from-input" id="from" autocomplete="off"  data-date-autoclose="1" data-date-format="{{#with logged_user.company }}{{this.get_default_date_format_for_date_picker}}{{/with}}" value="" name="from_date">
+                  <input type="hidden" name="bank_holiday" id="bank_holiday" value="[{{#each logged_user.company.bank_holidays}}{'name':'{{escape this.name}}', 'dt':'{{as_date_formatted this.date 'YYYY-M-DD'}}'}{{#unless @last}},{{/unless}}{{/each}}]">
                 </div>
               </div>
             </div>
@@ -61,10 +61,21 @@
               <div class="col-md-7">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                  <input type="text" class="form-control book-leave-to-input" id="to" data-provide="datepicker" data-date-autoclose="1" data-date-format="{{#with logged_user.company }}{{this.get_default_date_format_for_date_picker}}{{/with}}" data-date-week-start="1" value="{{as_date booking_end}}" name="to_date">
+                  <input type="text" class="form-control book-leave-to-input" id="to" autocomplete="off"  data-date-autoclose="1" data-date-format="{{#with logged_user.company }}{{this.get_default_date_format_for_date_picker}}{{/with}}" value="" name="to_date">
                 </div>
               </div>
             </div>
+          </div>
+
+          <div class="form-group">
+            <label for="leave_type" class="control-label">Reason:</label>
+            <textarea class="form-control" rows="4" name="employee_comment" id="employee_comment" placeholder="Enter reason here..."></textarea></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="attachment-inp" class="control-label">Attachment:</label>
+            <input type="file" class="form-control-file" id="attachment-inp" name="attachment"></input>
+            <label for="attachment-later" class="attachment-later attachment-later-label"><input type="checkbox" id="attachment-later" name="attachment-later" class="attachment-later"> I will add the attachment later.</label>
           </div>
 
       </div>
@@ -81,5 +92,3 @@
     </div>
   </div>
 </div>
-
-
