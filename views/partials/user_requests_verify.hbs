@@ -1,11 +1,18 @@
-{{# unless to_be_verified_leaves}}
-{{else}}
+
+{{#if logged_user.admin }}
 <h1>To Verify</h1>
 
+{{#if to_be_verified_leaves}}
 <div class="row main-row_header">
   <p class="col-md-12">Leave requests to verify</p>
 </div>
+{{else}}
+<div class="row main">
+  <p class="col-md-12">No leave requests to verify</p>
+</div>
+{{/if}}
 
+{{#if to_be_verified_leaves}}
 <div class="row">
   <div class="col-md-12">
     <p class="visible-xs-block"><em class="text-muted">Scroll table horizontally</em></p>
@@ -80,4 +87,5 @@
   </div>
   
 </div>
-{{/unless}}
+{{/if}}
+{{/if}}

@@ -17,12 +17,12 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-left">
         {{# if logged_user }}
-          <li><a href="/calendar/">Calendar</a></li>
+          {{!-- <li><a href="/calendar/">Calendar</a></li> --}}
           <li><a href="/calendar/teamview/">Team View</a></li>
           <li class=""><a href="/requests/">Requests</a></li>   
-          {{# if logged_user.admin }}
+          {{!-- {{# if logged_user.admin }}
             <li class="hidden-xs"><a href="/users/">Employees</a></li>
-          {{/if}}
+          {{/if}} --}}
           <li class="navbar-form navbar-left">
             <div class="form-group">
               <button type="button" class="btn btn-info" data-toggle="modal" data-target="#book_leave_modal" id="book_time_off_btn">New Leave</button>
