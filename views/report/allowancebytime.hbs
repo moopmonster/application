@@ -1,17 +1,17 @@
 
 {{> header }}
 
-<h1>Allowance usage</h1>
+<h1>Leave Report</h1>
 
 <div class="row">
-  <div class="col-md-6 lead">Shows allowance usage in {{> reports/date_range_pretty same_month=same_month start_date=start_date_obj end_date=end_date_obj}}</div>
+  <div class="col-md-6 lead">Shows leave usage in {{> reports/date_range_pretty same_month=same_month start_date=start_date_obj end_date=end_date_obj}}</div>
 </div>
 
 {{> show_flash_messages }}
 
 <ol class="breadcrumb">
   <li><a href="/reports/">All reports</a></li>
-  <li class="active">Allowance usage by time</li>
+  <li class="active">Leave Report</li>
 </ol>
 
 <div class="row main-row_header">
@@ -95,24 +95,28 @@
   {{else}}
 
   <div class="col-md-12">
-    <table class="table table-hover">
+    <table class="table table-hover smaller">
       <thead>
         <tr>
-          <th>Employee full name</th>
+          <th>Full name</th>
+          <th>Department</th>
           {{# each users_and_leaves.0.statistics.leave_type_break_down.pretty_version}}
           <th>{{this.name}}</th>
-          {{/each}}
+          {{/each}}          
           <th>Days deducted from allowance<br>in {{> reports/date_range_pretty same_month=same_month start_date=start_date_obj end_date=end_date_obj}}</th>
         </tr>
       </thead>
       {{# each users_and_leaves}}
+        {{#if_equal this.user.id 1}}{{else}}
         <tr data-vpp-user-list-row={{this.user.id}}>
-          <td>{{#with this.user }}<a href="/users/edit/{{this.id}}/">{{ this.full_name }}</a>{{/with}}</td>
+          <td>{{#with this.user }}<a href="/users/edit/{{this.id}}/">{{ this.full_name }} </a>{{/with}}</td>
+          <td>{{ department }}</td>
           {{#each statistics.leave_type_break_down.pretty_version }}
           <td data-vpp-leave-type-id="{{this.id}}">{{this.stat}}</td>
           {{/each}}
           <td data-vpp-deducted-days="1">{{ statistics.deducted_days }}</td>
         </tr>
+        {{/if_equal}}
       {{/each}}
     </table>
   </div>
