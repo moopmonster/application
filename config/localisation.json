@@ -5171,6 +5171,101 @@
         }
       ]
     },
+    "MY": {
+      "name": "Malaysia",
+      "bank_holidays": [
+        {
+          "date": "2018-01-01",
+          "name": "New Years"
+        },
+        {
+          "date": "2018-01-31",
+          "name": "Thaipusam"
+        },
+        {
+          "date": "2018-02-16",
+          "name": "Chinese New Year"
+        },
+        {
+          "date": "2018-02-17",
+          "name": "Chinese New Year (2nd Day)"
+        },
+        {
+          "date": "2018-03-30",
+          "name": "Good Friday"
+        },
+        {
+          "date": "2018-05-01",
+          "name": "Labour Day"
+        },
+        {
+          "date": "2018-05-29",
+          "name": "Vesak Day"
+        },
+        {
+          "date": "2018-05-30",
+          "name": "Pesta Kaamatan"
+        },
+        {
+          "date": "2018-06-02",
+          "name": "Nuzul Al-Quran"
+        },
+        {
+          "date": "2018-06-15",
+          "name": "Hari Raya Puasa"
+        },
+        {
+          "date": "2018-06-16",
+          "name": "Hari Raya Aidilfitri"
+        },
+        {
+          "date": "2018-08-22",
+          "name": "Hari Raya Haji"
+        },
+        {
+          "date": "2018-08-31",
+          "name": "National Day"
+        },
+        {
+          "date": "2018-09-09",
+          "name": "Yang Dipertuan Agong's Birthday"
+        },
+        {
+          "date": "2018-09-11",
+          "name": "Awal Muharram"
+        },
+        {
+          "date": "2018-11-06",
+          "name": "Deepavali"
+        },
+        {
+          "date": "2018-11-20",
+          "name": "Prophet Muhammad's Birthday"
+        },
+        {
+          "date": "2018-12-25",
+          "name": "Christmas"
+        },
+        { "date": "2019-01-01", "name": "New Year's Day"},
+        { "date": "2019-01-21", "name": "Thaipusam"},
+        { "date": "2019-02-01", "name": "Federal Territory Day"},
+        { "date": "2019-02-05", "name": "Chinese New Year"},
+        { "date": "2019-05-01", "name": "Labour Day"},
+        { "date": "2019-05-20", "name": "Wesak Day"},
+        { "date": "2019-05-22", "name": "Nuzul Al-Quran"},
+        { "date": "2019-06-05", "name": "Hari Raya Aidilfitri"},
+        { "date": "2019-08-12", "name": "Hari Raya Haji"},
+        { "date": "2019-08-31", "name": "National Day"},
+        { "date": "2019-09-02", "name": "Awal Muharram"},
+        { "date": "2019-09-09", "name": "Agong's Birthday"},
+        { "date": "2019-09-16", "name": "Malaysia Day"},
+        { "date": "2019-10-28", "name": "Deepavali"},
+        { "date": "2019-11-09", "name": "Prophet Muhammad's Birthday"},
+        { "date": "2019-12-25", "name": "Christmas"}
+
+    ]
+  },
+      
     "MZ": {
       "name": "Moçambique",
       "bank_holidays": [
