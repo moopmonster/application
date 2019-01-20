@@ -36,10 +36,10 @@
 
             {{# if_equal logged_user.supervised_users.length 1 }}
               {{# if logged_user.admin }}
-              <li class=""><a href="/requests_approve/">Approve</a></li>
+              <li class=""><a href="/requests/approve/">Approve</a></li>
               {{/if}}
             {{else}}
-            <li class=""><a href="/requests_approve/">Approve</a></li>
+            <li class=""><a href="/requests/approve/">Approve</a></li>
             {{/if_equal}}
 
             {{# if logged_user.admin }}

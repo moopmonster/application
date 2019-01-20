@@ -1,0 +1,83 @@
+{{# unless to_be_verified_leaves}}
+{{else}}
+<h1>To Verify</h1>
+
+<div class="row main-row_header">
+  <p class="col-md-12">Leave requests to verify</p>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <p class="visible-xs-block"><em class="text-muted">Scroll table horizontally</em></p>
+    <div class="table-responsive">
+    <table class="table table-hover requests-to-approve-table">
+      <thead>
+        <tr>
+          <th class="col-md-2">Employee</th>
+          {{!-- <th class="col-md-1">Department</th> --}}
+          <th class="col-md-1">Date of request</th>
+          <th class="col-md-2">Leave dates</th>
+          <th class="col-md-2">Type</th>
+          <th class="col-md-1">Days</th>
+          <th class="col-md-1">Employee Reason</th>
+          <th class="col-md-2">Approved By</th>
+          <th class="col-md-1" colspan=2>
+            <input class="btn btn-sm" style="min-width:90px" type="button" id="checkall" value="Select All" onclick="$('[name=verify]').each(function(e,i){ this.checked=($('#checkall').attr('togglestate')==0?true:false);}); {let allchecked=$('#checkall').attr('togglestate'); $('#checkall').val((allchecked==0?'Unselect':'Select')+' All').attr('togglestate',(allchecked==0?1:0));}" togglestate="0">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each to_be_verified_leaves }}
+        <tr vpp="pending_for__{{this.user.email}}">
+          <td>{{#with this.user}}{{this.full_name}}{{/with}}</td>
+          {{!-- <td>{{this.user.department.name}}</td> --}}
+          <td class="date_of_request">{{as_date_from_timestamp this.createdAt}}</td>
+          <td data-tom-leave-dates="1" class="smaller">{{> leave_dates leave=this}}</td>
+          <td>{{#if this.is_pended_revoke_leave}}REVOKE {{/if}}{{this.leave_type.name}}</td>
+          <td data-vpp="days_used">{{ this.get_deducted_days_number_ignore_allowance }} {{#if this.get_deducted_days_number}}<span class="allowance_deducted">(-{{ this.get_deducted_days_number }})</span>{{/if}}</td>
+          <td class="smaller">
+            {{# if this.get_leave_type_attachment_req }}
+            <form action="/requests/reqdownload/" method="post">
+              <input type="hidden" value="{{this.id}}" name="request">
+              <button type="submit" class="btn btn-default btn-xs" title="Download file " {{#unless this.attachment}}disabled{{/unless}}>
+                <i class="fa fa-download{{#unless this.attachment}} gray{{/unless}}"> </i>
+              </button>
+            </form>
+            {{/if}}                        
+            {{#if this.get_employee_comment}}{{this.get_employee_comment}}{{/if}}
+          </td>
+          <td class="user-request-table-approver">{{# if is_approved_or_rejected }}{{#with this.approver}}{{this.full_name}}{{/with}}{{/if}}</td>          
+          <td>
+            <input type="checkbox" name="verify" id="verify_{{this.id}}" value="{{this.id}}">
+          </td>
+          <td>
+            {{# if this.get_leave_type_attachment_can_approve }}
+            <form action="/requests/verify/" method="POST">
+            <input class="btn btn-primary btn-xs" type="submit" value="Verify">
+            <input type="hidden" value="{{this.id}}" name="verify_one">
+            </form>
+            {{/if}}            
+          </td>
+        </tr>
+        {{/each}}
+        <tr>
+        <td colspan=9>
+          <div align=right>
+          <form action="/requests/verify/" method="POST" id="verify_form">
+          &nbsp; &nbsp;<input class="btn btn-success btn-sm" type="button" onclick="$('#verify_list').val( $('[name=verify]:checked').map(function(){return this.value}).get().join() ); ($('#verify_list').val()==''?alert('Please make a selection.'):$('#verify_form').submit());" value="Verify Selected">
+          <input type="hidden" name="verify_list" id="verify_list" value="">
+          </form>
+          </div>
+        </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+    </div>
+
+
+  </div>
+  
+</div>
+{{/unless}}

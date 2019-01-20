@@ -142,12 +142,6 @@ app.use(
 );
 
 app.use(
-  '/requests_approve/',
-  require('./lib/route/requests')
-);
-
-
-app.use(
   '/audit/',
   require('./lib/route/audit')
 );

@@ -94,12 +94,16 @@
   </div>
 </div>
 <!-- /end Reject Modal for comments -->
+{{else}}
 
+<div class="row">
+  <p class="col-md-12">No leave requests to approve.</p>
+</div>
 
-
-<div class="main-row_header">&nbsp;</div>
 
 {{/if}}
+
+  {{> user_requests_verify to_be_verified_leaves=to_be_verified_leaves no_header=1 logged_user=logged_user}}
 
 
 {{>footer}}
