@@ -55,6 +55,7 @@
     "start": "node bin/wwww",
     "db-update": "node_modules/.bin/sequelize db:migrate --config=config/db.json --models-path=lib/model/db/",
     "carry-over-allowance": "node bin/calculate_carry_over_allowance_for_all_users.js",
+    "update_gcal": "node bin/update_gcal.js",
     "compile-sass": "node node_modules/node-sass/bin/node-sass scss/main.scss public/css/style.css"
   }
 }
