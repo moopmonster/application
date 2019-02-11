@@ -292,6 +292,8 @@ div.feeds-holder {
 .fa-download.gray {color: #c0c0c0}
 .normal{font-size:12px;}
 .smaller{font-size:11px;}
+.wfh-label {font-weight:normal;}
+div#wfh-warn {font-size:12px; font-weight:normal;text-align:justify;padding-bottom:1em;color:red;}
 
 /* user_requests.hbs */
 .leave-Rejected-row, .leave-Cancelled-row

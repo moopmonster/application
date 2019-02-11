@@ -69,7 +69,15 @@
 
           <div class="form-group">
             <label for="leave_type" class="control-label">Reason:</label>
-            <textarea class="form-control" rows="4" name="employee_comment" id="employee_comment" placeholder="Enter reason here..."></textarea></textarea>
+            <div id="wfh-block" style="display:none;">
+              <label for="wfh-chk" class="wfh-label">
+                <input type="checkbox" id="wfh-chk" name="wfh"> Work From Home
+              </label>
+            </div>
+            <div id="wfh-warn" style="display:none;">
+              Work From Home is not a Leave Type. Before applying, please ensure that you have already checked with your manager, and have a proper understanding of what this arrangement is. Please key in a valid reason for Working From Home. 
+            </div>
+            <textarea class="form-control" rows="4" name="employee_comment" id="employee_comment" placeholder="Enter reason here..."></textarea>
           </div>
           
           <div class="form-group">

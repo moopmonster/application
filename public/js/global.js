@@ -266,6 +266,12 @@ $(document).ready(function(){
       var optsel = $(this).find('option:selected');
       var validate_comment = optsel.attr('data-tom-comment');
       var validate_attachment = optsel.attr('data-tom-attachment');
+      var optsel_name = optsel.attr('data-tom');
+
+      // hardcode for "Others"      
+      toggleShow($('#wfh-block'),(optsel_name == "Others"?true:false));      
+      $('input#wfh-chk').prop("checked", false);
+      toggleShow($('div#wfh-warn'), false);
 
       // set compulsory comments
       toggleReq($('textarea#employee_comment'),(validate_comment==1?true:false));
@@ -293,6 +299,12 @@ $(document).ready(function(){
     e.stopPropagation();
     toggleReq($('input#attachment-inp'),!$(this).prop("checked"));
   });
+
+  // Wfh 
+  $('input#wfh-chk').on('click', function(e){
+    e.stopPropagation();
+    toggleShow($('div#wfh-warn'), $(this).prop("checked"));
+  });  
 
 });
 
