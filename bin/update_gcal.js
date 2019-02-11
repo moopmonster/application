@@ -31,19 +31,37 @@ models.Leave.findAll({
     }],
   }],	
   where: {
-    gevent_id: {$eq: null},    
-    '$leave_type.is_adjustment$': 0,
-    status : [1,2,4],
+        $and : [			
+			{'$leave_type.is_adjustment$': 0 } ,
+			{ status : [1,2,3,4,5] } ,
+        ],
+        $or : {
+			gevent_id: {$eq: null},
+			gevent_error: {$not: null}
+        },
+
   }
 })
 //models.sequelize.query("SELECT * FROM `Leaves` a inner join `users` b on a.userId = b.id inner join `LeaveTypes` c on c.id = a.leavetypeid where a.gevent_id is null", { type: models.sequelize.QueryTypes.SELECT})
 .then(function(leaves) {
-	
+
 	leaves.forEach(function(leave){ 
-		var gcal = new GcalEvent();
-		gcal.promise_gevent_create({
-			leave : leave,
-		});
+
+		console.log( leave.gevent_id, leave.gevent_error )
+
+		if(leave.gevent_id === null)
+		{
+			var gcal = new GcalEvent();
+			gcal.promise_gevent_create({
+				leave : leave,
+			});
+		}
+		else
+		{
+			var gcal = new GcalEvent();
+			gcal.promise_leave_request_decision_gevent({leave : leave,});
+		}
+
 	});
 
 })
