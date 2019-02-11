@@ -65,6 +65,8 @@
             <input class="btn btn-success btn-xs" type="submit" value="Approve">
             <input type="hidden" value="{{this.id}}" name="request">
             </form>
+            {{else}}
+            <span style="color:red" class="smaller">Incomplete</span>
             {{/if}}            
           </td>
         </tr>
