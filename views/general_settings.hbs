@@ -96,6 +96,23 @@
                 </div>
               </div>
             </form>
+
+            <div class="form-horizontal">
+              <form id="credit_leaves_number" method="post" action="/settings/credit_additional_leave" onsubmit="return confirm('Are you sure to credit additional leave(s) to all stuff ? \nWarning: This action can not be revert !');">
+              <div class="form-group">
+                  <label class="col-md-8 control-label">Credit Additional Leave To All Staff</label>
+              </div>
+              <div class="form-group">
+                <div class="col-md-offset-2">
+                  <p><em>This action will credit additional leave to all employee with <input type="number" name="days_credit_additional_leave" id="days_credit_additional_leave" min="1"> day(s)
+                  <p><em> Please note, employees annual leave count is going to be updated.</em></p>
+                </div>
+              </div>
+              <div class="form-group">
+                  <button class="btn btn-success pull-right" type="submit"><span class="glyphicon glyphicon-plus"></span>Credit additional leave</button>
+              </div>
+              </form>
+            </div>
           </div>
 
           <div class="col-md-offset-1 col-md-5">

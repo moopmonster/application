@@ -42,16 +42,40 @@
           <td>{{#if this.is_pended_revoke_leave}}REVOKE {{/if}}{{this.leave_type.name}}</td>
           <td data-vpp="days_used">{{ this.get_deducted_days_number_ignore_allowance }} {{#if this.get_deducted_days_number}}<span class="allowance_deducted">(-{{ this.get_deducted_days_number }})</span>{{/if}}</td>
           <td class="smaller">{{#if this.get_employee_comment}}{{this.get_employee_comment}}{{/if}}</td>
-          <td>
-            {{# if this.get_leave_type_attachment_req }}
-            <form action="/requests/reqdownload/" method="post">
-              <input type="hidden" value="{{this.id}}" name="request">
-              <button type="submit" class="btn btn-default btn-xs" title="Download file " {{#unless this.attachment}}disabled{{/unless}}>
-                <i class="fa fa-download{{#unless this.attachment}} gray{{/unless}}"> </i>
+          {{# if this.get_leave_type_attachment_req }}
+            {{#if this.get_leave_type_attachment_is_image}}
+            <td>
+              <button data-toggle="modal" data-target="#viewAttachment_{{this.id}}" data-lid="{{this.id}}" type="submit" class="btn btn-default btn-xs" title="View Image " {{#unless this.attachment}}disabled{{/unless}}>
+                  <i class="fa fa-file-image-o{{#unless this.attachment}} gray{{/unless}}"></i>
               </button>
-            </form>
+
+              <!-- View Attachment -->
+              <div class="modal fade" id="viewAttachment_{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="viewAttachmentLabel">
+                <div class="modal-dialog" style="text-align:center;">
+                  <div class="modal-content" style="display:inline-block;">
+                    <div class="modal-body">
+                        <div class="form-group">
+                          <img src="{{this.attachment}}" alt="attachment" style="max-width: 800px;">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /end View Attachment -->
+            <td>
             {{/if}}
-          </td>
+            <td>
+              <form action="/requests/reqdownload/" method="post">
+                <input type="hidden" value="{{this.id}}" name="request">
+                <button type="submit" class="btn btn-default btn-xs" title="Download file " {{#unless this.attachment}}disabled{{/unless}}>
+                  <i class="fa fa-download{{#unless this.attachment}} gray{{/unless}}"> </i>
+                </button>
+              </form>
+            </td>
+          {{/if}}
           <td>
             <form action="/requests/reject/" method="POST" id="rejectForm_{{this.id}}">
             <input type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#rejectModal" data-lid="{{this.id}}" type="submit" value="Reject">
