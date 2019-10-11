@@ -64,7 +64,7 @@
         {{# if_equal this.is_resigned 0 }}
         <tr data-vpp-user-row="{{this.user_id}}">
           <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_nickname}}</a></td>
-          <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_full_name}}</a></td>          
+          <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{#unless this.is_active}}<s>{{/unless}}{{this.user_full_name}}{{#unless this.is_active}}</s>{{/unless}}</a></td>
           <td class="user_department"><a href="/settings/departments/edit/{{ this.department_id }}/">{{this.department_name}}</a></td>
           <td>{{# if this.is_admin }}Yes{{else}}{{/if}}</td>
           <td>{{ as_date this.user_dtjoin }}</td>        

@@ -82,7 +82,7 @@
                 <div class="col-md-offset-4 col-md-8">
                   <div class="checkbox">
                     <label for="share-all-absences">
-                      <input id="share-all-absences" type="checkbox" name="share_all_absences" {{# if company.share_all_absences }} checked="checked"{{/if}}>Share leave view between all employees
+                      <input id="share-all-absences" type="checkbox" name="share_all_absences" {{# if company.share_all_absences }} checked="checked"{{/if}}>Share absences between employees
                     </label>
                     <p>
                       <em>If enabled all employees can see information about everybody's leave regardless departments.</em>
@@ -90,6 +90,21 @@
                   </div>
                 </div>
               </div>
+
+              <div class="form-group">
+                <div class="col-md-offset-4 col-md-8">
+                  <div class="checkbox">
+                    <label for="is-team-view-hidden">
+                      <input id="is-team-view-hidden" type="checkbox" name="is_team_view_hidden" {{# if company.is_team_view_hidden }} checked="checked"{{/if}}>Hide Team View page for non-admin users
+                    </label>
+                    <p>
+                      <em>If marked Team view page is shown only to admin users.</em>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+
               <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                   <button type="submit" class="btn btn-success pull-right">Save changes</button>
@@ -119,11 +134,11 @@
 
             <div class="form-horizontal">
               <div class="form-group">
-                <label for="" class="col-md-7 control-label">Backup employees' leaves data</label>
+                <label for="" class="col-md-7 control-label">Backup employees' leave data</label>
               </div>
               <div class="form-group">
                 <div class="col-md-offset-2">
-                  <em>Download list of employees with their leave requests ever. The file is in <strong>.CSV</strong> format which is compatible with MS Excel.</em>
+                  <em>Download the full list of employees with all their leave requests. The file is in <strong>.CSV</strong> format which is compatible with MS Excel.</em>
                 </div>
               </div>
               <div class="form-group">
@@ -161,8 +176,8 @@
               </div>
               <div class="form-group">
                 <div class="col-md-offset-2">
-                  <p><em>This action for each employee would take unused allowance from <strong>{{yearPrev}}</strong> and carry it over to current <strong>{{yearCurrent}}</strong> year.</em></p>
-                  <p><em> Please note, employees allowance is going to be updated.</em></p>
+                  <p><em>This action will carry over unused allowance for each employee from <strong>{{yearPrev}}</strong> to the current year, <strong>{{yearCurrent}}</strong>.</em></p>
+                  <p><em>Please note, employees allowance is going to be updated.</em></p>
                 </div>
               </div>
               <div class="form-group">
@@ -378,7 +393,7 @@
               <div class="form-group">
                 <div class="col-md-6">
                   <p><em>Completely erase data associated with {{company.name}}'s account.</em></p>
-                  <p><em> This is irreversible action.</em></p>
+                  <p><em> This action cannot be reverted.</em></p>
                   <p><em> It is strongly recommended to <a href="/settings/company/backup/">download</a> employees leave data first.</em></p>
                 </div>
                 <div class="col-md-6">
