@@ -226,7 +226,7 @@
 
 
         {{#each company.leave_types}}
-        <div class="row">
+        <div class="row add-padding">
           <div class="col-md-3">
 
             <div class="input-group">
@@ -251,26 +251,31 @@
           </div>
           <div class="col-md-2">
             <input name="use_allowance__{{ this.id }}" id="use_allowance__{{ this.id }}" type="checkbox" {{#if use_allowance}}checked="checked"{{/if}} data-tom-leave-type-order="allowance_{{@index}}">
-            <label for="use_allowance__{{ this.id }}" class="control-label">Use allowance</label>
+            <label for="use_allowance__{{ this.id }}" class="control-label smaller">Use allowance</label>
+            <br>
+            <label for="include_weekend_and_hols__{{ this.id }}" class="control-label smaller">
+              <input name="include_weekend_and_hols__{{ this.id }}" id="include_weekend_and_hols__{{ this.id }}" type="checkbox" {{#if is_include_weekend_and_hols}}checked="checked"{{/if}} value="1" data-tom-leave-weekend="weekends_{{@index}}">
+              Count all days
+            </label>            
           </div>
           <div class="col-md-3">
             <input name="comment_req__{{ this.id }}" id="comment_req__{{ this.id }}" type="checkbox" {{#if comment_req}}checked="checked"{{/if}} data-tom-leave-type-order="comment_{{@index}}">
-            <label for="comment_req__{{ this.id }}" class="control-label">Reason</label>
+            <label for="comment_req__{{ this.id }}" class="control-label smaller">Reason</label>
             &nbsp;&nbsp;
             <input name="attachment_req__{{ this.id }}" id="attachment_req__{{ this.id }}" type="checkbox" {{#if attachment_req}}checked="checked"{{/if}} data-tom-leave-type-order="attachment_req_{{@index}}">
-            <label for="attachment_req__{{ this.id }}" class="control-label">Attachment</label> <select id="attachment_opt" name="attachment_opt__{{ this.id }}"><option value="1">req</option><option value="2"{{#if_equal this.attachment_req 2}} selected{{/if_equal}}>opt</option></select>
+            <label for="attachment_req__{{ this.id }}" class="control-label smaller">Attachment</label> <select id="attachment_opt" name="attachment_opt__{{ this.id }}"><option value="1">req</option><option value="2"{{#if_equal this.attachment_req 2}} selected{{/if_equal}}>opt</option></select>
           </div>
-          <div class="col-md-1">
+          <div class="col-md-1 general-settings-no-pad">
             <input type="number" class="form-control" min="0" value="{{limit}}" name="limit__{{ this.id }}" data-tom-leave-type-order="limit_{{@index}}">
           </div>
-          <div class="col-md-1">
+          <div class="col-md-1 general-settings-no-pad">
             <input type="number" class="form-control" min="0" value="{{min_days_prior}}" name="min_days_prior__{{ this.id }}" data-tom-leave-type-order="min_days_prior_{{@index}}">
           </div>
-          <div class="col-md-1">
+          <div class="col-md-1 general-settings-no-pad">
             <input type="number" class="form-control" min="0" value="{{sort_order}}" name="sort_order__{{ this.id }}" data-tom-leave-type-order="sort_order_{{@index}}">
           </div>          
-          <div class="col-md-1">
-            <button class="btn btn-default pull-right leavetype-remove-btn" value="{{ this.id }}" data-tom-leave-type-order="remove_{{@index}}"><span class="fa fa-remove"></span></button>
+          <div class="col-md-1 general-settings-no-pad">
+            <button class="btn btn-default leavetype-remove-btn" value="{{ this.id }}" data-tom-leave-type-order="remove_{{@index}}"><span class="fa fa-remove"></span></button>
           </div>
         </div>
 
