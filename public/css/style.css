@@ -312,3 +312,21 @@ div#wfh-warn {font-size:12px; font-weight:normal;text-align:justify;padding-bott
 {
   color: #0000ff;
 }
+
+.modal-full {
+    min-width: 99.5%;
+    margin: 5px 5px 5px 5px;
+}
+
+.modal-full .modal-content {
+    min-height: 99vh;
+}
+
+.modal-half {
+    min-width: 75%;
+}
+
+.modal-full .modal-content {
+    min-height: 75vh;
+}
+
