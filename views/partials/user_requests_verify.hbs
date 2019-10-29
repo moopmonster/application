@@ -27,7 +27,8 @@
           <th class="col-md-2">Type</th>
           <th class="col-md-1">Days</th>
           <th class="col-md-1">Employee Reason</th>
-          <th class="col-md-2">Approved By</th>
+          <th class="col-md-1">Approved By</th>
+          <th class="col-md-1">Attachment</th>
           <th class="col-md-1" colspan=2>
             <input class="btn btn-sm" style="min-width:90px" type="button" id="checkall" value="Select All" onclick="$('[name=verify]').each(function(e,i){ this.checked=($('#checkall').attr('togglestate')==0?true:false);}); {let allchecked=$('#checkall').attr('togglestate'); $('#checkall').val((allchecked==0?'Unselect':'Select')+' All').attr('togglestate',(allchecked==0?1:0));}" togglestate="0">
           </th>
@@ -42,33 +43,78 @@
           <td data-tom-leave-dates="1" class="smaller">{{> leave_dates leave=this}}</td>
           <td>{{#if this.is_pended_revoke_leave}}REVOKE {{/if}}{{this.leave_type.name}}</td>
           <td data-vpp="days_used">{{ this.get_deducted_days_number_ignore_allowance }} {{#if this.get_deducted_days_number}}<span class="allowance_deducted">(-{{ this.get_deducted_days_number }})</span>{{/if}}</td>
-          <td class="smaller">
-            {{# if this.get_leave_type_attachment_req }}
-            <form action="/requests/reqdownload/" method="post">
-              <input type="hidden" value="{{this.id}}" name="request">
-              <button type="submit" class="btn btn-default btn-xs" title="Download file " {{#unless this.attachment}}disabled{{/unless}}>
-                <i class="fa fa-download{{#unless this.attachment}} gray{{/unless}}"> </i>
-              </button>
-            </form>
-            {{/if}}                        
+          <td class="smaller">              
             {{#if this.get_employee_comment}}{{this.get_employee_comment}}{{/if}}
           </td>
           <td class="user-request-table-approver">{{# if is_approved_or_rejected }}{{#with this.approver}}{{this.full_name}}{{/with}}{{/if}}</td>          
           <td>
-            <input type="checkbox" name="verify" id="verify_{{this.id}}" value="{{this.id}}">
-          </td>
-          <td>
-            {{# if this.get_leave_type_attachment_can_approve }}
-            <form action="/requests/verify/" method="POST">
-            <input class="btn btn-primary btn-xs" type="submit" value="Verify">
-            <input type="hidden" value="{{this.id}}" name="verify_one">
-            </form>
-            {{/if}}            
-          </td>
+          {{# if this.get_leave_type_attachment_req }}
+              <table width="100%">
+                <tr>
+                {{#if this.get_leave_type_attachment_is_image}}
+                  <td>
+                    <button data-toggle="modal" data-target="#viewAttachment_{{this.id}}" data-lid="{{this.id}}" type="submit" class="btn btn-default btn-xs" title="View Image " {{#unless this.attachment}}disabled{{/unless}}>
+                        <i class="fa fa-file-image-o{{#unless this.attachment}} gray{{/unless}}"></i>
+                    </button>
+                  </td>
+                {{/if}}
+                {{#if this.get_leave_type_attachment_is_pdf}}
+                  <td>
+                    <button data-toggle="modal" data-target="#viewAttachment_{{this.id}}" data-lid="{{this.id}}" type="submit" class="btn btn-default btn-xs" title="View PDF " {{#unless this.attachment}}disabled{{/unless}}>
+                          <i class="fa fa-file-pdf-o{{#unless this.attachment}} gray{{/unless}}"></i>
+                      </button>
+                  </td>
+                {{/if}}
+
+               <!-- View Attachment -->
+                <div class="modal fade" id="viewAttachment_{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="viewAttachmentLabel">
+                  <div class="modal-dialog {{#if this.get_leave_type_attachment_is_pdf}}modal-full{{else}}modal-half{{/if}}">
+                    <div class="modal-content">
+                      <div class="modal-body" style="padding:5px">
+                          <div class="form-group" style="text-align: center">
+                            {{#if this.get_leave_type_attachment_is_image}}
+                              <img src="{{this.attachment}}" alt="attachment" style="max-width: 99%;display: inline-block;">
+                            {{/if}}
+                            {{#if this.get_leave_type_attachment_is_pdf}}
+                              <embed src="{{this.attachment}}" type="application/pdf" style="min-width: 99%;min-height: 89vh;border-radius: 7px">
+                            {{/if}}
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /end View Attachment -->
+
+                <td>
+                  <form action="/requests/reqdownload/" method="post">
+                    <input type="hidden" value="{{this.id}}" name="request">
+                    <button type="submit" class="btn btn-default btn-xs" title="Download file " {{#unless this.attachment}}disabled{{/unless}}>
+                      <i class="fa fa-download{{#unless this.attachment}} gray{{/unless}}"> </i>
+                    </button>
+                  </form>
+                </td>
+              <tr>
+            </table>
+            {{/if}}
+            </td>
+            <td>
+              <input type="checkbox" name="verify" id="verify_{{this.id}}" value="{{this.id}}">
+            </td>
+            <td>
+              {{# if this.get_leave_type_attachment_can_approve }}
+              <form action="/requests/verify/" method="POST">
+              <input class="btn btn-primary btn-xs" type="submit" value="Verify">
+              <input type="hidden" value="{{this.id}}" name="verify_one">
+              </form>
+              {{/if}}            
+            </td>
         </tr>
         {{/each}}
         <tr>
-        <td colspan=9>
+        <td colspan=10>
           <div align=right>
           <form action="/requests/verify/" method="POST" id="verify_form">
           &nbsp; &nbsp;<input class="btn btn-success btn-sm" type="button" onclick="$('#verify_list').val( $('[name=verify]:checked').map(function(){return this.value}).get().join() ); ($('#verify_list').val()==''?alert('Please make a selection.'):$('#verify_form').submit());" value="Verify Selected">
