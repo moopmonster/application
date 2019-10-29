@@ -1,0 +1,6 @@
+/**Insert record for leave that credited for Malaysia National Day**/
+INSERT INTO Leaves
+(status,employee_comment,date_start,day_part_start,date_end,day_part_end,verified,verifiedBy,createdAt,updatedAt,userID,approverId,leaveTypeId)
+SELECT 2,'Leave replacement for Malaysia National Day','2019-08-31 00:00:000',1,'2019-08-31 00:00:000',1,1,(SELECT id FROM USERS WHERE nickname = 'Mei Shi'),date('now'),date('now'),id,(SELECT id FROM USERS WHERE nickname = 'Mei Shi'),(SELECT id FROM LeaveTypes WHERE name = '+ Add Annual Leave') 
+FROM users WHERE end_date IS NULL AND companyId = (SELECT id FROM COMPANIES WHERE name = 'Merimen Online')
+/**Insert record for leave that credited for Malaysia National Day**/
