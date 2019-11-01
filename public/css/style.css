@@ -330,3 +330,12 @@ div#wfh-warn {font-size:12px; font-weight:normal;text-align:justify;padding-bott
     min-height: 75vh;
 }
 
+.add-padding {
+  margin-bottom:0.6em;
+}
+.modal-dialog.new-leave-type {
+  max-width:800px !important;
+}
+.col-md-1.general-settings-no-pad {
+  padding-right:0px;
+}

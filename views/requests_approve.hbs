@@ -42,6 +42,7 @@
           <td>{{#if this.is_pended_revoke_leave}}REVOKE {{/if}}{{this.leave_type.name}}</td>
           <td data-vpp="days_used">{{ this.get_deducted_days_number_ignore_allowance }} {{#if this.get_deducted_days_number}}<span class="allowance_deducted">(-{{ this.get_deducted_days_number }})</span>{{/if}}</td>
           <td class="smaller">{{#if this.get_employee_comment}}{{this.get_employee_comment}}{{/if}}</td>
+          <td>
           {{# if this.get_leave_type_attachment_req }}
             {{#if this.get_leave_type_attachment_is_image}}
               <td>
@@ -86,7 +87,9 @@
                   <i class="fa fa-download{{#unless this.attachment}} gray{{/unless}}"> </i>
                 </button>
               </form>
-            </td>
+          {{else}}
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
           {{/if}}
           <td>
             <form action="/requests/reject/" method="POST" id="rejectForm_{{this.id}}">
