@@ -1,6 +1,20 @@
 /**Insert record for leave that credited for Malaysia National Day**/
+/**Insert leave record**/
 INSERT INTO Leaves
 (status,employee_comment,date_start,day_part_start,date_end,day_part_end,verified,verifiedBy,createdAt,updatedAt,userID,approverId,leaveTypeId)
-SELECT 2,'Leave replacement for Malaysia National Day','2019-08-31 00:00:000',1,'2019-08-31 00:00:000',1,1,(SELECT id FROM USERS WHERE nickname = 'Mei Shi'),date('now'),date('now'),id,(SELECT id FROM USERS WHERE nickname = 'Mei Shi'),(SELECT id FROM LeaveTypes WHERE name = '+ Add Annual Leave') 
-FROM users WHERE end_date IS NULL AND companyId = (SELECT id FROM COMPANIES WHERE name = 'Merimen Online')
+SELECT 2,'Leave replacement for Malaysia National Day','2019-08-31 00:00:000',1,'2019-08-31 00:00:000',1,1,(SELECT id FROM USERS WHERE nickname = 'Mei Shi'),'2019-08-31 00:00:000','2019-08-31 00:00:000',id,(SELECT id FROM USERS WHERE nickname = 'Mei Shi'),(SELECT id FROM LeaveTypes WHERE name = '+ Add Annual Leave') 
+FROM users WHERE end_date IS NULL AND companyId = 1
+
+/**Update User leave count**/
+Update users Set user_leave = (user_leave - 1) WHERE end_date IS NULL AND companyId = 1
+
+/**Insert user leave adjustment count if no record found**/
+INSERT INTO user_allowance_adjustment
+(year,adjustment,carried_over_allowance,created_at,user_id)
+SELECT 2019,1,0,'2019-08-31 00:00:000',id FROM USERS
+WHERE companyID = 1 AND end_date IS NULL AND id NOT IN (SELECT user_id FROM user_allowance_adjustment WHERE year = 2019)
+
+/**Update user leave adjustment count if record found in user_allowance_adjustment**/
+Update user_allowance_adjustment set  adjustment = (adjustment + 1)
+WHERE user_id in (Select id from USERS where companyID) AND year = 2019
 /**Insert record for leave that credited for Malaysia National Day**/
