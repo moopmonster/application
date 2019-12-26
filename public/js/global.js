@@ -357,3 +357,11 @@ function reject_comment()
   document.getElementById('comment_' +  lid).value = $('#reject_with_comments').val();
   document.getElementById('rejectForm_' +  lid).submit();
 }
+
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});

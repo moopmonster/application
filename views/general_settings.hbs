@@ -4,7 +4,7 @@
 
 <h1>General settings</h1>
 
-<p class="lead">Account main settings</p>
+<p class="lead">{{company.name}} account main settings</p>
 
 {{> show_flash_messages }}
 
@@ -20,7 +20,7 @@
         <div class="row">
 
           <div class="col-md-5">
-            <form class="form-horizontal" method="POST" action="/settings/company/" id="company_edit_form">
+            <form class="form-horizontal" method="POST" action="/settings/company/{{company.id}}" id="company_edit_form">
               <div class="form-group">
                 <label for="input_company_name" class="col-md-4 control-label">Company name</label>
                 <div class="col-md-8">
@@ -130,7 +130,7 @@
                 </div>
               </div>
               <div class="form-group">
-                  <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#Credit_leave" id="book_time_off_btn" data-backdrop="static"><span class="glyphicon glyphicon-plus"></span>Credit additional leave</button>
+                  <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#Credit_leave" id="book_time_off_btn" data-backdrop="static" {{!-- disabled="disabled" title="Currently under maintanance until futher notice" --}}><span class="glyphicon glyphicon-plus"></span>Credit additional leave</button>
               </div>
             </div>
           </div>
@@ -148,12 +148,12 @@
               </div>
               <div class="form-group">
                 <div class="col-md-offset-2 col-md-11">
-                  <a class="btn btn-success pull-right" href="/settings/company/backup/"><i class="fa fa-download"></i> Download backup</a>
+                  <a class="btn btn-success pull-right" href="/settings/company/backup/{{company.id}}"><i class="fa fa-download"></i> Download backup</a>
                 </div>
               </div>
             </div>
 
-            <form class="form-horizontal" method="POST" action="/settings/schedule" id="company_schedule_form">
+            <form class="form-horizontal" method="POST" action="/settings/schedule/{{company.id}}" id="company_schedule_form">
             <input type="hidden" name="company_wide" value="1">
             <div class="form-group">
               <label for="" class="col-md-6 control-label">Company week schedule</label>
@@ -186,7 +186,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <form class="col-md-offset-2 col-md-11" id="calculate_carry_over_form" method="post" action="/settings/carryOverUnusedAllowance">
+                <form class="col-md-offset-2 col-md-11" id="calculate_carry_over_form" method="post" action="/settings/carryOverUnusedAllowance/{{company.id}}">
                   <button class="btn btn-success pull-right" type="submit"><i class="fa fa-share"></i> Carry over allowance</button>
                 </form>
               </div>
@@ -236,7 +236,7 @@
         <div class="row">&nbsp;</div>
 
         <form id="delete_leavetype_form" method="post" action="/settings/leavetypes/delete/"></form>
-        <form id="leave_type_edit_form" method="post" action="/settings/leavetypes/">
+        <form id="leave_type_edit_form" method="post" action="/settings/leavetypes/{{company.id}}">
 
         {{# unless company.leave_types.length }}
         <div class="row">
@@ -275,7 +275,7 @@
             <br>
             <label for="include_weekend_and_hols__{{ this.id }}" class="control-label smaller">
               <input name="include_weekend_and_hols__{{ this.id }}" id="include_weekend_and_hols__{{ this.id }}" type="checkbox" {{#if is_include_weekend_and_hols}}checked="checked"{{/if}} value="1" data-tom-leave-weekend="weekends_{{@index}}">
-              Count all days
+              Count calendar days
             </label>            
           </div>
           <div class="col-md-3">
@@ -295,7 +295,7 @@
             <input type="number" class="form-control" min="0" value="{{sort_order}}" name="sort_order__{{ this.id }}" data-tom-leave-type-order="sort_order_{{@index}}">
           </div>          
           <div class="col-md-1 general-settings-no-pad">
-            <button class="btn btn-default leavetype-remove-btn" value="{{ this.id }}" data-tom-leave-type-order="remove_{{@index}}"><span class="fa fa-remove"></span></button>
+            <button class="btn btn-default leavetype-remove-btn" value="{{ this.id }}" data-tom-leave-type-order="remove_{{@index}}" company="{{../company.id}}"><span class="fa fa-remove"></span></button>
           </div>
         </div>
 
@@ -329,8 +329,8 @@
       </div>
       <div class="panel-body">
         <form id="delete_bankholiday_form" method="post" action="/settings/bankholidays/delete/"></form>
-        <form id="import_bankholiday_form" method="post" action="/settings/bankholidays/import/"></form>
-        <form id="update_bankholiday_form" method="post" action="/settings/bankholidays/">
+        <form id="import_bankholiday_form" method="post" action="/settings/bankholidays/import/{{company.id}}"></form>
+        <form id="update_bankholiday_form" method="post" action="/settings/bankholidays/{{company.id}}">
 
         <div class="row">
           <div class="col-md-4"><label class="control-label">Date</label></div>
@@ -360,7 +360,7 @@
           </div>
 
           <div class="col-md-2">
-            <button class="btn btn-default pull-right bankholiday-remove-btn" type="button" value="{{@index}}"><span class="fa fa-remove"></span></button>
+            <button class="btn btn-default pull-right bankholiday-remove-btn" type="button" value="{{@index}}" company="{{../company.id}}"><span class="fa fa-remove"></span></button>
           </div>
         </div>
 
@@ -423,7 +423,7 @@
 <div class="modal fade" id="Credit_leave" tabindex="-1" role="dialog" aria-labelledby="Credit_leaveLabel">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form method="POST" action="/settings/credit_additional_leave" onsubmit="return confirm('Are you sure to credit additional leave to all staff ? \nWarning: This action can not be revert !');">
+      <form method="POST" action="/settings/credit_additional_leave/{{company.id}}" onsubmit="return confirm('Are you sure to credit additional leave to all staff ? \nWarning: This action can not be revert !');">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Credit Additional Leave</h4>
@@ -452,17 +452,19 @@
 {{> add_new_bank_holiday_modal
   container_id='add_new_bank_holiday_modal'
   form_action='/settings/bankholidays/'
+  companyid=company.id
 }}
 
 
 {{> add_new_leave_type_modal
   container_id='add_new_leave_type_modal'
   form_action='/settings/leavetypes/'
+  companyid=company.id
 }}
 
 {{> remove_company_modal
   container_id='remove_company_modal'
-  
+  companyid=company.id
 }}
 
 {{> footer }}

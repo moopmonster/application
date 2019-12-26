@@ -47,7 +47,7 @@ models.Leave.findAll({
 
 	leaves.forEach(function(leave){ 
 
-		console.log( leave.gevent_id, leave.gevent_error )
+		// console.log( leave.gevent_id, leave.gevent_error )
 
 		if(leave.gevent_id === null)
 		{

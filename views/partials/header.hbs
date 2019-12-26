@@ -43,12 +43,55 @@
             {{/if_equal}}
 
             {{# if logged_user.admin }}
-            <li class="hidden-xs"><a href="/users/">Employees</a></li>        
-            <li class="hidden-xs"><a href="/reports/">Reports</a></li>   
+              <li><a href="/settings/departments/">Departments</a></li>
+              <li class="hidden-xs"><a href="/users/">Employees</a></li>        
+              <li class="hidden-xs"><a href="/reports/">Reports</a></li>
+              <li class="dropdown hidden-xs">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="fa fa-gears"></span> <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  {{# ifCond logged_user.supervised_company.length '>' 1}}
+                    {{#each logged_user.supervised_company}}
+                    <li class="dropdown-submenu">
+                      <a class="test" tabindex="-1" href="#">{{this.name}}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="/settings/general/{{this.id}}">General</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="/settings/company/authentication/{{this.id}}">LDAP configuration</a></li>
+                          <li><a href="/settings/company/integration-api/{{this.id}}">API configuration</a></li>
+                          <li><a href="/users/import/{{this.id}}">Import employees</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="/audit/email/{{this.id}}">Emails audit</a></li>
+                        </ul>
+                     </li>
+                    {{/each}}
+                  {{else}}
+                    <li><a href="/settings/general/">General</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="/settings/company/authentication/">LDAP configuration</a></li>
+                    <li><a href="/settings/company/integration-api/">API configuration</a></li>
+                    <li><a href="/users/import/">Import employees</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="/audit/email/">Emails audit</a></li>
+                  {{/ifCond}}   
+                </ul>
+              </li>
+            {{/if}}
+            {{!-- {{# if logged_user.admin }}
             <li class="dropdown hidden-xs">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="fa fa-gears"></span> <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="/settings/general/">General</a></li>
+                {{# ifCond logged_user.supervised_company.length '>' 1}}
+                  <li class="dropdown-submenu">
+                    <a class="test" tabindex="-1" href="#">General<span class="caret"></span></a>
+                     <ul class="dropdown-menu">
+                    {{#each logged_user.supervised_company}}
+                      <li><a tabindex="-1" href="/settings/general/{{this.id}}">{{this.name}}</a></li>
+                    {{/each}}
+                    </ul>
+                  </li>
+                {{else}}
+                  <li><a href="/settings/general/">General</a></li>
+                {{/ifCond}}
                 <li role="separator" class="divider"></li>
                 <li><a href="/settings/departments/">Departments</a></li>
                 <li><a href="/settings/company/authentication/">LDAP configuration</a></li>
@@ -58,7 +101,9 @@
                 <li><a href="/audit/email/">Emails audit</a></li>
               </ul>
             </li>
-            {{/if}}
+            <li class="hidden-xs"><a href="/users/">Employees</a></li>        
+            <li class="hidden-xs"><a href="/reports/">Reports</a></li>   
+            {{/if}} --}}
             <li class="visible-xs-block"><a href="/logout/">Logout</a></li>
             <li class="dropdown hidden-xs">
               <a id="me_menu" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Me <span class="caret"></span></a>

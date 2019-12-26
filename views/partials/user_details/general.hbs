@@ -45,6 +45,13 @@
   </div>
 
   <div class="form-group">
+      <label for="supervisor_inp" class="control-label">
+        <input class="" id="supervisor_inp" name="supervisor" type="checkbox"{{# if employee.isManager}} checked="checked"  {{/if}} >
+        Is supervisor/department head user
+      </label>
+  </div>
+
+  <div class="form-group">
       <label for="auto_approve_inp" class="control-label">
         <input class="" id="auto_approve_inp" name="auto_approve" type="checkbox" {{# if employee.auto_approve}} checked="checked"  {{/if}} >
         Auto approve leave requests

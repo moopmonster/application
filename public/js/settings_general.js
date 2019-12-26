@@ -7,7 +7,7 @@ $(document).ready(function () {
     e.stopPropagation();
 
     var delete_form = $('#delete_bankholiday_form');
-    delete_form.attr('action', delete_form.attr('action') + $(this).attr('value') + '/');
+    delete_form.attr('action', delete_form.attr('action') + $(this).attr('value') + '/' + $(this).attr('company'));
 
     delete_form.submit();
 
@@ -31,7 +31,7 @@ $(document).ready(function () {
     e.stopPropagation();
 
     var delete_form = $('#delete_leavetype_form');
-    delete_form.attr('action', delete_form.attr('action') + $(this).attr('value') + '/');
+    delete_form.attr('action', delete_form.attr('action') + $(this).attr('value') + '/' + $(this).attr('company'));
 
     delete_form.submit();
 
