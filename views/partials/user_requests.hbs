@@ -1,4 +1,3 @@
-
 <div class="row">
   {{# unless leaves}}
   <div class="col-md-12 text-muted">
@@ -28,16 +27,25 @@
 
       <tr class="leave-request-row leave-{{this.get_leave_status}}-row">
         <td data-tom-leave-dates="1">{{> leave_dates leave=this}}</td>
-        <td>{{ this.leave_type.name }}</td>
+        <td id="row_{{this.id}}" ltname_{{this.id}}="{{this.leave_type.name}}" ltid_{{this.id}}="{{this.leave_type.id}}"
+            dtstart_{{this.id}}="{{as_date this.date_start}}"
+            dtend_{{this.id}}="{{as_date this.date_end}}"
+            longdtstart_{{this.id}}="{{this.date_start}}"
+            longdtend_{{this.id}}="{{this.date_end}}"            
+            dtstart_part_{{this.id}}="{{this.day_part_start}}"
+            dtend_part_{{this.id}}="{{this.day_part_end}}"
+          >{{ this.leave_type.name }}</td>
         <td>{{ this.get_deducted_days_number_ignore_allowance }} {{#unless is_cancelled_or_rejected_leave}}{{#if this.get_deducted_days_number}}<span class="allowance_deducted">(-{{ this.get_deducted_days_number }})</span>{{/if}}
             {{#if this.leave_is_adjustment}}<span class="allowance_added">(+{{ this.get_deducted_days_number_ignore_allowance }})</span>{{/if}}
-        {{/unless}}</td>
-        <td class="smaller">{{#if this.get_employee_comment}}{{this.get_employee_comment}}{{/if}}{{#if this.get_approver_comment}}<div style="color:red">(Rejected Reason : {{this.get_approver_comment}})</div>{{/if}}</td>        
+        {{/unless}}        
+        </td>
+        <td class="smaller">{{#if this.get_employee_comment}}<span id="reason_{{this.id}}">{{this.get_employee_comment}}</span>{{/if}}{{#if this.get_approver_comment}}<div style="color:red">(Rejected Reason : {{this.get_approver_comment}})</div>{{/if}}</td>        
         <td>
+          <span style="float:left">
           {{# if this.attachment }}
           <form method="post" action="/requests/usrdownload/">
             <input type="hidden" value="{{this.id}}" name="request">
-            <button type="submit" class="btn btn-default btn-xs" title="Download file attachment"><i class="fa fa-download"> Download</i></button>
+            <button type="submit" id="attachment_{{this.id}}" class="btn btn-default btn-xs" title="Download file attachment"><i class="fa fa-download"> </i></button>
           </form> 
           {{else}}
             {{#unless is_cancelled_or_rejected_leave}}
@@ -48,24 +56,35 @@
                 document.getElementById("upload").submit();
               }
             </script>
-            <form id="upload" method="post" action="/requests/upload/" enctype="multipart/form-data">
-              <input type="hidden" value="{{this.id}}" name="request" >
-              <label class="btn btn-default btn-xs"><i class="fa fa-upload"> Upload</i>
-              <input type="file" id="attachment-inp" name="attachment" style="display: none;"></label>
-              <!--button type="submit" class="btn btn-default btn-xs"><i class="fa fa-upload"> Upload</i></button-->
-            </form>
+            
+              <form id="upload" method="post" action="/requests/upload/" enctype="multipart/form-data">
+                <input type="hidden" value="{{this.id}}" name="request" >
+                <label class="btn btn-default btn-xs"><i class="fa fa-upload"> Upload</i>
+                <input type="file" id="attachment-inp" name="attachment" style="display: none;"></label>
+                <!--button type="submit" class="btn btn-default btn-xs"><i class="fa fa-upload"> Upload</i></button-->
+              </form>
+            
             {{/if}}
             {{/unless}}
-          {{/if}}
+            {{/if}}
+            </span>
+              <span style="float:right">
+              {{# if this.is_approved_leave }}
+                {{# unless this.is_pended_revoke_leave}}
+                  {{#unless this.leave_is_adjustment}}
+                    <button type="button" data-toggle="modal" data-target="#edit_leave_modal" onClick="javascript:doEdit({{this.id}})" class="btn btn-default btn-xs"><i class="fa fa-edit"> Edit</i></button>
+                  {{/unless}}
+                {{/unless}}
+              {{/if}}
+              </span>
         </td>
         <td>
           {{#unless is_cancelled_or_rejected_leave}}
-            
               {{# if this.is_approved_leave }}
                 {{# unless this.is_pended_revoke_leave}}
                 {{#unless this.leave_is_adjustment}}
                 <form method="post" action="/requests/revoke/">
-                  <input type="hidden" value="{{this.id}}" name="request">
+                  <input type="hidden" value="{{this.id}}" name="request">                  
                   <button type="submit" class="pull-right btn btn-default btn-xs revoke-btn" title="Revoke leave request. Subject of approval."><i class="fa fa-trash"> Revoke</i></button>
                 </form>
                 {{/unless}}
@@ -78,9 +97,9 @@
                 </form>
                 {{/if_equal}}
               {{/if}}
-          
           {{/unless}}
         </td>
+
         <td><span class="pull-middle leave-request-row-status">{{ this.get_leave_status }}{{#if this.is_pended_revoke_leave}}<span class="smaller"><br>(Pending revoke)</span>{{/if}}</td>
         <td class="user-request-table-approver">{{# if is_approved_or_rejected }}{{#with this.approver}}{{this.full_name}}{{/with}}{{/if}}</td>
 

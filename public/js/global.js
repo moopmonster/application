@@ -49,7 +49,7 @@ var datepicker_default = {
       if (holfind) {
         return {classes: 'bank_holiday_cell', tooltip: holfind.name};
       }
-  },
+    },
 }
 function getDefaultDateFormat() {
   return $('input.book-leave-from-input').attr("data-date-format");
@@ -341,6 +341,34 @@ function toggleShow(obj,flag)
   }
 }
 
+function doEdit(id) {
+  const row = $('td#row_'+id);
+  const start_datepicker_default = {...datepicker_default, defaultDate: row.attr("dtstart_"+id), startDate: new Date(row.attr("longdtstart_"+id)), endDate: new Date(row.attr("longdtend_"+id)) }; 
+  const end_datepicker_default = {...datepicker_default, defaultDate: row.attr("dtend_"+id), startDate: new Date(row.attr("longdtstart_"+id)), endDate: new Date(row.attr("longdtend_"+id)) }
+  $('#edit_leave_type').html( row.attr("ltname_"+id) );
+  $('#edit_leave_type_id').html( row.attr("ltid_"+id) );
+  
+  console.log( row.attr("longdtstart_part_"+id) );
+  console.log( row.attr("longdtstart_"+id) );
+
+  $('[name="edit_from_date"]').val( row.attr("dtstart_"+id) );  
+  //$('input#edit_from').datepicker(row.attr("dtstart_"+id));
+  console.log( start_datepicker_default );
+  $('input.edit-book-leave-from-input').datepicker( start_datepicker_default );
+  $('[name="edit_from_date_part"]').val( row.attr("dtstart_part_"+id) );
+
+  $('[name="edit_to_date"]').val(row.attr("dtend_"+id));
+  //$('input#edit_to').datepicker(row.attr("dtpart_"+id));
+  $('input.edit-book-leave-to-input').datepicker( end_datepicker_default );
+  $('[name="edit_to_date_part"]').val( row.attr("dtend_part_"+id) );
+
+  $('#edit_employee_comment').html($("#reason_"+id).html()); 
+
+  if($('#attachment_'+id).length>0)
+    $('#edit_attachment-inp_div').show();
+  else 
+    $('#edit_attachment-inp_div').hide();
+}
 /*** 
 Approval
 ***/
