@@ -86,6 +86,7 @@
     </div>
   </div>
 
+  {{#ifCond employee.calculated_sickleaves '>' 1}}
   <div class="form-group">
     <label for="user_sick_leave_inp" class="control-label">Sick Leave</label>
     <div class="input-group col-md-4">
@@ -97,6 +98,7 @@
       <div>The value is valid during current year. Next year it needs to be re-confirmed.</div>
     </div>
   </div>
+  {{/ifCond}}
 
 
   <div class="form-group">
