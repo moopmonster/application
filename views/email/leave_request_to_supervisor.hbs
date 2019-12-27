@@ -6,8 +6,11 @@ Leave request pending approval
 
 {{> email/leave_comments comments=comments }}
 
-{{> email/requester_allowance requester=requester requesterAllowance=requesterAllowance}}
-
 <p>Please visit {{> email/link href=(concatenate (get_application_domain) '/requests/approve/' ) text='Approve requests'}} page to approve or reject outstanding requests.</p>
 
+{{#if requesterAllowance }}
+{{> email/requester_allowance requester=requester requesterAllowance=requesterAllowance}}
+{{/if}}
+
 <p>Thanks</p>
+
