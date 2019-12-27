@@ -18,8 +18,8 @@
 
 <div class="col-md-3 list-group">
   <a href="/users/edit/{{employee.id}}/" class="list-group-item{{# if show_main_tab }} selected-item{{/if}}">General details</a>
-  <a href="/users/edit/{{employee.id}}/schedule/" class="list-group-item {{# if show_schedule_tab }} selected-item{{/if}}">Schedule</a>
-  <a href="/users/edit/{{employee.id}}/absences/" class="list-group-item{{# if show_absence_tab }} selected-item{{/if}}">Absences</a>
+  {{!-- <a href="/users/edit/{{employee.id}}/schedule/" class="list-group-item {{# if show_schedule_tab }} selected-item{{/if}}">Schedule</a> --}}
+  <a href="/users/edit/{{employee.id}}/absences/" class="list-group-item{{# if show_absence_tab }} selected-item{{/if}}">Leaves</a>
 </div>
 
 {{# if show_absence_tab }}

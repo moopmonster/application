@@ -1,5 +1,135 @@
-
 {{> header }}
+
+<h1>Staff</h1>
+
+{{> show_flash_messages }}
+
+{{#each companies as |company|}}
+  {{!-- company[0] is Company details,company[1] is user details --}}
+  {{#each company as |renderDetails index|}}
+
+    {{#if @first}}
+
+      <div class="row">
+        <div class="col-md-3 lead">{{renderDetails.name}}'s staff</div>
+        <div class="col-md-3 col-md-offset-6">
+          <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Add new employee
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="/users/import/{{renderDetails.id}}" id="import_users_btn">Import employees</a></li>
+              <li><a href="/users/add/{{renderDetails.id}}" id="add_new_department">Add single employee</a></li>
+            </ul>
+          </div>
+          <form action="/users/" method="GET">
+            <input type="hidden" name="department" value="{{department_id}}">
+            <input type="hidden" name="as-csv" value="1">
+            <button
+              class="btn btn-link pull-right"
+              type="submit"
+              data-content="Download current page as .CSV file"
+              data-placement="top"
+              data-toggle="popover"
+              data-trigger="focus hover"
+            ><i class="fa fa-download"></i> .csv</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="row">&nbsp;</div>
+
+      <div class="col-md-2 list-group all-departments normal">
+        <a href="/users/" class="list-group-item{{#unless department_id }} selected-item{{/unless}}">ALL DEPARTMENTS</a>
+        {{#each renderDetails.departments}}
+          <a class="list-group-item {{#if_equal ../department_id this.id}} selected-item{{/if_equal}}" href="/users/?department={{this.id}}">{{this.name}}</a>
+        {{/each}}`
+      </div>
+
+    {{else}}
+
+      <div class="col-md-10">
+        <div class="reset-sort-link">
+          <a id="reset-sort" href="#">Reset sort to default (by Nickname)</a>
+        </div>
+        <table class="table sortable-table table-hover">
+          <thead>
+            <tr>
+              <th class="sortable-table-header">Nickname</th>
+              <th class="sortable-table-header">Full Name</th>
+              <th class="sortable-table-header">Dept</th>
+              <th class="sortable-table-header">Is Admin?</th>
+              <th class="sortable-table-header">Is Supervisor</th>
+              <th class="sortable-table-header">Joined Date</th>        
+              <th class="sortable-table-header">Available Leave</th>
+              <th class="sortable-table-header">Days used</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{# each renderDetails}}
+              {{# if_equal this.is_resigned 0 }}
+              <tr data-vpp-user-row="{{this.user_id}}">
+                <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_nickname}}</a></td>
+                <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_full_name}}</a></td>          
+                <td class="user_department"><a href="/settings/departments/edit/{{ this.department_id }}/">{{this.department_name}}</a></td>
+                <td>{{# if this.is_admin }}Yes{{else}}{{/if}}</td>
+                <td>{{# if this.is_manager }}Yes{{else}}{{/if}}</td>
+                <td>{{ as_date this.user_dtjoin }}</td>        
+                <td class="vpp-days-remaining">{{ this.number_of_days_available_in_allowance }}</td>
+                <td class="vpp-days-used">{{this.number_of_days_taken_from_allowance}}</td>
+              </tr>
+              {{/if_equal}}
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-md-offset-2 col-md-10">
+        <div class="lead">Resigned</div>
+        <table class="table sortable-table table-hover">
+          <thead>
+            <tr>
+              <th class="sortable-table-header">Nickname</th>
+              <th class="sortable-table-header">Full Name</th>
+              <th class="sortable-table-header">Dept</th>
+              <th class="sortable-table-header">Resigned Date</th>
+              <th class="sortable-table-header">Joined Date</th>
+              <th class="sortable-table-header">Available Leave</th>
+              <th class="sortable-table-header">Days used</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{# each renderDetails}}
+              {{# if this.is_resigned }}
+              <tr data-vpp-user-row="{{this.user_id}}">
+                <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_nickname}}</a></td>
+                <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_full_name}}</a></td>        
+                <td class="user_department"><a href="/settings/departments/edit/{{ this.department_id }}/">{{this.department_name}}</a></td>
+                <td>{{ as_date this.user_dtleave }}</td>
+                <td>{{ as_date this.user_dtjoin }}</td>
+                <td class="vpp-days-remaining">{{ this.number_of_days_available_in_allowance }}</td>
+                <td class="vpp-days-used">{{this.number_of_days_taken_from_allowance}}</td>
+              </tr>
+              {{/if}}
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <div class="row">&nbsp;</div>
+
+      {{/if}}
+
+      <hr>
+  {{/each}}
+{{/each}}
+
+{{> footer }}
+
+<hr>
+
+{{!-- {{> header }}
 
 <h1>Staff</h1>
 
@@ -36,38 +166,81 @@
 
 <div class="row">&nbsp;</div>
 
-<div class="col-md-3 list-group all-departments">
-  <a href="/users/" class="list-group-item{{#unless department_id }} selected-item{{/unless}}">All departments</a>
+<div class="col-md-2 list-group all-departments normal">
+  <a href="/users/" class="list-group-item{{#unless department_id }} selected-item{{/unless}}">ALL DEPARTMENTS</a>
   {{#each company.departments}}
     <a class="list-group-item {{#if_equal ../department_id this.id}} selected-item{{/if_equal}}" href="/users/?department={{this.id}}">{{this.name}}</a>
-  {{/each}}
+  {{/each}}`
 </div>
 
-<div class="col-md-9">
-  <table class="table table-hover">
+<div class="col-md-10">
+  <div class="reset-sort-link">
+    <a id="reset-sort" href="#">Reset sort to default (by Nickname)</a>
+  </div>
+  <table class="table sortable-table table-hover">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Department</th>
-        <th>Is Administrator?</th>
-        <th>Available allowance</th>
-        <th>Days used</th>
+        <th class="sortable-table-header">Nickname</th>
+        <th class="sortable-table-header">Full Name</th>
+        <th class="sortable-table-header">Dept</th>
+        <th class="sortable-table-header">Is Admin?</th>
+        <th class="sortable-table-header">Is Supervisor</th>
+        <th class="sortable-table-header">Joined Date</th>        
+        <th class="sortable-table-header">Available Leave</th>
+        <th class="sortable-table-header">Days used</th>
       </tr>
     </thead>
     <tbody>
       {{# each users_info}}
-      <tr data-vpp-user-row="{{this.user_id}}">
-        <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{#unless this.is_active}}<s>{{/unless}}{{this.user_full_name}}{{#unless this.is_active}}</s>{{/unless}}</a></td>
-        <td class="user_department"><a href="/settings/departments/edit/{{ this.department_id }}/">{{this.department_name}}</a></td>
-        <td>{{# if this.is_admin }}Yes{{else}}{{/if}}</td>
-        <td class="vpp-days-remaining">{{ this.number_of_days_available_in_allowance }}</td>
-        <td class="vpp-days-used">{{this.number_of_days_taken_from_allowance}}</td>
-      </tr>
+        {{# if_equal this.is_resigned 0 }}
+        <tr data-vpp-user-row="{{this.user_id}}">
+          <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_nickname}}</a></td>
+          <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_full_name}}</a></td>          
+          <td class="user_department"><a href="/settings/departments/edit/{{ this.department_id }}/">{{this.department_name}}</a></td>
+          <td>{{# if this.is_admin }}Yes{{else}}{{/if}}</td>
+          <td>{{# if this.is_manager }}Yes{{else}}{{/if}}</td>
+          <td>{{ as_date this.user_dtjoin }}</td>        
+          <td class="vpp-days-remaining">{{ this.number_of_days_available_in_allowance }}</td>
+          <td class="vpp-days-used">{{this.number_of_days_taken_from_allowance}}</td>
+        </tr>
+        {{/if_equal}}
       {{/each}}
     </tbody>
   </table>
 </div>
 
-<div class="row">&nbsp;</div>
 
-{{> footer }}
+<div class="col-md-offset-2 col-md-10">
+  <div class="lead">Resigned</div>
+  <table class="table sortable-table table-hover">
+    <thead>
+      <tr>
+        <th class="sortable-table-header">Nickname</th>
+        <th class="sortable-table-header">Full Name</th>
+        <th class="sortable-table-header">Dept</th>
+        <th class="sortable-table-header">Resigned Date</th>
+        <th class="sortable-table-header">Joined Date</th>
+        <th class="sortable-table-header">Available Leave</th>
+        <th class="sortable-table-header">Days used</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{# each users_info}}
+        {{# if this.is_resigned }}
+        <tr data-vpp-user-row="{{this.user_id}}">
+          <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_nickname}}</a></td>
+          <td class="user-link-cell"><a href="/users/edit/{{this.user_id}}/">{{this.user_full_name}}</a></td>        
+          <td class="user_department"><a href="/settings/departments/edit/{{ this.department_id }}/">{{this.department_name}}</a></td>
+          <td>{{ as_date this.user_dtleave }}</td>
+          <td>{{ as_date this.user_dtjoin }}</td>
+          <td class="vpp-days-remaining">{{ this.number_of_days_available_in_allowance }}</td>
+          <td class="vpp-days-used">{{this.number_of_days_taken_from_allowance}}</td>
+        </tr>
+        {{/if}}
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+<div class="row">&nbsp;</div> --}}
+
+{{!-- {{> footer }} --}}

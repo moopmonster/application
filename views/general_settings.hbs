@@ -4,7 +4,7 @@
 
 <h1>General settings</h1>
 
-<p class="lead">Account main settings</p>
+<p class="lead">{{company.name}} account main settings</p>
 
 {{> show_flash_messages }}
 
@@ -20,13 +20,14 @@
         <div class="row">
 
           <div class="col-md-5">
-            <form class="form-horizontal" method="POST" action="/settings/company/" id="company_edit_form">
+            <form class="form-horizontal" method="POST" action="/settings/company/{{company.id}}" id="company_edit_form">
               <div class="form-group">
                 <label for="input_company_name" class="col-md-4 control-label">Company name</label>
                 <div class="col-md-8">
                   <input class="form-control" id="input_company_name" placeholder="Our company name" value="{{company.name}}" name="name">
                 </div>
               </div>
+             
               <div class="form-group">
                 <label for="input_country" class="col-md-4 control-label">Country</label>
                 <div class="col-md-8">
@@ -77,15 +78,28 @@
                 </div>
               </div>
 
+<<<<<<< HEAD
+=======
+              <div class="form-group">
+                <label for="input_company_gcal_id" class="col-md-4 control-label">Google Calendar</label>
+                <div class="col-md-8">
+                  <input class="form-control" id="input_company_gcal_id" placeholder="Google Cal ID" value="{{company.gcal_id}}" name="gcal_id">
+                </div>
+              </div> 
+>>>>>>> master
 
               <div class="form-group">
                 <div class="col-md-offset-4 col-md-8">
                   <div class="checkbox">
                     <label for="share-all-absences">
+<<<<<<< HEAD
                       <input id="share-all-absences" type="checkbox" name="share_all_absences" {{# if company.share_all_absences }} checked="checked"{{/if}}>Share absences between employees
+=======
+                      <input id="share-all-absences" type="checkbox" name="share_all_absences" {{# if company.share_all_absences }} checked="checked"{{/if}}>Share leave view between all employees
+>>>>>>> master
                     </label>
                     <p>
-                      <em>If enabled all employees can see information about everybody's absences regardless departments.</em>
+                      <em>If enabled all employees can see information about everybody's leave regardless departments.</em>
                     </p>
                   </div>
                 </div>
@@ -111,6 +125,43 @@
                 </div>
               </div>
             </form>
+
+           {{!--  <div class="form-horizontal">
+              <form id="credit_leaves_number" method="post" action="/settings/credit_additional_leave" onsubmit="return confirm('Are you sure to credit additional leave(s) to all staff ? \nWarning: This action can not be revert !');">
+              <div class="form-group">
+                  <label class="col-md-8 control-label">Credit Additional Leave To All Staff</label>
+              </div>
+              <div class="form-group">
+                <div class="col-md-offset-2">
+                  <p><em>This action will credit additional leave to all employee with <input type="number" name="days_credit_additional_leave" id="days_credit_additional_leave" min="1"> day(s)
+                  <p><em> Please note, employees annual leave count is going to be updated.</em></p>
+                </div>
+              </div> --}}
+{{!--               <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                  <input type="text" class="form-control book-leave-to-input" id="to" autocomplete="off"  data-date-autoclose="1" data-date-format="{{#with logged_user.company }}{{this.get_default_date_format_for_date_picker}}{{/with}}" value="" name="to_date">
+              </div> --}}
+             {{!--  <div class="form-group">
+                  <button class="btn btn-success pull-right" type="submit"><span class="glyphicon glyphicon-plus"></span>Credit additional leave</button>
+              </div>
+              </form>
+            </div>
+          </div> --}}
+
+          <div class="form-horizontal">
+              <div class="form-group">
+                  <label class="col-md-8 control-label">Credit Additional Leave To All Staff</label>
+              </div>
+              <div class="form-group">
+                <div class="col-md-offset-2">
+                  <p><em>This action will credit additional leave to all employee with 1 specific day
+                  <p><em> Please note, employees total approved leave count is going to be updated.</em></p>
+                </div>
+              </div>
+              <div class="form-group">
+                  <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#Credit_leave" id="book_time_off_btn" data-backdrop="static" {{!-- disabled="disabled" title="Currently under maintanance until futher notice" --}}><span class="glyphicon glyphicon-plus"></span>Credit additional leave</button>
+              </div>
+            </div>
           </div>
 
           <div class="col-md-offset-1 col-md-5">
@@ -126,12 +177,12 @@
               </div>
               <div class="form-group">
                 <div class="col-md-offset-2 col-md-11">
-                  <a class="btn btn-success pull-right" href="/settings/company/backup/"><i class="fa fa-download"></i> Download backup</a>
+                  <a class="btn btn-success pull-right" href="/settings/company/backup/{{company.id}}"><i class="fa fa-download"></i> Download backup</a>
                 </div>
               </div>
             </div>
 
-            <form class="form-horizontal" method="POST" action="/settings/schedule" id="company_schedule_form">
+            <form class="form-horizontal" method="POST" action="/settings/schedule/{{company.id}}" id="company_schedule_form">
             <input type="hidden" name="company_wide" value="1">
             <div class="form-group">
               <label for="" class="col-md-6 control-label">Company week schedule</label>
@@ -159,13 +210,47 @@
               </div>
               <div class="form-group">
                 <div class="col-md-offset-2">
-                  <p><em>This action will carry over unused allowance for each employee from <strong>{{yearPrev}}</strong> to the current year, <strong>{{yearCurrent}}</strong>.</em></p>
-                  <p><em>Please note, employees allowance is going to be updated.</em></p>
+                  <p><em>This action for each employee would take unused allowance from <strong>{{yearPrev}}</strong> and carry it over to current <strong>{{yearCurrent}}</strong> year.</em></p>
+                  <p><em> Please note, employees allowance is going to be updated.</em></p>
                 </div>
               </div>
               <div class="form-group">
-                <form class="col-md-offset-2 col-md-11" id="calculate_carry_over_form" method="post" action="/settings/carryOverUnusedAllowance">
+                <form class="col-md-offset-2 col-md-11" id="calculate_carry_over_form" method="post" action="/settings/carryOverUnusedAllowance/{{company.id}}">
                   <button class="btn btn-success pull-right" type="submit"><i class="fa fa-share"></i> Carry over allowance</button>
+                </form>
+              </div>
+            </div>
+
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label for="" class="col-md-12 control-label">Calculate and Update Annual Leave Entitlement for All User</label>
+              </div>
+              <div class="form-group">
+                <div class="col-md-offset-2">
+                  <p><em>This action will calculate annual leave entitlement for each employees in <strong>{{company.name}}</strong> for current <strong>{{yearCurrent}}</strong> year.</em></p>
+                  <p><em> Please note, employees annual leave entitlement is going to be updated.</em></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <form class="col-md-offset-2 col-md-11" id="calculate_carry_over_form" method="post" action="/settings/calculateALentitlement/{{company.id}}">
+                  <button class="btn btn-success pull-right" type="submit"><i class="fa fa-calculator"></i> Update AL Entitlement</button>
+                </form>
+              </div>
+            </div>
+
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label for="" class="col-md-12 control-label">Calculate and Update Sick Leave Entitlement for All User</label>
+              </div>
+              <div class="form-group">
+                <div class="col-md-offset-2">
+                  <p><em>This action will calculate sick leave entitlement for each employees in <strong>{{company.name}}</strong> for current <strong>{{yearCurrent}}</strong> year.</em></p>
+                  <p><em> Please note, employees sick leave entitlement is going to be updated.</em></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <form class="col-md-offset-2 col-md-11" id="calculate_carry_over_form" method="post" action="/settings/calculateSLentitlement/{{company.id}}">
+                  <button class="btn btn-success pull-right" type="submit"><i class="fa fa-calculator"></i> Update SL Entitlement</button>
                 </form>
               </div>
             </div>
@@ -179,42 +264,57 @@
 
 
 <div class="row">
+  <div class="col-md-12">
 
-  <div class="col-md-7">
     <div class="panel panel-default">
+
       <div class="panel-heading">
         Leave Types
       </div>
+
       <div class="panel-body">
+
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-5">
             <label class="control-label">Leave Type Name</label>
             <p><em>Tick one to always be on top of the list</em></p>
           </div>
-          <div class="col-md-offset-3 col-md-2">
+          <div class="col-md-3">
+            <label class="control-label">Required</label>
+            <p><em>Fields will be made compulsory</em></p>
+          </div>
+          <div class="col-md-1">
             <label class="control-label">Limit</label>
             <p><em>Days/year</em></p>
           </div>
+          <div class="col-md-1">
+            <label class="control-label">Min Prior</label>
+            <p><em>Working Days</em></p>
+          </div>
+          <div class="col-md-1">
+            <label class="control-label">Order</label>
+          </div>          
         </div>
 
         <div class="row">&nbsp;</div>
 
         <form id="delete_leavetype_form" method="post" action="/settings/leavetypes/delete/"></form>
-        <form id="leave_type_edit_form" method="post" action="/settings/leavetypes/">
+        <form id="leave_type_edit_form" method="post" action="/settings/leavetypes/{{company.id}}">
 
-        {{#unless company.leave_types.length }}
+        {{# unless company.leave_types.length }}
         <div class="row">
           <div class="col-md-4">No Leave type records</div>
         </div>
         {{/unless}}
 
+
         {{#each company.leave_types}}
-        <div class="row">
-          <div class="col-md-6">
+        <div class="row add-padding">
+          <div class="col-md-3">
 
             <div class="input-group">
               <span class="input-group-addon">
-                <input type="radio" name="first_record" value="{{ this.id }}" {{# if this.sort_order }}checked="checked"{{/ if}}>
+                <input type="radio" name="first_record" value="{{ this.id }}"{{#if_equal sort_order 1}} checked="checked"{{/if_equal}}>
               </span>
               <input type="text" class="form-control" name="name__{{ this.id }}" value="{{name}}" data-tom-leave-type-order="name_{{@index}}">
 
@@ -231,17 +331,37 @@
               </div>
 
             </div>
-
-          </div>
-          <div class="col-md-3">
-            <input name="use_allowance__{{ this.id }}" id="use_allowance__{{ this.id }}" type="checkbox" {{#if use_allowance}}checked="checked"{{/if}} data-tom-leave-type-order="allowance_{{@index}}">
-            <label for="use_allowance__{{ this.id }}" class="control-label">Use allowance</label>
+            {{#if leaveTypeCode }}
+            <div style="font-family:Verdana; font-size:10px; font-style:normal">CODE: {{leaveTypeCode}}</div>
+            {{/if}}
           </div>
           <div class="col-md-2">
-            <input type="number" class="form-control" value="{{limit}}" name="limit__{{ this.id }}" data-tom-leave-type-order="limit_{{@index}}">
+            <input name="use_allowance__{{ this.id }}" id="use_allowance__{{ this.id }}" type="checkbox" {{#if use_allowance}}checked="checked"{{/if}} data-tom-leave-type-order="allowance_{{@index}}">
+            <label for="use_allowance__{{ this.id }}" class="control-label smaller">Use allowance</label>
+            <br>
+            <label for="include_weekend_and_hols__{{ this.id }}" class="control-label smaller">
+              <input name="include_weekend_and_hols__{{ this.id }}" id="include_weekend_and_hols__{{ this.id }}" type="checkbox" {{#if is_include_weekend_and_hols}}checked="checked"{{/if}} value="1" data-tom-leave-weekend="weekends_{{@index}}">
+              Count calendar days
+            </label>            
           </div>
-          <div class="col-md-1">
-            <button class="btn btn-default pull-right leavetype-remove-btn" value="{{ this.id }}" data-tom-leave-type-order="remove_{{@index}}"><span class="fa fa-remove"></span></button>
+          <div class="col-md-3">
+            <input name="comment_req__{{ this.id }}" id="comment_req__{{ this.id }}" type="checkbox" {{#if comment_req}}checked="checked"{{/if}} data-tom-leave-type-order="comment_{{@index}}">
+            <label for="comment_req__{{ this.id }}" class="control-label smaller">Reason</label>
+            &nbsp;&nbsp;
+            <input name="attachment_req__{{ this.id }}" id="attachment_req__{{ this.id }}" type="checkbox" {{#if attachment_req}}checked="checked"{{/if}} data-tom-leave-type-order="attachment_req_{{@index}}">
+            <label for="attachment_req__{{ this.id }}" class="control-label smaller">Attachment</label> <select id="attachment_opt" name="attachment_opt__{{ this.id }}"><option value="1">req</option><option value="2"{{#if_equal this.attachment_req 2}} selected{{/if_equal}}>opt</option></select>
+          </div>
+          <div class="col-md-1 general-settings-no-pad">
+            <input type="number" class="form-control" min="0" value="{{limit}}" name="limit__{{ this.id }}" data-tom-leave-type-order="limit_{{@index}}">
+          </div>
+          <div class="col-md-1 general-settings-no-pad">
+            <input type="number" class="form-control" min="0" value="{{min_days_prior}}" name="min_days_prior__{{ this.id }}" data-tom-leave-type-order="min_days_prior_{{@index}}">
+          </div>
+          <div class="col-md-1 general-settings-no-pad">
+            <input type="number" class="form-control" min="0" value="{{sort_order}}" name="sort_order__{{ this.id }}" data-tom-leave-type-order="sort_order_{{@index}}">
+          </div>          
+          <div class="col-md-1 general-settings-no-pad">
+            <button class="btn btn-default leavetype-remove-btn" value="{{ this.id }}" data-tom-leave-type-order="remove_{{@index}}" company="{{../company.id}}"><span class="fa fa-remove"></span></button>
           </div>
         </div>
 
@@ -263,6 +383,73 @@
       </div>
     </div>
   </div>
+</div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-md-7">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Bank Holidays
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-4"><label class="control-label">Date</label></div>
+          <div class="col-md-6"><label class="control-label">Holiday Name</label></div>
+        </div>
+
+        <div class="row">&nbsp;</div>
+
+        <form id="delete_leavetype_form" method="post" action="/settings/leavetypes/delete/"></form>
+        <form id="leave_type_edit_form" method="post" action="/settings/leavetypes/">
+
+        {{#unless company.leave_types.length }}
+        <div class="row">
+          <div class="col-md-4 tst-no-bank-holidays">No Bank holiday records</div>
+        </div>
+        {{/unless}}
+
+        {{#each company.leave_types}}
+        <div class="row">
+
+          <div class="col-md-4">
+            <div class="input-append date">
+            <input type="text" class="form-control" value="{{as_date date}}" name="date__{{@index}}" data-date-autoclose="1" data-provide="datepicker" data-date-format="{{#with ../logged_user.company}}{{this.get_default_date_format_for_date_picker}}{{/with}}" data-date-week-start="1">
+            <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+              <input type="text" class="form-control" value="{{name}}" name="name__{{@index}}">
+          </div>
+
+          <div class="col-md-2">
+            <button class="btn btn-default pull-right bankholiday-remove-btn" type="button" value="{{@index}}" company="{{../company.id}}"><span class="fa fa-remove"></span></button>
+          </div>
+        </div>
+
+        <div class="row">&nbsp;</div>
+
+        {{/each}}
+
+        <div class="row">&nbsp;</div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="pull-right">
+              <button id="bankholiday-import-btn" class="btn btn-default" type="button">Import default holidays</button>
+              <button class="btn btn-default" type="button" data-toggle="modal" data-target="#add_new_bank_holiday_modal" id="add_new_bank_holiday_btn">Add new</button>
+              <button type="submit" class="btn btn-success">Save changes</button>
+            </div>
+          </div>
+        </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
 
   <div class="col-md-5 setting-general-2nd-column">
     <div class="panel panel-default">
@@ -278,8 +465,6 @@
   </div>
 
 </div>
-
-
 
 <div class="row">
   <div class="col-md-12">
@@ -315,13 +500,51 @@
   </div>
 </div>
 
+<div class="modal fade" id="Credit_leave" tabindex="-1" role="dialog" aria-labelledby="Credit_leaveLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" action="/settings/credit_additional_leave/{{company.id}}" onsubmit="return confirm('Are you sure to credit additional leave to all staff ? \nWarning: This action can not be revert !');">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Credit Additional Leave</h4>
+          </div>
+        <div class="modal-body">
+          <div class="form-group required">
+            <label for="Date" class="control-label">Date:</label>
+            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            <input type="text" class="form-control book-leave-to-input" id="date_credit_leave" autocomplete="off"  data-date-autoclose="1" data-date-format="{{#with logged_user.company }}{{this.get_default_date_format_for_date_picker}}{{/with}}" value="" name="date_credit_leave" required="required">
+          </div>
+          <div class="form-group required">
+              <label for="leave_type" class="control-label">Remarks:</label>
+              <textarea class="form-control" rows="4" name="admin_remarks" id="admin_remarks" placeholder="Enter reason here..." required="required"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Submit</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{{> add_new_bank_holiday_modal
+  container_id='add_new_bank_holiday_modal'
+  form_action='/settings/bankholidays/'
+  companyid=company.id
+}}
+
+
 {{> add_new_leave_type_modal
   container_id='add_new_leave_type_modal'
   form_action='/settings/leavetypes/'
+  companyid=company.id
 }}
 
 {{> remove_company_modal
   container_id='remove_company_modal'
+  companyid=company.id
 }}
 
 {{> footer }}

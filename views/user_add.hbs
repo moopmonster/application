@@ -4,9 +4,9 @@
 <h1>New employee</h1>
 
 <div class="row">
-  <div class="col-md-6 lead">Adding new employee account</div>
+  <div class="col-md-6 lead">Adding new employee account for {{company.name}}</div>
   <div class="col-md-6">
-    <a class="btn btn-default pull-right" href="/users/import/" id="import_users_btn">Import new employees <i class="fa fa-chevron-right"></i></a>
+    <a class="btn btn-default pull-right" href="/users/import/{{company.id}}" id="import_users_btn">Import new employees <i class="fa fa-chevron-right"></i></a>
   </div>
 </div>
 
@@ -28,7 +28,7 @@
 <div class="row">
   <div class="col-md-12">
 
-    <form class="form-horizontal" method="POST" action="/users/add/" id="add_new_user_form">
+    <form class="form-horizontal" method="POST" action="/users/add/{{company.id}}" id="add_new_user_form">
 
       <div class="form-group">
         <label for="name_inp" class="col-md-3 control-label">First Name</label>
@@ -41,6 +41,13 @@
         <label for="lastname_inp" class="col-md-3 control-label">Last Name</label>
         <div class="col-md-3">
           <input class="form-control" id="lastname_inp" name="lastname" required value="{{employee.lastname}}">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="nickname_inp" class="col-md-3 control-label">Nick Name</label>
+        <div class="col-md-3">
+          <input class="form-control" id="nickname_inp" name="nickname" required value="{{employee.nickname}}">
         </div>
       </div>
 
@@ -62,6 +69,15 @@
           </select>
         </div>
         <span id="department_help" class="help-block col-md-6">Department employee belongs to</span>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-3 col-md-offset-3">
+          <label for="supervisor_inp" class="_col-md-2 control-label">
+            <input class="" id="supervisor_inp" name="supervisor" type="checkbox" />
+             Is supervisor user
+          </label>
+        </div>
       </div>
 
       <div class="form-group">

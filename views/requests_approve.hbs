@@ -1,0 +1,150 @@
+
+{{> header }}
+
+<h1>To Approve</h1>
+
+{{> show_flash_messages }}
+
+{{# if to_be_approved_leaves}}
+<div class="row main-row_header">
+  <p class="col-md-12">Leave requests to approve</p>
+</div>
+
+<div class="row">
+  {{# unless to_be_approved_leaves}}
+  <div class="col-md-12 text-muted">
+    There are no leave request to decide on.
+  </div>
+  {{else}}
+  <div class="col-md-12">
+    <p class="visible-xs-block"><em class="text-muted">Scroll table horizontally</em></p>
+    <div class="table-responsive">
+    <table class="table table-hover requests-to-approve-table">
+      <thead>
+        <tr>
+          <th class="col-md-2">Employee</th>
+          {{!-- <th class="col-md-1">Department</th> --}}
+          <th class="col-md-1">Date of request</th>
+          <th class="col-md-3">Leave dates</th>
+          <th class="col-md-2">Type</th>
+          <th class="col-md-1">Days</th>
+          <th class="col-md-2">Employee Reason</th>
+          <th class="col-md-1" colspan=3></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each to_be_approved_leaves }}
+        <tr vpp="pending_for__{{this.user.email}}">
+          <td>{{#with this.user}}{{this.full_name}}{{/with}}</td>
+          {{!-- <td>{{this.user.department.name}}</td> --}}
+          <td class="date_of_request">{{as_date_from_timestamp this.createdAt}}</td>
+          <td data-tom-leave-dates="1">{{> leave_dates leave=this}}</td>
+          <td>{{#if this.is_pended_revoke_leave}}REVOKE {{/if}}{{this.leave_type.name}}</td>
+          <td data-vpp="days_used">{{ this.get_deducted_days_number_ignore_allowance }} {{#if this.get_deducted_days_number}}<span class="allowance_deducted">(-{{ this.get_deducted_days_number }})</span>{{/if}}</td>
+          <td class="smaller">{{#if this.get_employee_comment}}{{this.get_employee_comment}}{{/if}}</td>
+          <td>
+          {{# if this.get_leave_type_attachment_req }}
+            {{#if this.get_leave_type_attachment_is_image}}
+              <td>
+                <button data-toggle="modal" data-target="#viewAttachment_{{this.id}}" data-lid="{{this.id}}" type="submit" class="btn btn-default btn-xs" title="View Image " {{#unless this.attachment}}disabled{{/unless}}>
+                    <i class="fa fa-file-image-o{{#unless this.attachment}} gray{{/unless}}"></i>
+                </button>
+              </td>
+            {{/if}}
+            {{#if this.get_leave_type_attachment_is_pdf}}
+              <td>
+                <button data-toggle="modal" data-target="#viewAttachment_{{this.id}}" data-lid="{{this.id}}" type="submit" class="btn btn-default btn-xs" title="View PDF " {{#unless this.attachment}}disabled{{/unless}}>
+                      <i class="fa fa-file-pdf-o{{#unless this.attachment}} gray{{/unless}}"></i>
+                  </button>
+              </td>
+            {{/if}}
+
+             <!-- View Attachment -->
+              <div class="modal fade" id="viewAttachment_{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="viewAttachmentLabel">
+                <div class="modal-dialog {{#if this.get_leave_type_attachment_is_pdf}}modal-full{{else}}modal-half{{/if}}">
+                  <div class="modal-content">
+                    <div class="modal-body" style="padding:5px">
+                        <div class="form-group" style="text-align: center">
+                          {{#if this.get_leave_type_attachment_is_image}}
+                            <img src="{{this.attachment}}" alt="attachment" style="max-width: 99%;display: inline-block;">
+                          {{/if}}
+                          {{#if this.get_leave_type_attachment_is_pdf}}
+                            <embed src="{{this.attachment}}" type="application/pdf" style="min-width: 99%;min-height: 89vh;border-radius: 7px">
+                          {{/if}}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /end View Attachment -->
+            <td>
+              <form action="/requests/reqdownload/" method="post">
+                <input type="hidden" value="{{this.id}}" name="request">
+                <button type="submit" class="btn btn-default btn-xs" title="Download file " {{#unless this.attachment}}disabled{{/unless}}>
+                  <i class="fa fa-download{{#unless this.attachment}} gray{{/unless}}"> </i>
+                </button>
+              </form>
+          {{else}}
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          {{/if}}
+          <td>
+            <form action="/requests/reject/" method="POST" id="rejectForm_{{this.id}}">
+            <input type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#rejectModal" data-lid="{{this.id}}" type="submit" value="Reject">
+            <input type="hidden" value="{{this.id}}" name="request" id="rej_request">
+            <input type="hidden" value="" name="comment" id="comment_{{this.id}}">
+            </form>
+          </td>
+          <td>
+            {{# if this.get_leave_type_attachment_can_approve }}
+            <form action="/requests/approve/" method="POST">
+            <input class="btn btn-success btn-xs" type="submit" value="Approve">
+            <input type="hidden" value="{{this.id}}" name="request">
+            </form>
+            {{else}}
+            <span style="color:red" class="smaller">Incomplete</span>
+            {{/if}}            
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    </div>
+  </div>
+  {{/unless}}
+</div>
+
+<!-- Reject Modal for comments -->
+<div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="message-text" class="control-label">Reject remarks:</label>
+            <textarea class="form-control" id="message-text" name="comment"></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="reject_comment();" id="reject_with_comments" lid="">Reject</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /end Reject Modal for comments -->
+{{else}}
+
+<div class="row">
+  <p class="col-md-12">No leave requests to approve</p>
+</div>
+
+
+{{/if}}
+
+  {{> user_requests_verify to_be_verified_leaves=to_be_verified_leaves no_header=1 logged_user=logged_user}}
+
+
+{{>footer}}

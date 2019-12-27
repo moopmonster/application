@@ -17,9 +17,14 @@
   <div class="form-group">
     <label for="manager_id" class="control-label">Manager</label>
     <select class="form-control" name="boss_id" id="manager_id">
-    {{#each company.users}}
-      <option value="{{this.id}}" {{#if_equal ../department.bossId this.id }} selected="selected"{{/if_equal}}>{{this.full_name}}</option>
-    {{/each}}
+    {{#each company}}
+      {{#each this.users}}
+        <option value="{{this.id}}" {{#if_equal ../../department.bossId this.id }} selected="selected"{{/if_equal}}>{{this.full_name}}</option>
+      {{/each}}
+   {{!--  {{#each others}}
+      <option value="{{this.id}}" {{#if_equal ../department.bossId this.id }} selected="selected"{{/if_equal}}>{{this.name}} {{this.lastname}}</option>
+    {{/each}}    --}}
+    {{/each}} 
     </select>
     <span class="help-block">Head of {{department.name}} department. Main manager. <a href="/users/edit/{{department.bossId}}/">More details <i class="fa fa-angle-double-right"></i></a></span>
   </div>
@@ -57,7 +62,7 @@
 
     <select class="form-control" name="allowance" id="allowance_select">
         {{#each allowance_options}}
-        <option value="{{value}}" {{#if_equal this.value ../department.allowance}} selected="selected"{{/if_equal}}>{{caption}}</option>
+        <option value="{{value}}" {{#if_equal this.value ../user.user_leave }} selected="selected"{{/if_equal}}>{{caption}}</option>
         {{/each}}
     </select>
   </div>
@@ -77,6 +82,13 @@
     </label>
     <span class="help-block">If enabled, holiday allowance starts to build up - or accrue - from the first day of employment. It accrues in proportion to the annual entitlement. E.g. an employee in the ninth month of employment would have built up 9/12ths (or three-quarters) of annual entitlement.</span>
   </div>
+
+
+  <div class="form-group">
+    <label for="gcal_id" class="control-label">Google Calendar ID</label>
+    <input class="form-control" id="gcal_id" name="gcal_id" value="{{department.gcal_id}}">
+  </div>
+  
 </div>
 
 <div class="row">

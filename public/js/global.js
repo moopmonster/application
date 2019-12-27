@@ -4,6 +4,10 @@
  *
  * */
 $(document).ready(function(){
+
+  $('input.book-leave-from-input').datepicker(datepicker_default);
+  $('input.book-leave-to-input').datepicker(datepicker_default);
+
   /*
    *  When FROM field in New absense form chnages: update TO one if necessary
    */
@@ -11,6 +15,8 @@ $(document).ready(function(){
     e.stopPropagation();
 
     var from_date = $('input.book-leave-from-input').datepicker('getDate');
+
+    priorDateValidation();
 
     if ( ! from_date ) {
       // no new value for FROM part, do nothing
@@ -25,6 +31,66 @@ $(document).ready(function(){
     }
   });
 });
+
+var datepicker_default = {
+    monthsTitle : "Months",
+    clear       : "Clear", 
+    format      : getDefaultDateFormat(),
+    todayHighlight: true,
+    weekStart   : 0,
+    /*daysOfWeekDisabled: [0,6],*/
+    daysOfWeekHighlighted: "0,6",
+    beforeShowDay: function(date)
+    {
+      var HOL_DS = eval($('#bank_holiday').val());  
+      var DT = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + (date.getDate()<10?'0':'')+date.getDate();
+
+      var holfind = HOL_DS.find(o => o.dt === DT); 
+      if (holfind) {
+        return {classes: 'bank_holiday_cell', tooltip: holfind.name};
+      }
+  },
+}
+function getDefaultDateFormat() {
+  return $('input.book-leave-from-input').attr("data-date-format");
+}
+function priorDateValidation() {
+    var from_date = $('input.book-leave-from-input').datepicker('getDate');
+    
+    // prior date validation
+    var today = new Date();
+    var validate_prior = parseInt($("select#leave_type").find('option:selected').attr('data-tom-prior'));
+
+    if ( ! from_date ) {
+      $('.data-tom-prior-error').remove();
+      return;
+    }
+    if( validate_prior > 0 && (getBusinessDatesCount(today, from_date) < validate_prior) ){
+      error_msg = '' + validate_prior + ' working days required. Please choose Emergency Leave instead.';
+      $('input.book-leave-from-input').val("");
+      if($('.data-tom-prior-error').length==0) {
+        $('input.book-leave-from-input').closest('[class^="col-md"]').append('<span class="data-tom-prior-error error text-danger">'+error_msg+'</span>');
+      }
+    }
+    else $('.data-tom-prior-error').remove();
+}
+
+function getBusinessDatesCount(startDate, endDate) {
+    var count = 1;
+    var curDate = startDate;
+    var HOL_DS = eval($('#bank_holiday').val());
+
+    while (curDate <= endDate) {
+        var dayOfWeek = curDate.getDay();
+        var DT = curDate.getFullYear() + '-' + (curDate.getMonth()+1) + '-' + (curDate.getDate());
+        var hol = (HOL_DS.find(o => o.dt === DT)?1:0);
+
+        if(!((dayOfWeek == 6) || (dayOfWeek == 0) || (hol == 1) )) /* to add and public holiday */
+           count++;
+        curDate.setDate(curDate.getDate() + 1);
+    }
+    return count;
+}
 
 
 /*
@@ -142,6 +208,25 @@ $(document).ready(function(){
     });
 });
 
+/*
+ * This is to use tablesorter and allow table columns to be sorted client side.
+ *
+ * */
+$(document).ready(function() {
+  $(".sortable-table").tablesorter();
+});
+
+/*
+ * Shortcut to reset to default table sorting
+ *
+ * */
+$(function() {
+  $('#reset-sort').click(function() {
+    $('.sortable-table').trigger('sortReset');
+    return false;
+  });
+});
+
 
 $(document).ready(function(){
 
@@ -181,14 +266,124 @@ $(document).ready(function(){
       return detailsInPopup($(this).attr('data-user-id'), divId);
     }
   });
+});
+/*
+ * leave request UI triggers
+ *
+ * */
 
-  function detailsInPopup(userId, divId){
-    $.ajax({
-      url: '/users/summary/'+userId+'/',
-      success: function(response){
-        $('#'+divId).html(response);
-      }
+$(document).ready(function(){
+  $('select#leave_type')
+    .on('change', function(e){
+      var optsel = $(this).find('option:selected');
+      var validate_comment = optsel.attr('data-tom-comment');
+      var validate_attachment = optsel.attr('data-tom-attachment');
+      var optsel_name = optsel.attr('data-tom');
+
+      // hardcode for "Others"      
+      toggleShow($('#wfh-block'),(optsel_name == "Others"?true:false));      
+      $('input#wfh-chk').prop("checked", false);
+      toggleShow($('div#wfh-warn'), false);
+
+      // set compulsory comments
+      toggleReq($('textarea#employee_comment'),(validate_comment==1?true:false));
+
+      // set compulsory attachment
+      toggleReq($('input#attachment-inp'),(validate_attachment==1?true:false));
+      toggleShowGroup($('input#attachment-inp'),(validate_attachment!=0?true:false));
+      toggleShow($('.attachment-later'),(validate_attachment==1?true:false));
+
+      // date from/to 
+      toggleReq($('input#from'),true);
+      toggleReq($('input#to'),true);
+
+      // from date
+      priorDateValidation();
+
+      return false;
     });
-    return '<div id="'+ divId +'">Loading...</div>';
+
+  // leave type
+  $('select#leave_type').trigger("change");
+  
+  // defer attachment 
+  $('input#attachment-later').on('click', function(e){
+    e.stopPropagation();
+    toggleReq($('input#attachment-inp'),!$(this).prop("checked"));
+  });
+
+  // Wfh 
+  $('input#wfh-chk').on('click', function(e){
+    e.stopPropagation();
+    toggleShow($('div#wfh-warn'), $(this).prop("checked"));
+  });  
+
+});
+
+
+function detailsInPopup(userId, divId){
+  $.ajax({
+    url: '/users/summary/'+userId+'/',
+    success: function(response){
+      $('#'+divId).html(response);
+    }
+  });
+  return '<div id="'+ divId +'">Loading...</div>';
+}
+function toggleReq(obj,flag)
+{
+  if(flag == true) {
+    obj.prop("required",true);
+    obj.closest(".form-group").addClass("required");
   }
+  else {
+    obj.removeProp("required");
+    obj.closest(".form-group").removeClass("required");
+  }
+}
+
+function toggleShowGroup(obj,flag)
+{
+  if(flag == true) {
+    obj.closest(".form-group").show();
+  }
+  else {
+    obj.removeProp("required");
+    obj.closest(".form-group").hide();
+  }
+}
+
+function toggleShow(obj,flag)
+{
+  if(flag == true) {
+    obj.show();
+  }
+  else {
+    obj.hide();
+  }
+}
+
+/*** 
+Approval
+***/
+
+$('#rejectModal').on('show.bs.modal', function (e) {
+    var button = $(e.relatedTarget);
+    var leave_id = button.attr("data-lid");
+    $('#reject_with_comments').attr("lid", leave_id);
+});
+
+function reject_comment()
+{
+  var lid = $('#reject_with_comments').attr("lid");
+  document.getElementById('comment_' +  lid).value = $('#reject_with_comments').val();
+  document.getElementById('rejectForm_' +  lid).submit();
+}
+
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
 });

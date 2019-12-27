@@ -10,6 +10,7 @@
   <input type="hidden" name="admin" value="{{#if employee.admin}}1{{else}}0{{/if}}">
   <input type="hidden" name="start_date" value="{{as_date employee.start_date}}">
   <input type="hidden" name="end_date" value="{{as_date employee.end_date}}">
+  <input type="hidden" name="nickname" value="{{employee.nickname}}">  
 
   {{> user_details/breadcrumb employee=employee }}
 
@@ -40,7 +41,7 @@
   </div>
 
   <div class="form-group">
-    <label class="control-label">Days available for {{ employee.name }} to take this year</label>
+    <label class="control-label">Days available for {{ employee.name }} {{ employee.lastname }} to take this year</label>
     <p>{{ user_allowance.number_of_days_available_in_allowance }} out of {{ user_allowance.total_number_of_days_in_allowance }} in allowance</p>
     <input id="days_remaining_inp" type="hidden" value="{{ user_allowance.number_of_days_available_in_allowance }} out of {{ user_allowance.total_number_of_days_in_allowance }}">
   </div>
@@ -56,7 +57,7 @@
   <div class="row">
     <div class="col-md-5">
       <dl>
-        <dt>Absences used this year grouped by leave types</dt>
+        <dt>Leaves used this year grouped by leave types</dt>
         {{# if leave_type_statistics }}
           {{# each leave_type_statistics }}
             <dd><em>{{this.leave_type.name}}:</em> <span class="pull-right">{{this.days_taken}}{{# if this.limit}} out of {{this.limit}}{{/if}}</span></dd>
@@ -73,25 +74,51 @@
   </div>
 
   <div class="form-group">
-    <label for="carried_over_allowance_inp" class="control-label">Allowance carried over from previous year</label>
+    <label for="user_leave_inp" class="control-label">Annual Leave</label>
+    <div class="input-group col-md-10">
+      <input class="form-control"  id="user_leave_inp" type="number" step="0.5" name="user_leave" value="{{#if employee.user_leave }}{{employee.user_leave}}{{else}}0{{/if}}" aria-describedby="user_leave_help">
+      <span class="input-group-addon">working days</span>
+      <span class="input-group-addon">Annual Leave entitlement calculated by system: {{#if employee.calculated_userleaves }}{{employee.calculated_userleaves}}{{else}}0{{/if}} working days</span>
+    </div>
+    <div id="user_leave_help" class="help-block">
+      <div>User annual leave entitlement.</div>
+      <div>The value is valid during current year. Next year it needs to be re-confirmed.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="user_sick_leave_inp" class="control-label">Sick Leave</label>
     <div class="input-group col-md-4">
-      <input class="form-control" readonly id="carried_over_allowance_inp" type="number" step="0.5" name="carried_over_allowance" value="{{#if carried_over_allowance }}{{carried_over_allowance}}{{else}}0{{/if}}" aria-describedby="carried_over_allowance_help">
+      <input class="form-control"  id="user_sick_leave_inp" type="number" step="0.5" name="user_sick_leave" value="{{#if employee.calculated_sickleaves }}{{employee.calculated_sickleaves}}{{else}}0{{/if}}" aria-describedby="user_sick_leave_help">
+      <span class="input-group-addon">working days</span>
+    </div>
+    <div id="user_sick_leave_help" class="help-block">
+      <div>User sick leave entitlement.</div>
+      <div>The value is valid during current year. Next year it needs to be re-confirmed.</div>
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label for="carried_over_allowance_inp" class="control-label">Leave carried over from previous year</label>
+    <div class="input-group col-md-4">
+      <input class="form-control"  id="carried_over_allowance_inp" type="number" step="0.5" name="carried_over_allowance" value="{{#if carried_over_allowance }}{{carried_over_allowance}}{{else}}0{{/if}}" aria-describedby="carried_over_allowance_help">
       <span class="input-group-addon">working days</span>
     </div>
     <div id="carried_over_allowance_help" class="help-block">
-      <div>Allowance adjustment based on unused holidays from previous year.</div>
+      <div>Leave adjustment based on unused holidays from previous year.</div>
       <div>It is calculated at the beginning of current year.</div>
     </div>
   </div>
 
   <div class="form-group">
-    <label for="adjustment_inp" class="control-label">Allowance adjustment in current year</label>
+    <label for="adjustment_inp" class="control-label">Leave adjustment in current year</label>
     <div class="input-group col-md-4">
       <input class="form-control" id="adjustment_inp" type="number" step="0.5" name="adjustment" value="{{#if employee_adjustment }}{{employee_adjustment}}{{else}}0{{/if}}" aria-describedby="adjustment_help">
       <span class="input-group-addon">working days</span>
     </div>
     <div id="adjustment_help" class="help-block">
-      <div>Tune allowance for this user in current year.</div>
+      <div>Tune leave allowance for this user in current year.</div>
       <div>Could be negative as well.</div>
       <div>The value is valid during current year. Next year it needs to be re-confirmed.</div>
     </div>

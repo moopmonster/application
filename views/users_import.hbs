@@ -4,9 +4,9 @@
 <h1>Employees bulk import</h1>
 
 <div class="row">
-  <div class="col-md-6 lead">Quick employees import</div>
+  <div class="col-md-6 lead">Quick employees import for {{company.name}}</div>
   <div class="col-md-6">
-    <a class="btn btn-default pull-right" href="/users/add/" id="add_new_department">Add single employee <i class="fa fa-chevron-right"></i></a>
+    <a class="btn btn-default pull-right" href="/users/add/{{company.id}}" id="add_new_department">Add single employee <i class="fa fa-chevron-right"></i></a>
   </div>
 
 </div>
@@ -29,7 +29,7 @@
 <div class="row">
   <div class="col-md-9 col-md-offset-1">
 
-    <form class="form-horizontal" method="POST" action="/users/import-sample/" id="users_import_sample_form">
+    <form class="form-horizontal" method="POST" action="/users/import-sample/{{company.id}}" id="users_import_sample_form">
       <p class="text-bigger">
         <strong>1.</strong> Download example of <strong>.CSV</strong> file based on employees currently available:
         <button
@@ -51,7 +51,7 @@
     <p class="text-bigger">
       <strong>3.</strong> Upload <strong>.CSV</strong> file:
 
-      <form action="/users/import/" method="post" role="form" enctype="multipart/form-data" class="panel-body">
+      <form action="/users/import/{{company.id}}" method="post" role="form" enctype="multipart/form-data" class="panel-body">
         <div class="form-group">
           <input id="users_input_inp" type="file" name="users_import">
         </div>
