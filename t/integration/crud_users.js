@@ -193,6 +193,7 @@ describe('CRUD for users', function(){
       submit_button_selector : 'button#remove_btn',
       driver : driver,
       message : /Employee records were removed from the system/,
+      confirm_dialog : true,
     })
     .then(function(){ done() });
   });
@@ -219,6 +220,7 @@ describe('CRUD for users', function(){
       submit_button_selector : 'button#remove_btn',
       driver      : driver,
       message : /Cannot remove supervisor/,
+      confirm_dialog : true,
     })
     .then(function(){ done() });
   });
@@ -290,6 +292,7 @@ describe('CRUD for users', function(){
       submit_button_selector : 'button#remove_btn',
       driver      : driver,
       message : /Employee records were removed from the system/,
+      confirm_dialog : true,
     })
     .then(function(){ done() });
   });
@@ -331,6 +334,7 @@ describe('CRUD for users', function(){
       submit_button_selector : 'button#remove_btn',
       driver      : driver,
       message : /Cannot remove administrator user/,
+      confirm_dialog : true,
     })
     .then(function(){ done() });
   });
@@ -366,6 +370,7 @@ describe('CRUD for users', function(){
       form_params : [{
           selector : 'input[name="adjustment"]',
           value    : '1.2',
+          change_step: true,
       }],
       submit_button_selector : 'button#save_changes_btn',
       message : /New allowance adjustment of user should be either whole integer number or with half/,
@@ -428,6 +433,7 @@ describe('CRUD for users', function(){
       submit_button_selector : 'button#remove_btn',
       driver      : driver,
       message : /Employee records were removed from the system/,
+      confirm_dialog : true,
     })
     .then(function(){ done() });
   });

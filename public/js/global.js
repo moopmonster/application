@@ -254,7 +254,19 @@ $(document).ready(function(){
     });
 });
 
-
+$(document).ready(function(){
+  $('.user-details-summary-trigger').popover({
+    title: 'Employee summary',
+    html: true,
+    trigger: 'hover',
+    placement: 'auto',
+    delay: {show: 1000, hide: 10},
+    content: function(){
+      var divId =  "tmp-id-" + $.now();
+      return detailsInPopup($(this).attr('data-user-id'), divId);
+    }
+  });
+});
 /*
  * leave request UI triggers
  *
@@ -308,6 +320,16 @@ $(document).ready(function(){
 
 });
 
+
+function detailsInPopup(userId, divId){
+  $.ajax({
+    url: '/users/summary/'+userId+'/',
+    success: function(response){
+      $('#'+divId).html(response);
+    }
+  });
+  return '<div id="'+ divId +'">Loading...</div>';
+}
 function toggleReq(obj,flag)
 {
   if(flag == true) {

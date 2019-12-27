@@ -4,6 +4,8 @@ Leave request cancelled
 
 <p>This is just to inform you that <strong>{{#with requester}}{{this.full_name}}{{/with}} cancelled</strong> their leave request <strong>{{>leave_request_detail leave=leave }}</strong>.</p>
 
+{{> email/leave_comments comments=comments }}
+
 <p>No action is needed.</p>
 
 <p>Thanks</p>

@@ -4,6 +4,8 @@ Leave request pending approval
 
 <p>Your leave request <strong>{{>leave_request_detail leave=leave }} has been sent</strong> to {{#with approver }}{{this.full_name}}{{/with}} for approval.</p>
 
+{{> email/leave_comments comments=comments }}
+
 <p>There will be another email once it has been processed.</p>
 
 <p>Thanks</p>

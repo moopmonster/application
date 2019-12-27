@@ -1,6 +1,6 @@
 
 $(document).ready(function () {
-
+/* 
 
   $('button.bankholiday-remove-btn').on('click', function(e){
 
@@ -24,7 +24,7 @@ $(document).ready(function () {
 
     return false;
   });
-
+ */
 
   $('button.leavetype-remove-btn').on('click', function(e){
 
