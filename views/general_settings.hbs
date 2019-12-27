@@ -78,25 +78,18 @@
                 </div>
               </div>
 
-<<<<<<< HEAD
-=======
               <div class="form-group">
                 <label for="input_company_gcal_id" class="col-md-4 control-label">Google Calendar</label>
                 <div class="col-md-8">
                   <input class="form-control" id="input_company_gcal_id" placeholder="Google Cal ID" value="{{company.gcal_id}}" name="gcal_id">
                 </div>
               </div> 
->>>>>>> master
 
               <div class="form-group">
                 <div class="col-md-offset-4 col-md-8">
                   <div class="checkbox">
                     <label for="share-all-absences">
-<<<<<<< HEAD
-                      <input id="share-all-absences" type="checkbox" name="share_all_absences" {{# if company.share_all_absences }} checked="checked"{{/if}}>Share absences between employees
-=======
                       <input id="share-all-absences" type="checkbox" name="share_all_absences" {{# if company.share_all_absences }} checked="checked"{{/if}}>Share leave view between all employees
->>>>>>> master
                     </label>
                     <p>
                       <em>If enabled all employees can see information about everybody's leave regardless departments.</em>
@@ -385,86 +378,24 @@
   </div>
 </div>
 
-</div>
 
 <div class="row">
-
-  <div class="col-md-7">
+  <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading">
         Bank Holidays
       </div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-4"><label class="control-label">Date</label></div>
-          <div class="col-md-6"><label class="control-label">Holiday Name</label></div>
-        </div>
-
-        <div class="row">&nbsp;</div>
-
-        <form id="delete_leavetype_form" method="post" action="/settings/leavetypes/delete/"></form>
-        <form id="leave_type_edit_form" method="post" action="/settings/leavetypes/">
-
-        {{#unless company.leave_types.length }}
-        <div class="row">
-          <div class="col-md-4 tst-no-bank-holidays">No Bank holiday records</div>
-        </div>
-        {{/unless}}
-
-        {{#each company.leave_types}}
-        <div class="row">
-
-          <div class="col-md-4">
-            <div class="input-append date">
-            <input type="text" class="form-control" value="{{as_date date}}" name="date__{{@index}}" data-date-autoclose="1" data-provide="datepicker" data-date-format="{{#with ../logged_user.company}}{{this.get_default_date_format_for_date_picker}}{{/with}}" data-date-week-start="1">
-            <span class="add-on"><i class="icon-th"></i></span>
-            </div>
+          <div class="col-md-5">
+            <div class="col-md-12 tst-no-bank-holidays">Bank holidays could be found <a href="/settings/bankholidays/{{company.id}}">here</a></div>
           </div>
-
-          <div class="col-md-6">
-              <input type="text" class="form-control" value="{{name}}" name="name__{{@index}}">
-          </div>
-
-          <div class="col-md-2">
-            <button class="btn btn-default pull-right bankholiday-remove-btn" type="button" value="{{@index}}" company="{{../company.id}}"><span class="fa fa-remove"></span></button>
-          </div>
-        </div>
-
-        <div class="row">&nbsp;</div>
-
-        {{/each}}
-
-        <div class="row">&nbsp;</div>
-
-        <div class="row">
-          <div class="col-md-12">
-            <div class="pull-right">
-              <button id="bankholiday-import-btn" class="btn btn-default" type="button">Import default holidays</button>
-              <button class="btn btn-default" type="button" data-toggle="modal" data-target="#add_new_bank_holiday_modal" id="add_new_bank_holiday_btn">Add new</button>
-              <button type="submit" class="btn btn-success">Save changes</button>
-            </div>
-          </div>
-        </div>
-
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-5 setting-general-2nd-column">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        Bank Holidays
-      </div>
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-md-12 tst-no-bank-holidays">Bank holidays could be found <a href="/settings/bankholidays/">here</a></div>
         </div>
       </div>
     </div>
   </div>
-
 </div>
+
 
 <div class="row">
   <div class="col-md-12">
@@ -498,6 +429,8 @@
       </div>
     </div>
   </div>
+</div>
+
 </div>
 
 <div class="modal fade" id="Credit_leave" tabindex="-1" role="dialog" aria-labelledby="Credit_leaveLabel">

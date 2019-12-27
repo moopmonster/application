@@ -91,11 +91,11 @@
     </div>
     {{/unless}}
 
-    <form id="delete_bankholiday_form" method="post" action="/settings/bankholidays/delete/">
+    <form id="delete_bankholiday_form" method="post" action="/settings/bankholidays/{{company.id}}/delete/">
       <input name="year" value="{{yearCurrent}}" type="hidden">
     </form>
-    <form id="import_bankholiday_form" method="post" action="/settings/bankholidays/import/?year={{yearCurrent}}"></form>
-    <form id="update_bankholiday_form" method="post" action="/settings/bankholidays/?year={{yearCurrent}}">
+    <form id="import_bankholiday_form" method="post" action="/settings/bankholidays/{{company.id}}/import/?year={{yearCurrent}}"></form>
+    <form id="update_bankholiday_form" method="post" action="/settings/bankholidays/{{company.id}}/?year={{yearCurrent}}">
     {{#each bankHolidays}}
     <div class="row">
       <div class="col-md-4">
