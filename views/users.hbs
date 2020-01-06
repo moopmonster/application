@@ -25,12 +25,13 @@
             </ul>
           </div>
           <form action="/users/" method="GET">
-            <input type="hidden" name="department" value="{{department_id}}">
+            <input type="hidden" name="department" value="{{../../department_id}}">
+            <input type="hidden" name="company" value="{{renderDetails.id}}">
             <input type="hidden" name="as-csv" value="1">
             <button
               class="btn btn-link pull-right"
               type="submit"
-              data-content="Download current page as .CSV file"
+              data-content="Download staff list from this company/department as .CSV file"
               data-placement="top"
               data-toggle="popover"
               data-trigger="focus hover"
@@ -44,7 +45,7 @@
       <div class="col-md-2 list-group all-departments normal">
         <a href="/users/" class="list-group-item{{#unless department_id }} selected-item{{/unless}}">ALL DEPARTMENTS</a>
         {{#each renderDetails.departments}}
-          <a class="list-group-item {{#if_equal ../department_id this.id}} selected-item{{/if_equal}}" href="/users/?department={{this.id}}">{{this.name}}</a>
+          <a class="list-group-item {{#if_equal ../../../department_id this.id}} selected-item{{/if_equal}}" href="/users/?department={{this.id}}">{{this.name}}</a>
         {{/each}}`
       </div>
 

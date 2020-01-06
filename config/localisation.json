@@ -3657,6 +3657,79 @@
         }
       ]
     },
+    "HK": {
+      "name": "Hong Kong",
+      "bank_holidays": [
+        {
+          "date": "2020-01-01", 
+          "name": "New Year’s Day"
+        },
+        {
+          "date": "2020-01-25", 
+          "name": "Lunar New Year Day 1"
+        },
+        {
+          "date": "2020-01-26", 
+          "name": "Lunar New Year Day 2"
+        },
+        {
+          "date": "2020-01-27", 
+          "name": "Lunar New Year Day 3"
+        },
+        {
+          "date": "2020-04-04", 
+          "name": "Ching Ming Festival"
+        },
+        {
+         "date": "2020-04-10", 
+          "name": "Good Friday"
+        },
+        {
+          "date": "2020-04-11", 
+          "name": "The day following Good Friday"
+        },
+        {
+          "date": "2020-04-13", 
+          "name": "Easter Monday"
+        },
+        {
+          "date": "2020-04-30", 
+          "name": "Birthday of the Buddha"
+        },
+        {
+          "date": "2020-05-01", 
+          "name": "Labour Day"
+        },
+        {
+          "date": "2020-06-25", 
+          "name": "Tuen Ng Festival"
+        },
+        {
+          "date": "2020-07-01", 
+          "name": "HKSAR establishment day"
+        },
+        {
+          "date": "2020-10-01", 
+          "name": "National Day"
+        },
+        {
+          "date": "2020-10-02", 
+          "name": "The day following the Mid-Autumn Festival"
+        },
+        {
+          "date": "2020-10-26", 
+          "name": " the day following Chung Yeung Festival"
+        },
+        {
+          "date": "2020-12-25", 
+          "name": "Christmas Day"
+        },
+        {
+          "date": "2020-12-26", 
+          "name": "Replacement- Christmas Day"
+        }
+      ]
+    },
     "HN": {
       "name": "Honduras",
       "bank_holidays": [
@@ -3883,6 +3956,12 @@
           "date": "2019-12-26",
           "name": "Karácsony másnapja"
         }
+      ]
+    },
+    "ID": {
+      "name": "Indonesia",
+      "bank_holidays": [
+        {}
       ]
     },
     "IE": {
@@ -5245,24 +5324,7 @@
         {
           "date": "2018-12-25",
           "name": "Christmas"
-        },
-        { "date": "2019-01-01", "name": "New Year's Day"},
-        { "date": "2019-01-21", "name": "Thaipusam"},
-        { "date": "2019-02-01", "name": "Federal Territory Day"},
-        { "date": "2019-02-05", "name": "Chinese New Year"},
-        { "date": "2019-05-01", "name": "Labour Day"},
-        { "date": "2019-05-20", "name": "Wesak Day"},
-        { "date": "2019-05-22", "name": "Nuzul Al-Quran"},
-        { "date": "2019-06-05", "name": "Hari Raya Aidilfitri"},
-        { "date": "2019-08-12", "name": "Hari Raya Haji"},
-        { "date": "2019-08-31", "name": "National Day"},
-        { "date": "2019-09-02", "name": "Awal Muharram"},
-        { "date": "2019-09-09", "name": "Agong's Birthday"},
-        { "date": "2019-09-16", "name": "Malaysia Day"},
-        { "date": "2019-10-28", "name": "Deepavali"},
-        { "date": "2019-11-09", "name": "Prophet Muhammad's Birthday"},
-        { "date": "2019-12-25", "name": "Christmas"}
-
+        }
     ]
   },
       
@@ -5684,6 +5746,12 @@
           "date": "2019-12-25",
           "name": "Navidad"
         }
+      ]
+    },
+    "PL": {
+      "name": "Philippines",
+      "bank_holidays": [
+        {}
       ]
     },
     "PL": {
@@ -6213,6 +6281,66 @@
         {
           "date": "2019-12-25",
           "name": "Christmas Day"
+        },
+        {
+          "date": "2020-01-01", 
+          "name": "New Year’s Day"
+        },
+        {
+          "date": "2020-01-25", 
+          "name": "Chinese New Year"
+        },
+        {
+          "date": "2020-01-26", 
+          "name": "Chinese New Year Day 2"
+        },
+        {
+          "date": "2020-01-27", 
+          "name": "Chinese New Year Day 3"
+        },
+        {
+          "date": "2020-04-10", 
+          "name": "Good Friday"
+        },
+        {
+          "date": "2020-05-01", 
+          "name": "Labour Day"
+        },
+        {
+          "date": "2020-05-07", 
+          "name": "Vesak Day"
+        },
+        {
+          "date": "2020-05-24", 
+          "name": "Hari Raya Puasa Day 1"
+        },
+        {
+          "date": "2020-05-25", 
+            "name": "Hari Raya Puasa Day 22"
+          },
+        {
+          "date": "2020-07-31", 
+          "name": "Hari Raya Haji"
+        },
+        {
+          "date": "2020-08-09", 
+          "name": "National Day"
+        },
+        {
+          "date": "2020-08-10", 
+          "name": "Replacement- National Day"
+        },
+        {
+          "date": "2020-10-01", 
+          "name": "National Day"
+        },
+        {
+          "date": "2020-11-14", 
+          "name": "Deepavali"
+        },
+        {
+          "date": "2020-12-25", 
+          "name": "Christmas Day"
         }
       ]
     },
@@ -6666,6 +6794,12 @@
           "date": "2019-12-25",
           "name": "Noël"
         }
+      ]
+    },
+    "TH": {
+      "name": "Thailand",
+      "bank_holidays": [
+        {}
       ]
     },
     "TR": {

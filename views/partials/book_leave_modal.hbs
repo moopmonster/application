@@ -13,10 +13,10 @@
             <label for="employee" class="control-label">For employee:</label>
             <select class="form-control" id="employee" name="user">
               {{#each logged_user.supervised_users}}
-                {{# if_equal @index 0}}
-                {{else}}
+                {{!-- {{# if_equal @index 0}}
+                {{else}} --}}
                 <option value="{{@index}}" {{# if_equal this.id ../logged_user.id }}selected="selected"{{/if_equal}}>{{this.nickname}}</option>
-                {{/if_equal}}
+                {{!-- {{/if_equal}} --}}
               {{/each}}
             </select>
           </div>
