@@ -49,7 +49,7 @@
               <li class="dropdown hidden-xs">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="fa fa-gears"></span> <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  {{# ifCond logged_user.supervised_company.length '>' 1}}
+                  {{# ifCond logged_user.supervised_company.length '>' 0}}
                     {{#each logged_user.supervised_company}}
                     <li class="dropdown-submenu">
                       <a class="test" tabindex="-1" href="#">{{this.name}}<span class="caret"></span></a>
@@ -66,14 +66,14 @@
                      </li>
                     {{/each}}
                   {{else}}
-                    <li><a href="/settings/general/">General</a></li>
+                    <li><a href="/settings/general/{{logged_user.companyId}}">General</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="/settings/bankholidays/">Bank Holidays</a></li>
-                    <li><a href="/settings/company/authentication/">LDAP configuration</a></li>
-                    <li><a href="/settings/company/integration-api/">API configuration</a></li>
-                    <li><a href="/users/import/">Import employees</a></li>
+                    <li><a href="/settings/bankholidays/{{logged_user.companyId}}">Bank Holidays</a></li>
+                    <li><a href="/settings/company/authentication/{{logged_user.companyId}}">LDAP configuration</a></li>
+                    <li><a href="/settings/company/integration-api/{{logged_user.companyId}}">API configuration</a></li>
+                    <li><a href="/users/import/{{logged_user.companyId}}">Import employees</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="/audit/email/">Emails audit</a></li>
+                    <li><a href="/audit/email/{{logged_user.companyId}}">Emails audit</a></li>
                   {{/ifCond}}   
                 </ul>
               </li>
