@@ -37,6 +37,15 @@
     <span id="department_help" class="help-block">Department current user is part of. <a href="/settings/departments/edit/{{employee.DepartmentId}}">More details <i class="fa fa-angle-double-right"></i></a></span>
   </div>
 
+  {{# if logged_user.superadmin }}
+  <div class="form-group">
+    <label for="superadmin_inp" class="control-label">
+      <input class="" id="superadmin_inp" name="superadmin" type="checkbox"{{# if employee.superadmin}} checked="checked"  {{/if}} >
+      Is super administrator user
+    </label>
+  </div>
+  {{/if}}
+
   <div class="form-group">
       <label for="admin_inp" class="control-label">
         <input class="" id="admin_inp" name="admin" type="checkbox" {{# if employee.admin}} checked="checked"  {{/if}} >
