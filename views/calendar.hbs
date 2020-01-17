@@ -19,12 +19,22 @@
 
 <div class="row">
 
-  <div class="col-md-3 top-leave-type-statistics">
+  {{!-- <div class="col-md-3 top-leave-type-statistics">
     <dl>
       {{#with current_user }}
       <dt data-tom-days-available-in-allowance>{{ ../user_allowance.number_of_days_available_in_allowance }}</dt>
       <dd>Days available</dd>
       <dd>out of <span data-tom-total-days-in-allowance>{{ ../user_allowance.total_number_of_days_in_allowance }}</span> annual leave days</dd>
+      {{/with}}
+    </dl>
+  </div> --}}
+
+  <div class="col-md-3 top-leave-type-statistics">
+    <dl>
+      {{#with current_user }}
+      <dt data-tom-days-available-in-allowance>{{ ../user_allowance.number_of_days_available_in_allowance_with_year }}</dt>
+      <dd>Days available</dd>
+      <dd>out of <span data-tom-total-days-in-allowance>{{ ../user_allowance.total_number_of_days_in_allowance_with_year }}</span> annual leave days</dd>
       {{/with}}
     </dl>
   </div>

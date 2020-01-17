@@ -8,6 +8,7 @@
 
 }}
 
+
 <dl>
   <dt>Annual Leave Entitlment
     <i class="fa fa-question-circle"
@@ -17,7 +18,7 @@
       data-trigger="focus hover"
     ></i>
   </dt>
-    <dd>
+{{!--     <dd>
       <em>Annual Leave</em>
       <span class="pull-right"
         data-content="Annual Leave entitlement."
@@ -26,6 +27,16 @@
         data-trigger="focus hover"
         id='nominalAllowancePart'
       >{{ user_allowance.nominal_allowance }}</span>
+    </dd> --}}
+    <dd>
+      <em>Annual Leave</em>
+      <span class="pull-right"
+        data-content="Annual Leave entitlement."
+        data-placement="top"
+        data-toggle="popover"
+        data-trigger="focus hover"
+        id='allowanceBasedOnYearPart'
+      >{{ user_allowance.allowanceBasedOnYear}}</span>
     </dd>
     <dd>
       <em>Carried over from {{previous_year}}</em>
