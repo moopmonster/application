@@ -1,0 +1,13 @@
+Update Leaves set leaveTypeId = (
+     SELECT leavetypesSG.id FROM leavetypes leavetypesSG
+     where leavetypesSG.companyId = (Select id from Companies where country = 'SG')
+     and leavetypesSG.LeaveTypeCode = (
+        Select LeaveTypeCode from leavetypes leavetypesMY
+        where id = Leaves.leaveTypeId
+     )
+     
+)
+Where userID in (
+ Select id from users where companyId =  
+        (Select id from Companies where country = 'SG') 
+)

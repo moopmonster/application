@@ -8,6 +8,17 @@
         <h4 class="modal-title" id="exampleModalLabel">New Leave</h4>
       </div>
       <div class="modal-body">
+          {{# if_equal logged_user.supervised_company.length 0 }}{{else}}
+          <div class="form-group">
+            <label for="company" class="control-label">For company:</label>
+            <select class="form-control" id="company" name="company">
+              {{#each logged_user.supervised_company}}
+                <option value="{{this.id}}" {{# if_equal this.id ../supervised_company.id }}selected="selected"{{/if_equal}}>{{this.name}}</option>
+              {{/each}}
+            </select>
+          </div>
+          {{/if_equal}}
+
           {{# if_equal logged_user.supervised_users.length 1 }}{{else}}
           <div class="form-group">
             <label for="employee" class="control-label">For employee:</label>
@@ -15,7 +26,7 @@
               {{#each logged_user.supervised_users}}
                 {{!-- {{# if_equal @index 0}}
                 {{else}} --}}
-                <option value="{{@index}}" {{# if_equal this.id ../logged_user.id }}selected="selected"{{/if_equal}}>{{this.nickname}}</option>
+                <option value="{{@index}}" {{# if_equal this.id ../logged_user.id }}selected="selected"{{/if_equal}} company="{{this.companyId}}" {{# if_equal ../logged_user.companyId this.companyId}}style="display: block;"{{else}}style="display: none;"{{/if_equal}}>{{this.nickname}}</option>
                 {{!-- {{/if_equal}} --}}
               {{/each}}
             </select>
@@ -25,9 +36,17 @@
           <div class="form-group">
             <label for="leave_type" class="control-label">Leave type:</label>
             <select class="form-control" id="leave_type" name="leave_type">
-            {{# each logged_user.company.leave_types}}
-                <option value={{@index}} data-tom="{{this.name}}" data-tom-prior="{{this.min_days_prior}}" data-tom-comment="{{this.comment_req}}" data-tom-attachment="{{this.attachment_req}}">{{this.name}}</option>
-            {{/each}}
+            {{# if_equal logged_user.supervised_company.length 0 }}
+              {{# each logged_user.company.leave_types}}
+                  <option value={{@index}} data-tom="{{this.name}}" data-tom-prior="{{this.min_days_prior}}" data-tom-comment="{{this.comment_req}}" data-tom-attachment="{{this.attachment_req}}">{{this.name}}</option>
+              {{/each}}
+            {{else}}
+              {{#each logged_user.supervised_company}}
+                {{#each this.leave_types}}
+                  <option value={{@index}} data-tom="{{this.name}}" data-tom-prior="{{this.min_days_prior}}" data-tom-comment="{{this.comment_req}}" data-tom-attachment="{{this.attachment_req}}" company="{{this.companyId}}" {{# if_equal ../logged_user.companyId this.companyId}}style="display: block;"{{else}}style="display: none;"{{/if_equal}}>{{this.name}}</option>
+                {{/each}}
+              {{/each}}
+            {{/if_equal}}
             </select>
           </div>
 
