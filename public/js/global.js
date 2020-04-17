@@ -4,6 +4,9 @@
  *
  * */
 $(document).ready(function(){
+  $("select#company").change(function() {
+    UpdateSelector();
+  })
 
   $('input.book-leave-from-input').datepicker(datepicker_default);
   $('input.book-leave-to-input').datepicker(datepicker_default);
@@ -31,6 +34,19 @@ $(document).ready(function(){
     }
   });
 });
+
+function UpdateSelector(){
+  var selectedCompany = $("select#company").children("option:selected").val()
+
+    $("select#employee").children('option').hide();
+    $("select#employee").children("option[company^=" + selectedCompany + "]").show()
+    $("select#employee option[company^='" + selectedCompany +"']:first").prop('selected', true);
+
+    $("select#leave_type").children('option').hide();
+    $("select#leave_type").children("option[company^=" + selectedCompany + "]").show()
+    $("select#leave_type option[company^='" + selectedCompany +"']:first").prop('selected', true);
+    $("select#leave_type").trigger('change');
+}
 
 var datepicker_default = {
     monthsTitle : "Months",
