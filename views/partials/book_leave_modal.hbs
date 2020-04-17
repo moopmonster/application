@@ -43,7 +43,7 @@
             {{else}}
               {{#each logged_user.supervised_company}}
                 {{#each this.leave_types}}
-                  <option value={{@index}} data-tom="{{this.name}}" data-tom-prior="{{this.min_days_prior}}" data-tom-comment="{{this.comment_req}}" data-tom-attachment="{{this.attachment_req}}" company="{{this.companyId}}" {{# if_equal ../logged_user.companyId this.companyId}}style="display: block;"{{else}}style="display: none;"{{/if_equal}}>{{this.name}}</option>
+                  <option value={{@index}} data-tom="{{this.name}}" data-tom-prior="{{this.min_days_prior}}" data-tom-comment="{{this.comment_req}}" data-tom-attachment="{{this.attachment_req}}" company="{{this.companyId}}" {{# if_equal ../../logged_user.companyId this.companyId}}style="display: block;"{{else}}style="display: none;"{{/if_equal}}>{{this.name}}</option>
                 {{/each}}
               {{/each}}
             {{/if_equal}}
