@@ -8,7 +8,7 @@
         <h4 class="modal-title" id="exampleModalLabel">New Leave</h4>
       </div>
       <div class="modal-body">
-          {{# if_equal logged_user.supervised_company.length 0 }}{{else}}
+          {{#ifCond logged_user.supervised_company.length '<' 2 }}{{else}}
           <div class="form-group">
             <label for="company" class="control-label">For company:</label>
             <select class="form-control" id="company" name="company">
@@ -17,7 +17,7 @@
               {{/each}}
             </select>
           </div>
-          {{/if_equal}}
+          {{/ifCond}}
 
           {{# if_equal logged_user.supervised_users.length 1 }}{{else}}
           <div class="form-group">
