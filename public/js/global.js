@@ -5,7 +5,11 @@
  * */
 $(document).ready(function(){
   $("select#company").change(function() {
-    UpdateSelector();
+    UpdateSelector('employee');
+  })
+
+  $("select#company_id").change(function() {
+    UpdateSelector('department');
   })
 
   $('input.book-leave-from-input').datepicker(datepicker_default);
@@ -35,8 +39,11 @@ $(document).ready(function(){
   });
 });
 
-function UpdateSelector(){
-  var selectedCompany = $("select#company").children("option:selected").val()
+function UpdateSelector(type){
+  var type = type || 'employee' ;
+
+  if (type == 'employee'){ // Update selector for employee and leave type in book_leave_model
+    var selectedCompany = $("select#company").children("option:selected").val()
 
     $("select#employee").children('option').hide();
     $("select#employee").children("option[company^=" + selectedCompany + "]").show()
@@ -46,6 +53,15 @@ function UpdateSelector(){
     $("select#leave_type").children("option[company^=" + selectedCompany + "]").show()
     $("select#leave_type option[company^='" + selectedCompany +"']:first").prop('selected', true);
     $("select#leave_type").trigger('change');
+  }
+  else if (type == 'department'){ // update selector for department in reports
+    var selectedCompany = $("select#company_id").children("option:selected").val()
+
+    $("select#department_id").children('option').hide();
+    $("select#department_id").children("option[company^=" + selectedCompany + "]").show()
+    $("select#department_id").children("option[value^=-1]").show()
+    $("select#department_id option[value^=-1]").prop('selected', true)
+  }
 }
 
 var datepicker_default = {

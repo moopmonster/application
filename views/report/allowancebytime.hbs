@@ -27,14 +27,36 @@
 
         <div class="row">
 
+          {{# ifCond logged_user.supervised_company.length '<=' 1}}{{else}}
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="company_id">Company</label>
+              <select class="form-control" id="company_id" name="company">
+                {{#each logged_user.supervised_company}}
+                  <option value="{{this.id}}" {{#if_equal this.id ../company.id}}selected="selected"{{else}}{{# if_equal this.id ../supervised_company.id }}selected="selected"{{/if_equal}}{{/if_equal}}>{{this.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+          {{/ifCond}}
+
           <div class="col-md-3">
             <div class="form-group">
               <label for="department_id">Department</label>
               <select class="form-control" id="department_id" name="department">
-                <option>All</option>
-                {{#each related_departments}}
-                <option value="{{this.id}}" {{#if_equal this.id ../current_department.id}} selected {{/if_equal}}>{{this.name}}</option>
-                {{/each}}
+                <option value="-1">All</option>
+                {{# if_equal logged_user.supervised_company.length 0 }}
+                {{else}}
+                  {{#each related_departments}}
+                      <option value="{{this.id}}" {{#if_equal this.id ../current_department.id}} selected {{/if_equal}} company="{{this.companyId}}" 
+                          {{# if_equal ../company.id this.companyId}}
+                            style="display: block;"
+                          {{else}}
+                            style="display: none;"
+                          {{/if_equal}}
+                      >{{this.name}}</option>
+                  {{/each}}
+                {{/if_equal}}
               </select>
             </div>
           </div>
