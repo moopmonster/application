@@ -6973,6 +6973,71 @@
         }
       ]
     },
+    "UAE": {
+      "name": "United Arab Emirates",
+      "bank_holidays": [
+        {
+          "date": "2020-01-01",
+          "name": "New Year's Day"
+        },
+        {
+          "date": "2020-03-22",
+          "name": "Eid al-Fitr"
+        },
+        {
+          "date": "2020-03-23",
+          "name": "Eid al-Fitr"
+        },
+        {
+          "date": "2020-03-24",
+          "name": "Eid al-Fitr"
+        },
+        {
+          "date": "2020-03-25",
+          "name": "Eid al-Fitr"
+        },
+        {
+          "date": "2020-03-26",
+          "name": "Eid al-Fitr"
+        },
+        {
+          "date": "2020-07-30",
+          "name": "Day of Arafat"
+        },
+        {
+          "date": "2020-07-31",
+          "name": "Eid al-Adha"
+        },
+        {
+          "date": "2020-08-01",
+          "name": "Eid al-Adha"
+        },
+        {
+          "date": "2020-08-02",
+          "name": "Eid al-Adha"
+        },
+        {
+          "date": "2020-08-23",
+          "name": "Islamic New Year"
+        },
+        {
+          "date": "2020-10-29",
+          "name": "Prophet's Birthday"
+        },
+        {
+          "date": "2020-12-01",
+          "name": "Commemoration Day"
+        },
+        {
+          "date": "2020-12-02",
+          "name": "National Day"
+        },
+        {
+          "date": "2020-12-03",
+          "name": "National Day"
+        }
+      ]
+    },
     "UG": {
       "name": "Uganda",
       "bank_holidays": [
