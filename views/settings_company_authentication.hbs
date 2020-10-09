@@ -54,7 +54,7 @@
       <div class="form-group">
         <label for="ldap_url" class="col-md-3 control-label">URL to LDAP server</label>
         <div class="col-md-5">
-          <input class="form-control" id="ldap_url" placeholder="ldap://ldap.forumsys.com:389" name="url" value="{{ldap_config.url}}" aria-describedby="ldap_url_help" >
+          <input class="form-control" id="ldap_url" placeholder="ldap://ldap.forumsys.com:389" name="url" value="{{ldap_config.url}}" aria-describedby="ldap_url_help" required='true'>
         </div>
         <span id="ldap_url_help" class="help-block">The URL must contain the protocol and port parts</span>
         <div class="col-md-9 col-md-offset-3">
@@ -73,14 +73,14 @@
       <div class="form-group">
         <label for="ldap_bindn" class="col-md-3 control-label">BindDN</label>
         <div class="col-md-5">
-          <input class="form-control" id="ldap_bindn" placeholder="cn=read-only-admin,dc=example,dc=com" name="binddn" value="{{ ldap_config.binddn }}">
+          <input class="form-control" id="ldap_bindn" placeholder="cn=read-only-admin,dc=example,dc=com" name="binddn" value="{{ ldap_config.binddn }}" required='true'>
         </div>
       </div>
 
       <div class="form-group">
         <label for="ldap_password" class="col-md-3 control-label">Bind Credentials</label>
         <div class="col-md-5">
-          <input class="form-control" id="ldap_password" placeholder="" name="bindcredentials" value="{{ ldap_config.bindcredentials }}" type="password" aria-describedby="ldap_password_help">
+          <input class="form-control" id="ldap_password" placeholder="" name="bindcredentials" value="{{ ldap_config.bindcredentials }}" type="password" aria-describedby="ldap_password_help" required='true'>
         </div>
         <span id="ldap_password_help" class="help-block">Password used for dealing with LDAP queries</span>
       </div>
@@ -88,7 +88,7 @@
       <div class="form-group">
         <label for="ldap_search_base" class="col-md-3 control-label">Search Base</label>
         <div class="col-md-5">
-          <input class="form-control" id="ldap_search_base" placeholder="dc=example,dc=com" name="searchbase" value="{{ ldap_config.searchbase }}">
+          <input class="form-control" id="ldap_search_base" placeholder="dc=example,dc=com" name="searchbase" value="{{ ldap_config.searchbase }}" required='true'>
         </div>
       </div>
 
@@ -102,7 +102,7 @@
       <div class="form-group">
         <label for="current_user_password" class="col-md-3 control-label">My LDAP password</label>
         <div class="col-md-5">
-          <input class="form-control" id="current_user_password" placeholder="" name="password_to_check" value="" type="password" aria-describedby="current_user_password_help">
+          <input class="form-control" id="current_user_password" placeholder="" name="password_to_check" value="" type="password" aria-describedby="current_user_password_help" required='true'>
         </div>
         <span id="current_user_password_help" class="help-block">Password for <strong>{{# with logged_user}}{{this.full_name}}{{/with}}</strong> in the new LDAP server.</span>
       </div>
