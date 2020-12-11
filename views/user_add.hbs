@@ -31,6 +31,13 @@
     <form class="form-horizontal" method="POST" action="/users/add/{{company.id}}" id="add_new_user_form">
 
       <div class="form-group">
+        <label for="staffid_inp" class="col-md-3 control-label">Staff ID</label>
+        <div class="col-md-3">
+         <input class="form-control" id="staffid_inp" name="staffId" required value="{{employee.staffId}}">
+        </div>
+      </div>
+
+      <div class="form-group">
         <label for="name_inp" class="col-md-3 control-label">First Name</label>
         <div class="col-md-3">
           <input class="form-control" id="name_inp" name="name" required value="{{employee.name}}">
@@ -69,6 +76,19 @@
           </select>
         </div>
         <span id="department_help" class="help-block col-md-6">Department employee belongs to</span>
+      </div>
+
+      <div class="form-group">
+        <label for="category_inp" class="col-md-3 control-label">Category</label>
+        <div class="col-md-3">
+          <select class="form-control" id="select_inp" name="category" aria-describedby="category_help">
+                <option value="ADM" {{#if_equal employee.category 'ADM'}} selected="selected"{{/if_equal}}>ADM - Administration</option>
+                <option value="R&D" {{#if_equal employee.category 'R&D'}} selected="selected"{{/if_equal}}>R&D - Research & Development</option>
+                <option value="COS" {{#if_equal employee.category 'COS'}} selected="selected"{{/if_equal}}>COS - Cost of Sales</option>
+                <option value="MGM" {{#if_equal employee.category 'MGM'}} selected="selected"{{/if_equal}}>MGM - Management</option>
+                <option value="S&M" {{#if_equal employee.category 'S&M'}} selected="selected"{{/if_equal}}>S&M - Sales and marketing</option>
+          </select>
+        </div>
       </div>
 
       <div class="form-group">

@@ -6,30 +6,47 @@
   {{> user_details/breadcrumb employee=employee }}
 
   <div class="form-group">
+    <label for="staffid_inp" class="control-label">Staff ID</label>
+    <input class="form-control" id="staffid_inp" name="staffId" required value="{{employee.staffId}}" {{# unless logged_user.superadmin }}disabled{{/unless}}>
+  </div>
+
+  <div class="form-group">
     <label for="name_inp" class="control-label">First Name</label>
-    <input class="form-control" id="namename_inp" name="name" required value="{{employee.name}}">
+    <input class="form-control" id="namename_inp" name="name" required value="{{employee.name}}" {{# unless logged_user.superadmin }}disabled{{/unless}}>
   </div>
 
   <div class="form-group">
     <label for="lastname_inp" class="control-label">Last Name</label>
-    <input class="form-control" id="lastname_inp" name="lastname" required value="{{employee.lastname}}">
+    <input class="form-control" id="lastname_inp" name="lastname" required value="{{employee.lastname}}" {{# unless logged_user.superadmin }}disabled{{/unless}}>
   </div>
 
   <div class="form-group">
     <label for="nickname_inp" class="control-label">Nick Name</label>
-    <input class="form-control" id="nickname_inp" name="nickname" required value="{{employee.nickname}}">
+    <input class="form-control" id="nickname_inp" name="nickname" required value="{{employee.nickname}}" {{# unless logged_user.superadmin }}disabled{{/unless}}>
   </div>
 
 
   <div class="form-group">
     <label for="email_inp" class="control-label">Email Address</label>
-    <input class="form-control" id="email_inp" type="email" name="email_address" required value="{{employee.email}}" aria-describedby="email_help">
+    <input class="form-control" id="email_inp" type="email" name="email_address" required value="{{employee.email}}" aria-describedby="email_help" {{# unless logged_user.superadmin }}disabled{{/unless}}>
     <span id="email_help" class="help-block">Email address used by this user</span>
   </div>
 
   <div class="form-group">
+    <label for="category_inp" class="control-label">Category</label>
+    <select class="form-control" id="select_inp" name="category" aria-describedby="category_help" {{# unless logged_user.superadmin }}disabled{{/unless}}>
+          <option value="ADM" {{#if_equal employee.category 'ADM'}} selected="selected"{{/if_equal}}>ADM - Administration</option>
+          <option value="R&D" {{#if_equal employee.category 'R&D'}} selected="selected"{{/if_equal}}>R&D - Research & Development</option>
+          <option value="COS" {{#if_equal employee.category 'COS'}} selected="selected"{{/if_equal}}>COS - Cost of Sales</option>
+          <option value="MGM" {{#if_equal employee.category 'MGM'}} selected="selected"{{/if_equal}}>MGM - Management</option>
+          <option value="S&M" {{#if_equal employee.category 'S&M'}} selected="selected"{{/if_equal}}>S&M 
+- Sales and marketing</option>
+    </select>
+  </div>
+
+  <div class="form-group">
     <label for="select_inp" class="control-label">Department</label>
-    <select class="form-control" id="select_inp" name="department" aria-describedby="department_help">
+    <select class="form-control" id="select_inp" name="department" aria-describedby="department_help" {{# unless logged_user.superadmin }}disabled{{/unless}}>
       {{#each company.departments}}
           <option value="{{this.id}}" {{#if_equal ../employee.DepartmentId this.id}} selected="selected"{{/if_equal}}>{{this.name}} (approver {{this.boss.name}} {{this.boss.lastname}})</option>
       {{/each}}
@@ -48,21 +65,21 @@
 
   <div class="form-group">
       <label for="admin_inp" class="control-label">
-        <input class="" id="admin_inp" name="admin" type="checkbox" {{# if employee.admin}} checked="checked"  {{/if}} >
+        <input class="" id="admin_inp" name="admin" type="checkbox" {{# if employee.admin}} checked="checked"  {{/if}} {{# unless logged_user.superadmin }}disabled{{/unless}}>
         Is administrator user
       </label>
   </div>
 
   <div class="form-group">
       <label for="supervisor_inp" class="control-label">
-        <input class="" id="supervisor_inp" name="supervisor" type="checkbox"{{# if employee.isManager}} checked="checked"  {{/if}} >
+        <input class="" id="supervisor_inp" name="supervisor" type="checkbox"{{# if employee.isManager}} checked="checked"  {{/if}} {{# unless logged_user.superadmin }}disabled{{/unless}}>
         Is supervisor/department head user
       </label>
   </div>
 
   <div class="form-group">
       <label for="auto_approve_inp" class="control-label">
-        <input class="" id="auto_approve_inp" name="auto_approve" type="checkbox" {{# if employee.auto_approve}} checked="checked"  {{/if}} >
+        <input class="" id="auto_approve_inp" name="auto_approve" type="checkbox" {{# if employee.auto_approve}} checked="checked"  {{/if}} {{# unless logged_user.superadmin }}disabled{{/unless}}>
         Auto approve leave requests
       </label>
       <span class="help-block">Set the flag ON to streamline leave requests from {{#with employee}}{{this.full_name}}{{/with}} directly into <strong>Approved</strong> state.</span>
@@ -72,7 +89,7 @@
     <label for="start_date_inp" class="control-label">Started on</label>
     <div class="input-group col-md-4">
       <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-      <input class="form-control" id="start_date_inp" type="text" name="start_date" required data-date-autoclose="1" data-provide="datepicker" data-date-format="{{#with logged_user.company }}{{this.get_default_date_format_for_date_picker}}{{/with}}" data-date-week-start="1" value="{{as_date employee.start_date}}" aria-describedby="start_date_help">
+      <input class="form-control" id="start_date_inp" type="text" name="start_date" required data-date-autoclose="1" data-provide="datepicker" data-date-format="{{#with logged_user.company }}{{this.get_default_date_format_for_date_picker}}{{/with}}" data-date-week-start="1" value="{{as_date employee.start_date}}" aria-describedby="start_date_help" {{# unless logged_user.superadmin }}disabled{{/unless}}>
     </div>
     <span id="start_date_help" class="help-block">Date when employee started (inclusive)</span>
   </div>
@@ -81,14 +98,14 @@
     <label for="end_date_inp" class="control-label">Ended on</label>
     <div class="input-group col-md-4">
       <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-      <input class="form-control" id="end_date_inp" type="text" name="end_date" data-date-autoclose="1" data-provide="datepicker" data-date-format="{{#with logged_user.company }}{{this.get_default_date_format_for_date_picker}}{{/with}}" data-date-week-start="1" value="{{as_date employee.end_date}}" aria-describedby="end_date_help">
+      <input class="form-control" id="end_date_inp" type="text" name="end_date" data-date-autoclose="1" data-provide="datepicker" data-date-format="{{#with logged_user.company }}{{this.get_default_date_format_for_date_picker}}{{/with}}" data-date-week-start="1" value="{{as_date employee.end_date}}" aria-describedby="end_date_help" {{# unless logged_user.superadmin }}disabled{{/unless}}>
     </div>
     <span id="end_date_help" class="help-block"><div>Date when user quits the {{ company.name }}.</div><div>After this date user is not able to access the company.</div><div>This is a way of deactivating user accounts.</div></span>
   </div>
 
   <div class="form-group">
     <label for="password_inp" class="control-label">Password</label>
-    <input class="form-control" id="password_inp" type="password" name="password_one" value="" {{#if company.ldap_auth_enabled}} readonly {{/if}} aria-describedby="password_inp_help">
+    <input class="form-control" id="password_inp" type="password" name="password_one" value="" {{#if company.ldap_auth_enabled}} readonly {{/if}} aria-describedby="password_inp_help" {{# unless logged_user.superadmin }}disabled{{/unless}}>
     <span id="password_inp_help" class="help-block">
       {{# if company.ldap_auth_enabled }}
         <a href="/settings/company/authentication/">LDAP authentication</a> is enabled, so that password does not matter.
@@ -100,7 +117,7 @@
 
   <div class="form-group">
     <label for="password_inp" class="control-label">Confirm password</label>
-    <input class="form-control" id="confirm_password_inp" type="password" name="password_confirm" value="" {{# if company.ldap_auth_enabled}}readonly{{/if}}>
+    <input class="form-control" id="confirm_password_inp" type="password" name="password_confirm" value="" {{# if company.ldap_auth_enabled}}readonly{{/if}} {{# unless logged_user.superadmin }}disabled{{/unless}}>
   </div>
 
   <div class="form-group">
@@ -112,8 +129,10 @@
 
 <div class="row">
   <div class="col-md-12">
-    <button id="save_changes_btn" type="submit" class="btn btn-success pull-right">Save changes</button>
-    <a class="btn btn-link pull-right" href="/users/">Cancel</a>
+    {{# if logged_user.superadmin }}
+      <button id="save_changes_btn" type="submit" class="btn btn-success pull-right">Save changes</button>
+      <a class="btn btn-link pull-right" href="/users/">Cancel</a
+    {{/if}}
   </div>
 </div>
 

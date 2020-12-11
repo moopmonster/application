@@ -78,7 +78,7 @@
   <div class="form-group">
     <label for="user_leave_inp" class="control-label">Annual Leave</label>
     <div class="input-group col-md-10">
-      <input class="form-control"  id="user_leave_inp" type="number" step="0.5" name="user_leave" value="{{#if employee.user_leave }}{{employee.user_leave}}{{else}}0{{/if}}" aria-describedby="user_leave_help">
+      <input class="form-control"  id="user_leave_inp" type="number" step="0.5" name="user_leave" value="{{#if employee.user_leave }}{{employee.user_leave}}{{else}}0{{/if}}" aria-describedby="user_leave_help" {{# unless logged_user.superadmin }}disabled{{/unless}}>
       <span class="input-group-addon">working days</span>
       <span class="input-group-addon">Annual Leave entitlement calculated by system: {{#if employee.calculated_userleaves }}{{employee.calculated_userleaves}}{{else}}0{{/if}} working days</span>
     </div>
@@ -92,7 +92,7 @@
   <div class="form-group">
     <label for="user_sick_leave_inp" class="control-label">Sick Leave</label>
     <div class="input-group col-md-4">
-      <input class="form-control"  id="user_sick_leave_inp" type="number" step="0.5" name="user_sick_leave" value="{{#if employee.calculated_sickleaves }}{{employee.calculated_sickleaves}}{{else}}0{{/if}}" aria-describedby="user_sick_leave_help">
+      <input class="form-control"  id="user_sick_leave_inp" type="number" step="0.5" name="user_sick_leave" value="{{#if employee.calculated_sickleaves }}{{employee.calculated_sickleaves}}{{else}}0{{/if}}" aria-describedby="user_sick_leave_help" {{# unless logged_user.superadmin }}disabled{{/unless}}>
       <span class="input-group-addon">working days</span>
     </div>
     <div id="user_sick_leave_help" class="help-block">
@@ -106,7 +106,7 @@
   <div class="form-group">
     <label for="carried_over_allowance_inp" class="control-label">Leave carried over from previous year</label>
     <div class="input-group col-md-4">
-      <input class="form-control"  id="carried_over_allowance_inp" type="number" step="0.5" name="carried_over_allowance" value="{{#if carried_over_allowance }}{{carried_over_allowance}}{{else}}0{{/if}}" aria-describedby="carried_over_allowance_help">
+      <input class="form-control"  id="carried_over_allowance_inp" type="number" step="0.5" name="carried_over_allowance" value="{{#if carried_over_allowance }}{{carried_over_allowance}}{{else}}0{{/if}}" aria-describedby="carried_over_allowance_help" {{# unless logged_user.superadmin }}disabled{{/unless}}>
       <span class="input-group-addon">working days</span>
     </div>
     <div id="carried_over_allowance_help" class="help-block">
@@ -116,13 +116,32 @@
   </div>
 
   <div class="form-group">
-    <label for="adjustment_inp" class="control-label">Leave adjustment in current year</label>
+    <label for="adjustment_inp" class="control-label">Initial leave adjustment in current year</label>
     <div class="input-group col-md-4">
-      <input class="form-control" id="adjustment_inp" type="number" step="0.5" name="adjustment" value="{{#if employee_adjustment }}{{employee_adjustment}}{{else}}0{{/if}}" aria-describedby="adjustment_help">
+      <input class="form-control" id="int_adjustment_inp" type="number" step="0.5" name="int_adjustment" value="{{#if initial_adjustment }}{{initial_adjustment}}{{else}}0{{/if}}" aria-describedby="int_adjustment_help" {{# unless logged_user.superadmin }}disabled{{/unless}}>
+      <span class="input-group-addon">working days</span>
+    </div>
+    <br>
+    <div class="input-group col-md-9">
+      <span class="input-group-addon">Remarks: </span>
+      <input class="form-control" id="remarks_inp" type="text" name="remarks" value="{{#if remarks }}{{remarks}}{{/if}}" aria-describedby="remarks_help" {{# unless logged_user.superadmin }}disabled{{/unless}}>
+    </div>
+    <div id="adjustment_help" class="help-block">
+      <div>Tune initial leave allowance for this user in current year. (static and won't be auto updated by the system)</div>
+      <div>For reporting purposes.</div>
+      <div>Could be negative as well.</div>
+      <div>The value is valid during current year. Next year it needs to be re-confirmed.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="adjustment_inp" class="control-label">Manual adjustment in current year</label>
+    <div class="input-group col-md-4">
+      <input class="form-control" id="adjustment_inp" type="number" step="0.5" name="adjustment" value="{{#if employee_adjustment }}{{employee_adjustment}}{{else}}0{{/if}}" aria-describedby="adjustment_help" {{# unless logged_user.superadmin }}disabled{{/unless}}>
       <span class="input-group-addon">working days</span>
     </div>
     <div id="adjustment_help" class="help-block">
-      <div>Tune leave allowance for this user in current year.</div>
+      <div>Tune leave allowance for this user in current year. (Will be auto increment if Admin user credit additional leave)</div>
       <div>Could be negative as well.</div>
       <div>The value is valid during current year. Next year it needs to be re-confirmed.</div>
     </div>
@@ -130,7 +149,9 @@
 
   <div class="form-group">
     <div class="col-md-12">
-      <button id="save_changes_btn" type="submit" class="btn btn-success pull-right">Save changes</button>
+      {{# if logged_user.superadmin }}
+        <button id="save_changes_btn" type="submit" class="btn btn-success pull-right">Save changes</button>
+      {{/if}}
     </div>
   </div>
   </form>

@@ -17,7 +17,7 @@
           <th class="col-md-1">Days</th>
           <th class="col-md-2">Reason</th>          
           <th class="col-md-1"><i class="fa fa-paperclip"></i> Attachment</th>
-          <th></th>
+          <th class="col-md-1"></th>
           <th class="col-md-2"><span class="pull-middle">Status</span></th>
           <th class="col-md-1">Approved By</th>
         </tr>
@@ -35,11 +35,11 @@
         <td class="smaller">{{#if this.get_employee_comment}}{{this.get_employee_comment}}{{/if}}{{#if this.get_approver_comment}}<div style="color:red">(Rejected Reason : {{this.get_approver_comment}})</div>{{/if}}</td>        
         <td>
           {{# if this.attachment }}
-          <form method="post" action="/requests/usrdownload/">
-            <input type="hidden" value="{{this.userId}}" name="user">
-            <input type="hidden" value="{{this.id}}" name="request">
-            <button type="submit" class="btn btn-default btn-xs" title="Download file attachment"><i class="fa fa-download"> Download</i></button>
-          </form> 
+            <form method="post" action="/requests/usrdownload/">
+              <input type="hidden" value="{{this.userId}}" name="user">
+              <input type="hidden" value="{{this.id}}" name="request">
+              <button type="submit" class="btn btn-default btn-xs" title="Download file attachment"><i class="fa fa-download"> Download</i></button>
+            </form> 
           {{else}}
             {{#unless is_cancelled_or_rejected_leave}}
             {{# if this.get_leave_type_missing_attachment }}

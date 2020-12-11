@@ -46,3 +46,15 @@ Update Departments set bossid = (Select id from Users Where email = 'sebastian@t
 /**Update user isManager flag**/
 Update Users set isManager = 1 where id in (Select bossID from Departments UNION Select user_id from DepartmentSupervisor)
 /**Update user isManager flag**/
+
+---------------Remove one day adjustment------------------
+UPDATE user_allowance_adjustment SET adjustment = adjustment - 1 WHERE user_id in (SELECT id FROM USERS where companyId =  (SELECT id FROM COMPANIES WHERE COUNTRY = 'MY')) AND year = 2020
+--------------Remove one day adjustment--------------------
+
+-------------Remove duplicate record-----------------------
+npm startDelete from leaves where id in (
+select MAX(id) from leaves 
+where leaveTypeId = (select id from LeaveTypes where companyid = (SELECT id FROM COMPANIES WHERE COUNTRY = 'MY') and LeaveTypeCode = 'ADDANNUAL') AND DATE(date_start) = '2020-11-14'
+GROUP BY userId,approverId,leaveTypeId,verifiedBy,DATE(createdAt)
+)
+-------------Remove duplicate record-----------------------

@@ -24,6 +24,7 @@ describe('employement_range_adjustment attribute', function(){
         number_of_days_taken_from_allowance : 0,
         manual_adjustment                   : 0,
         carry_over                          : 0,
+        initial_adjustment                  : 0,
         nominal_allowance                   : 20,
       });
 
@@ -44,6 +45,7 @@ describe('employement_range_adjustment attribute', function(){
       number_of_days_taken_from_allowance : 0,
       manual_adjustment                   : 0,
       carry_over                          : 0,
+      initial_adjustment                  : 0,
       nominal_allowance                   : 20,
     });
 
@@ -65,6 +67,7 @@ describe('employement_range_adjustment attribute', function(){
       number_of_days_taken_from_allowance : 0,
       manual_adjustment                   : 0,
       carry_over                          : 0,
+      initial_adjustment                  : 0,
       nominal_allowance                   : 20,
     });
 
@@ -85,6 +88,7 @@ describe('employement_range_adjustment attribute', function(){
       number_of_days_taken_from_allowance : 0,
       manual_adjustment                   : 0,
       carry_over                          : 0,
+      initial_adjustment                  : 0,
       nominal_allowance                   : 20,
     });
 
@@ -106,6 +110,7 @@ describe('employement_range_adjustment attribute', function(){
       number_of_days_taken_from_allowance : 0,
       manual_adjustment                   : 0,
       carry_over                          : 0,
+      initial_adjustment                  : 0,
       nominal_allowance                   : 20,
     });
 
@@ -127,6 +132,7 @@ describe('employement_range_adjustment attribute', function(){
       number_of_days_taken_from_allowance : 0,
       manual_adjustment                   : 0,
       carry_over                          : 0,
+      initial_adjustment                  : 0,
       nominal_allowance                   : 20,
     });
 
@@ -147,6 +153,7 @@ describe('employement_range_adjustment attribute', function(){
       number_of_days_taken_from_allowance : 0,
       manual_adjustment                   : 0,
       carry_over                          : 0,
+      initial_adjustment                  : 0,
       nominal_allowance                   : 20,
     });
 
@@ -168,6 +175,7 @@ describe('employement_range_adjustment attribute', function(){
       number_of_days_taken_from_allowance : 0,
       manual_adjustment                   : 0,
       carry_over                          : 0,
+      initial_adjustment                  : 0,
       nominal_allowance                   : 20,
     });
 
@@ -192,6 +200,7 @@ describe('accrued_adjustment attribute', function(){
       number_of_days_taken_from_allowance : 0,
       manual_adjustment                   : 0,
       carry_over                          : 0,
+      initial_adjustment                  : 0,
       nominal_allowance                   : 24,
     });
 
@@ -216,6 +225,7 @@ describe('accrued_adjustment attribute', function(){
       number_of_days_taken_from_allowance : 0,
       manual_adjustment                   : 0,
       carry_over                          : 0,
+      initial_adjustment                  : 0,
       nominal_allowance                   : 24,
     });
 
@@ -240,6 +250,7 @@ describe('accrued_adjustment attribute', function(){
       number_of_days_taken_from_allowance : 0,
       manual_adjustment                   : 0,
       carry_over                          : 10,
+      initial_adjustment                  : 0,
       nominal_allowance                   : 24,
     });
 
@@ -267,6 +278,7 @@ describe('accrued_adjustment attribute', function(){
       number_of_days_taken_from_allowance : 0,
       manual_adjustment                   : 4,
       carry_over                          : 0,
+      initial_adjustment                  : 0,
       nominal_allowance                   : 20,
     });
 
@@ -291,6 +303,7 @@ describe('accrued_adjustment attribute', function(){
       number_of_days_taken_from_allowance : 0,
       manual_adjustment                   : 0,
       carry_over                          : 0,
+      initial_adjustment                  : 0,
       nominal_allowance                   : 24,
     });
 
@@ -315,6 +328,7 @@ describe('accrued_adjustment attribute', function(){
       number_of_days_taken_from_allowance : 0,
       manual_adjustment                   : 0,
       carry_over                          : 0,
+      initial_adjustment                  : 0,
       nominal_allowance                   : 24
     });
 
@@ -339,6 +353,7 @@ describe('accrued_adjustment attribute', function(){
       number_of_days_taken_from_allowance : 0,
       manual_adjustment                   : 0,
       carry_over                          : 0,
+      initial_adjustment                  : 0,
       nominal_allowance                   : 24
     });
 
@@ -362,6 +377,7 @@ describe('accrued_adjustment attribute', function(){
 
       number_of_days_taken_from_allowance : 0,
       manual_adjustment                   : 0,
+      initial_adjustment                  : 0,
       carry_over                          : 0,
       nominal_allowance                   : 24
     });
@@ -393,6 +409,7 @@ describe('accrued_adjustment attribute', function(){
       number_of_days_taken_from_allowance : 0,
       manual_adjustment                   : 0,
       carry_over                          : 0,
+      initial_adjustment                  : 0,
       nominal_allowance                   : 24
     });
 
@@ -419,6 +436,7 @@ describe('accrued_adjustment attribute', function(){
       number_of_days_taken_from_allowance : 0,
       manual_adjustment                   : 0,
       carry_over                          : 0,
+      initial_adjustment                  : 0,
       nominal_allowance                   : 24
     });
 

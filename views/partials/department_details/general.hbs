@@ -62,7 +62,7 @@
 
     <select class="form-control" name="allowance" id="allowance_select">
         {{#each allowance_options}}
-        <option value="{{value}}" {{#if_equal this.value ../user.user_leave }} selected="selected"{{/if_equal}}>{{caption}}</option>
+        <option value="{{value}}" {{#if_equal this.value ../department.allowance }} selected="selected"{{/if_equal}}>{{caption}}</option>
         {{/each}}
     </select>
   </div>
