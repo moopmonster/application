@@ -12,7 +12,9 @@
   <input type="hidden" name="isManager" value="{{employee.isManager}}"> 
   <input type="hidden" name="start_date" value="{{as_date employee.start_date}}">
   <input type="hidden" name="end_date" value="{{as_date employee.end_date}}">
-  <input type="hidden" name="nickname" value="{{employee.nickname}}">  
+  <input type="hidden" name="nickname" value="{{employee.nickname}}">
+  <input type="hidden" name="staffId" value="{{employee.staffId}}">  
+  <input type="hidden" name="category" value="{{employee.category}}">  
 
   {{> user_details/breadcrumb employee=employee }}
 

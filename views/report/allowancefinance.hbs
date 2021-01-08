@@ -116,18 +116,22 @@
         {{# each users_info}}
           {{#if_equal this.user_id 1}}
             {{else}}
-            <tr data-vpp-user-row="{{this.user_id}}">
-              <td>{{this.user_staff_id}}</td>          
-              <td>{{this.user_full_name}}</td>
-               <td>{{this.user_category}}</td>           
-              <td>{{ as_date this.user_dtjoin }}</td>
-              <td>{{# if this.is_resigned }}{{ as_date this.user_dtleave }}{{else}}N/A{{/if}}</td>
-              <td style="text-align:center">{{this.total_number_of_days_in_allowance_with_year}}</td>
-              <td style="text-align:center">{{this.manual_adjustment}}</td>
-              <td style="text-align:center">{{this.carry_over}}</td>
-              <td style="text-align:center">{{this.annual_Leave_taken}}</td>
-              <td style="text-align:center">{{this.sick_Leave_taken}}</td>
-            </tr>
+              {{#if_equal this.is_resigned 1}}
+              {{else}}
+                <tr data-vpp-user-row="{{this.user_id}}">
+                  <td>{{this.user_staff_id}}</td>          
+                  <td>{{this.user_full_name}}</td>
+                   <td>{{this.user_category}}</td>           
+                  <td>{{ as_date this.user_dtjoin }}</td>
+                  {{!-- <td>{{#if_equal this.user_dtleave ''}}{{ as_date this.user_dtleave }}{{else}}N/A{{/if_equal}}</td> --}}
+                  <td>{{#if_equal this.user_dtleave 'Invalid date'}}N/A{{else}}{{ as_date this.user_dtleave }}{{/if_equal}}</td>
+                  <td style="text-align:center">{{this.total_number_of_days_in_allowance_with_prorated_initial_adjustment}}</td>
+                  <td style="text-align:center">{{this.manual_adjustment}}</td>
+                  <td style="text-align:center">{{this.carry_over}}</td>
+                  <td style="text-align:center">{{this.annual_Leave_taken}}</td>
+                  <td style="text-align:center">{{this.sick_Leave_taken}}</td>
+                </tr>
+              {{/if_equal}}
             {{/if_equal}}
         {{/each}}
       </tbody>
