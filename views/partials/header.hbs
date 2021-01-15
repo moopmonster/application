@@ -67,8 +67,10 @@
                      </li>
                     {{/each}}
                   {{else}}
+                    {{# if logged_user.superadmin }}
                     <li><a href="/settings/general/{{logged_user.companyId}}">General</a></li>
                     <li role="separator" class="divider"></li>
+                    {{/if}}
                     <li><a href="/settings/bankholidays/{{logged_user.companyId}}">Bank Holidays</a></li>
                     <li><a href="/settings/company/authentication/{{logged_user.companyId}}">LDAP configuration</a></li>
                     <li><a href="/settings/company/integration-api/{{logged_user.companyId}}">API configuration</a></li>
